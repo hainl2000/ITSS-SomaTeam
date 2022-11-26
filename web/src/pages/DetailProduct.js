@@ -6,7 +6,8 @@ import {
   IconButton,
   Image,
   Spinner,
-  Text
+  Text,
+  Input
 } from '@chakra-ui/react';
 import { HiMinus, HiPlus } from 'react-icons/hi';
 import { useQuery } from 'react-query';
@@ -56,7 +57,32 @@ export default function DetailProduct() {
     redirectWhenNoAuth,
     toggleCartOpen
   ]);
-
+  const mockData = [
+    {
+      src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ99Rsp3koHF7EywrLN6E1xvJcRK48uQjfyXBoOWUs&s',
+      cmt: 'Sản phẩm đẹp, dùng rất OK',
+      time: '12:53 11/27/2022',
+      name: 'Luong Hai'
+    },
+    {
+      src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ99Rsp3koHF7EywrLN6E1xvJcRK48uQjfyXBoOWUs&s',
+      cmt: 'Sản phẩm đẹp, dùng rất OK',
+      time: '12:53 11/27/2022',
+      name: 'Luong Hai'
+    },
+    {
+      src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ99Rsp3koHF7EywrLN6E1xvJcRK48uQjfyXBoOWUs&s',
+      cmt: 'Sản phẩm đẹp, dùng rất OK',
+      time: '12:53 11/27/2022',
+      name: 'Luong Hai'
+    },
+    {
+      src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ99Rsp3koHF7EywrLN6E1xvJcRK48uQjfyXBoOWUs&s',
+      cmt: 'Sản phẩm đẹp, dùng rất OK',
+      time: '12:53 11/27/2022',
+      name: 'Luong Hai'
+    }
+  ];
   if (isLoading) {
     return (
       <Flex
@@ -73,8 +99,43 @@ export default function DetailProduct() {
   if (product) {
     const { name, description, price, image } = product;
     return (
-      <Box>
-        <Box p="60px 5rem 0" maxW="70rem" m="0 auto">
+      <Flex alignItems="center" flexDirection="column">
+        <Box
+          maxW="70rem"
+          p="30px 5rem"
+          style={{
+            margin: '30px 0',
+            background: 'white',
+            borderRadius: '12px'
+          }}
+        >
+          <Flex
+            style={{
+              marginBottom: '20px'
+            }}
+            alignItems="center"
+          >
+            <div>
+              <img
+                alt="avt"
+                style={{
+                  borderRadius: '50px',
+                  width: '100px',
+                  height: '100px'
+                }}
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh55CCvqcNxzNaCmfMlXhMwQj5MFv51qe8KtLqqBgYTA&s"
+              />
+            </div>
+            <p
+              style={{
+                fontWeight: '600',
+                fontSize: '20px',
+                margin: '0   20px'
+              }}
+            >
+              Hanamaplus Shop
+            </p>
+          </Flex>
           <Flex flexWrap="wrap" gap="28px">
             <Box
               display="grid"
@@ -140,7 +201,88 @@ export default function DetailProduct() {
             </Box>
           </Flex>
         </Box>
-      </Box>
+        <Box
+          w="70rem"
+          p="30px 5rem"
+          style={{
+            margin: '30px 0',
+            background: 'white',
+            borderRadius: '12px'
+          }}
+        >
+          <p
+            style={{
+              fontWeight: '600',
+              fontSize: '20px'
+              // margin: '0   20px'
+            }}
+          >
+            Đánh giá sản phẩm
+          </p>
+          <div
+            style={{
+              margin: '20px 0'
+            }}
+          >
+            <Input
+              width="80%"
+              placeholder="Nhập đánh giá của bạn về sản phẩm"
+            />
+
+            <Button
+              // leftIcon={<>helo</>}
+              style={{
+                margin: '0 20px'
+              }}
+            >
+              Gửi
+            </Button>
+          </div>
+          <div>
+            {mockData.map((item, index) => (
+              <Flex
+                alignItems="center"
+                style={{
+                  margin: '20px 0',
+                  borderBottom: '1px solid rgba(0,0,0,0.1)',
+                  padding: '20px 0'
+                }}
+              >
+                <div>
+                  <img
+                    alt="avt"
+                    style={{
+                      borderRadius: '30px',
+                      width: '60px',
+                      height: '60px'
+                    }}
+                    src={item.src}
+                  />
+                  <p>{item.name}</p>
+                </div>
+                <div>
+                  <p
+                    style={{
+                      fontSize: '12px',
+                      color: 'gray'
+                    }}
+                  >
+                    {item.time}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: '18px',
+                      margin: '0   20px'
+                    }}
+                  >
+                    {item.cmt}
+                  </p>
+                </div>
+              </Flex>
+            ))}
+          </div>
+        </Box>
+      </Flex>
     );
   }
   return <NotFound message="Product not found" />;

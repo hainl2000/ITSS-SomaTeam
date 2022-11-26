@@ -11,6 +11,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Link,
   Stack,
   Text,
   useBreakpointValue,
@@ -172,6 +173,7 @@ export default function Login() {
               </Stack>
             </Stack>
           </form>
+          <Link href="/forget-password">Forget password?</Link>
         </Box>
       </Stack>
     </Container>
