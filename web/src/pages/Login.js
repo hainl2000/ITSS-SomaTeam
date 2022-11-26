@@ -13,6 +13,7 @@ import {
   InputRightElement,
   Stack,
   Text,
+  Link,
   useBreakpointValue,
   useColorModeValue,
   useDisclosure,
@@ -172,6 +173,7 @@ export default function Login() {
               </Stack>
             </Stack>
           </form>
+          <Link href="/forget-password">Forget password?</Link>
         </Box>
       </Stack>
     </Container>
