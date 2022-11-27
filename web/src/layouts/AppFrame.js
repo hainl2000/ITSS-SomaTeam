@@ -16,6 +16,8 @@ import OrdersManager from '../pages/OrdersManager';
 import ProductsManager from '../pages/ProductsManager';
 import DashboardLayout from './DashboardLayout';
 import NotFound from '../components/NotFound';
+import ForgetPassword from '../pages/ForgetPassword';
+import ResetPassword from '../pages/ResetPassword';
 
 export default function AppFrame() {
   const {
@@ -45,6 +47,8 @@ export default function AppFrame() {
           }
         />
         <Route path="signup" element={<Signup />} />
+        <Route path="forget-password" element={<ForgetPassword />} />
+        <Route path="forget/*" element={<ResetPassword />} />
         <Route path="product/:id" element={<DetailProduct />} />
         <Route
           path="orders"

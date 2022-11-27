@@ -1,4 +1,6 @@
 import {
+  USER_CHECK_FORGETPASSWORD,
+  USER_FORGET_PASSWORD,
   USER_GET_INFO_ENDPOINT,
   USER_LOG_IN_ENDPOINT,
   USER_LOG_OUT_ENDPOINT,
@@ -41,6 +43,20 @@ class UserAuthAPI {
         Authorization: `Bearer ${token}`
       }
     });
+    return response.data;
+  }
+
+  static async forgetPassword(data) {
+    const response = await instanceAxios.post(
+      USER_FORGET_PASSWORD,
+      data
+    );
+    return response.data;
+  }
+  static async checkForgetPasswordToken(data) {
+    const response = await instanceAxios.get(
+      USER_CHECK_FORGETPASSWORD(data)
+    );
     return response.data;
   }
 }
