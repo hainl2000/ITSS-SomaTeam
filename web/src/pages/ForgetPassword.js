@@ -39,26 +39,26 @@ export default function ForgetPassword() {
     formState: { errors }
   } = useForm();
 
-  const onClickReveal = () => {
-    onToggle();
-    if (inputRef.current) {
-      inputRef.current.focus({ preventScroll: true });
-    }
-  };
+  //   const onClickReveal = () => {
+  //     onToggle();
+  //     if (inputRef.current) {
+  //       inputRef.current.focus({ preventScroll: true });
+  //     }
+  //   };
 
   const onSubmit = useCallback(
     (data) => {
       UserAuthAPI.forgetPassword(data).then((response) => {
         if (response.success) {
-          setUserToken(response.token.user_access_token);
-          setCurrentUser(response.user);
+          //   setUserToken(response.token.user_access_token);
+          //   setCurrentUser(response.user);
           toast({
             title: 'Send to mail',
             position: 'top',
             duration: 3000,
             status: 'success'
           });
-          history('/');
+          history('/login');
         } else {
           reset();
           toast({

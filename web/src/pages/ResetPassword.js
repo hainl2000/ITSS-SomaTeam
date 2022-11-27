@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState
 } from 'react';
+// import { redirect } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -33,7 +34,7 @@ import { useUserAuthContext } from '../contexts/UserAuthContext';
 import NotFound from '../components/NotFound';
 
 export default function ResetPassword() {
-  const { setCurrentUser } = useUserAuthContext();
+  //   const { setCurrentUser } = useUserAuthContext();
   const history = useNavigate();
   const path = window.location.pathname;
   const { isOpen, onToggle } = useDisclosure();
@@ -47,12 +48,12 @@ export default function ResetPassword() {
     formState: { errors }
   } = useForm();
 
-  const onClickReveal = () => {
-    onToggle();
-    if (inputRef.current) {
-      inputRef.current.focus({ preventScroll: true });
-    }
-  };
+  //   const onClickReveal = () => {
+  //     onToggle();
+  //     if (inputRef.current) {
+  //       inputRef.current.focus({ preventScroll: true });
+  //     }
+  //   };
   useEffect(() => {
     console.log(path);
     const x = path.split('/');
@@ -64,39 +65,42 @@ export default function ResetPassword() {
       .catch((err) => {
         console.log(err);
         setCheckToken(false);
+        history('/login');
       });
   });
   const onSubmit = useCallback(
     (data) => {
-      UserAuthAPI.forgetPassword(data).then((response) => {
-        if (response.success) {
-          setUserToken(response.token.user_access_token);
-          setCurrentUser(response.user);
-          toast({
-            title: 'Send to mail',
-            position: 'top',
-            duration: 3000,
-            status: 'success'
-          });
-          history('/');
-        } else {
-          reset();
-          toast({
-            title: 'Invalid email',
-            position: 'top',
-            description: response.message,
-            duration: 5000,
-            status: 'error'
-          });
+      console.log(data);
+      UserAuthAPI.userUpdatePassword(path.split('/')[2], data).then(
+        (response) => {
+          if (response.success) {
+            toast({
+              title: 'Success reset password',
+              position: 'top',
+              duration: 3000,
+              status: 'success'
+            });
+            history('/');
+            // redirect('/');
+          } else {
+            reset();
+            toast({
+              title: 'Error',
+              position: 'top',
+              description: response.message,
+              duration: 5000,
+              status: 'error'
+            });
+          }
         }
-      });
+      );
     },
-    [history, reset, setCurrentUser, toast]
+    [history, reset, toast]
   );
 
   return (
     <>
-      {checkToken ? (
+      {checkToken && (
         <Container
           maxW="lg"
           py={{ base: '12', md: '24' }}
@@ -149,29 +153,7 @@ export default function ResetPassword() {
                           <IconButton
                             variant="link"
                             icon={isOpen ? <HiEyeOff /> : <HiEye />}
-                            onClick={onClickReveal}
-                          />
-                        </InputRightElement>
-                      </InputGroup>
-                    </FormControl>
-                    <FormControl>
-                      <FormLabel htmlFor="cf-password">
-                        Confirm Password
-                      </FormLabel>
-                      <InputGroup>
-                        <Input
-                          ref={inputRef}
-                          type={isOpen ? 'text' : 'password'}
-                          autoComplete="current-password"
-                          {...register('password', {
-                            required: 'required field'
-                          })}
-                        />
-                        <InputRightElement>
-                          <IconButton
-                            variant="link"
-                            icon={isOpen ? <HiEyeOff /> : <HiEye />}
-                            onClick={onClickReveal}
+                            // onClick={onClickReveal}
                           />
                         </InputRightElement>
                       </InputGroup>
@@ -189,11 +171,10 @@ export default function ResetPassword() {
                   </Stack>
                 </Stack>
               </form>
+              {/* <Link href="/login">Login</Link> */}
             </Box>
           </Stack>
         </Container>
-      ) : (
-        <NotFound />
       )}
     </>
   );

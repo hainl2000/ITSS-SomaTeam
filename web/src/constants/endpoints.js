@@ -5,6 +5,8 @@ const USER_LOG_OUT_ENDPOINT = 'user/logout';
 const USER_REGISTER_ENDPOINT = 'user/register';
 const USER_FORGET_PASSWORD = 'user/sendForgetPasswordMail';
 const USER_CHECK_FORGETPASSWORD = (token) => `/user/forget/${token}`;
+const USER_UPDATE_PASSWORD = (token) =>
+  `user/updatePassword/${token}`;
 const USER_GET_INFO_ENDPOINT = 'user/me';
 const USER_CREATE_ORDER_ENDPOINT = 'user/createOrder';
 const USER_GET_ALL_ORDERS_ENDPOINT = 'user/orders';
@@ -44,5 +46,6 @@ export {
   ADMIN_ADD_PRODUCT_ENDPOINT,
   ADMIN_UPDATE_PRODUCT_ENDPOINT,
   ADMIN_CHANGE_ORDER_STATUS_ENDPOINT,
-  USER_CHECK_FORGETPASSWORD
+  USER_CHECK_FORGETPASSWORD,
+  USER_UPDATE_PASSWORD
 };

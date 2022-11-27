@@ -4,7 +4,8 @@ import {
   USER_GET_INFO_ENDPOINT,
   USER_LOG_IN_ENDPOINT,
   USER_LOG_OUT_ENDPOINT,
-  USER_REGISTER_ENDPOINT
+  USER_REGISTER_ENDPOINT,
+  USER_UPDATE_PASSWORD
 } from '../constants/endpoints';
 import { getUserToken } from '../utils/userAuth';
 import instanceAxios from './base';
@@ -56,6 +57,13 @@ class UserAuthAPI {
   static async checkForgetPasswordToken(data) {
     const response = await instanceAxios.get(
       USER_CHECK_FORGETPASSWORD(data)
+    );
+    return response.data;
+  }
+  static async userUpdatePassword(token, data) {
+    const response = await instanceAxios.post(
+      USER_UPDATE_PASSWORD(token),
+      data
     );
     return response.data;
   }

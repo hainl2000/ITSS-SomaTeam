@@ -173,7 +173,14 @@ export default function Login() {
               </Stack>
             </Stack>
           </form>
-          <Link href="/forget-password">Forget password?</Link>
+          <div
+            style={{
+              textAlign: 'center',
+              marginTop: '10px'
+            }}
+          >
+            <Link href="/forget-password">Forget password?</Link>
+          </div>
         </Box>
       </Stack>
     </Container>
