@@ -202,8 +202,31 @@ class UserAuthController extends Controller
         }
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword(Request $request, $token)
     {
-
+        $data = $request->all();
+        $pwReset = PasswordReset::where('token', $token)->first();
+        DB::beginTransaction();
+        try {
+            if ($pwReset) {
+                $updated = User::where('email', $pwReset->email)
+                    ->update(['password' => Hash::make($data["password"])]);
+                $pwReset = PasswordReset::where('token', $token)->delete();
+                DB::commit();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Update sucessfully'
+                ],200);
+            } else {
+                throw new \Exception();
+            }
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong'
+            ],400);
+        }
     }
 }
