@@ -26,7 +26,7 @@ import UserAuthAPI from '../api/UserAuthAPI';
 import { setUserToken } from '../utils/userAuth';
 import { useUserAuthContext } from '../contexts/UserAuthContext';
 
-export default function Login() {
+export default function ForgetPassword() {
   const { setCurrentUser } = useUserAuthContext();
   const history = useNavigate();
   const { isOpen, onToggle } = useDisclosure();
@@ -39,30 +39,30 @@ export default function Login() {
     formState: { errors }
   } = useForm();
 
-  const onClickReveal = () => {
-    onToggle();
-    if (inputRef.current) {
-      inputRef.current.focus({ preventScroll: true });
-    }
-  };
+  //   const onClickReveal = () => {
+  //     onToggle();
+  //     if (inputRef.current) {
+  //       inputRef.current.focus({ preventScroll: true });
+  //     }
+  //   };
 
   const onSubmit = useCallback(
     (data) => {
-      UserAuthAPI.login(data).then((response) => {
+      UserAuthAPI.forgetPassword(data).then((response) => {
         if (response.success) {
-          setUserToken(response.token.user_access_token);
-          setCurrentUser(response.user);
+          //   setUserToken(response.token.user_access_token);
+          //   setCurrentUser(response.user);
           toast({
-            title: 'Logged in successfully!',
+            title: 'Send to mail',
             position: 'top',
             duration: 3000,
             status: 'success'
           });
-          history('/');
+          history('/login');
         } else {
           reset();
           toast({
-            title: 'Log in failed',
+            title: 'Invalid email',
             position: 'top',
             description: response.message,
             duration: 5000,
@@ -91,19 +91,8 @@ export default function Login() {
               lineHeight="1.2"
               color="primaryColor"
             >
-              Login to Shopping
+              Forget Password
             </Text>
-            <HStack justify="center">
-              <Text color="muted">Don't have an account?</Text>
-              <Button
-                variant="link"
-                colorScheme="blue"
-                color="primaryColor"
-                onClick={() => history('/signup')}
-              >
-                Sign up
-              </Button>
-            </HStack>
           </Stack>
         </Stack>
         <Box
@@ -135,31 +124,6 @@ export default function Login() {
                     </Text>
                   ) : null}
                 </FormControl>
-                <FormControl>
-                  <FormLabel htmlFor="password">Password</FormLabel>
-                  <InputGroup>
-                    <Input
-                      ref={inputRef}
-                      type={isOpen ? 'text' : 'password'}
-                      autoComplete="current-password"
-                      {...register('password', {
-                        required: 'Password is a required field'
-                      })}
-                    />
-                    <InputRightElement>
-                      <IconButton
-                        variant="link"
-                        icon={isOpen ? <HiEyeOff /> : <HiEye />}
-                        onClick={onClickReveal}
-                      />
-                    </InputRightElement>
-                  </InputGroup>
-                  {errors.password ? (
-                    <Text color="red" mt={1}>
-                      {errors.password.message}
-                    </Text>
-                  ) : null}
-                </FormControl>
               </Stack>
               <Stack spacing="6">
                 <Button
@@ -168,19 +132,11 @@ export default function Login() {
                   bg="primaryColor"
                   _hover={{ bg: 'primaryColor' }}
                 >
-                  Sign in
+                  Send
                 </Button>
               </Stack>
             </Stack>
           </form>
-          <div
-            style={{
-              textAlign: 'center',
-              marginTop: '10px'
-            }}
-          >
-            <Link href="/forget-password">Forget password?</Link>
-          </div>
         </Box>
       </Stack>
     </Container>
