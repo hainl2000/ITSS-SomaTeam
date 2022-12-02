@@ -22,7 +22,7 @@ class ProductController extends Controller
             ->when($sortType and $sortType === 'low-to-high', function ($query) use ($sortType) {
                 return $query->orderBy('price');
             })
-            ->simplePaginate(12);
+            ->paginate(12);
         return response()->json($products);
     }
 
