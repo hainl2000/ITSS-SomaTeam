@@ -16,6 +16,7 @@ import { useCartContext } from '../contexts/CartContext';
 import { useUserAuthContext } from '../contexts/UserAuthContext';
 import { useWebContext } from '../contexts/WebContext';
 
+
 export default function Products() {
   const history = useNavigate();
   const { authenticated, redirectWhenNoAuth } = useUserAuthContext();
@@ -55,6 +56,8 @@ export default function Products() {
     },
     [addToCart, authenticated, redirectWhenNoAuth, toggleCartOpen]
   );
+
+  console.log({ page })
 
   return (
     <Box p="60px 0">
@@ -172,23 +175,37 @@ export default function Products() {
                 No products yet
               </Box>
             ) : (
-              <Flex justifyContent="space-between" py={4}>
+              <Flex justifyContent="center" py={4}>
                 <Button
                   leftIcon={<HiChevronLeft />}
                   onClick={() =>
                     setPage((old) => Math.max(old - 1, 0))
                   }
                   isDisabled={!products?.prev_page_url}
-                >
-                  Previous
-                </Button>
+                />
+                  
+                {
+                  [...Array(products?.last_page).keys()].map((value,index)=>{
+                    value++;
+                    return <Button
+                    key={index}
+                    marginLeft={2}
+                    marginRight={2}
+                    onClick={() =>
+                      setPage(value)
+                    }
+                    isDisabled={value === page}
+                  >
+                    {value}
+                  </Button>
+                  })
+                }
                 <Button
                   rightIcon={<HiChevronRight />}
                   onClick={() => setPage((old) => old + 1)}
                   isDisabled={!products?.next_page_url}
-                >
-                  Next
-                </Button>
+                />
+                
               </Flex>
             )}
           </Box>
