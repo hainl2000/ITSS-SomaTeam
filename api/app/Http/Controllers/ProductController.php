@@ -25,7 +25,7 @@ class ProductController extends Controller
             ->when($sortType and $sortType === 'low-to-high', function ($query) use ($sortType) {
                 return $query->orderBy('price');
             })
-            ->where('is_approve', 1)
+            ->where('is_approve', 2)
             ->paginate(12);
         return response()->json($products);
     }
@@ -124,8 +124,8 @@ class ProductController extends Controller
             $count = 0;
             foreach ($bestSellerItems as $key => $item){
                 $count++;
-                $datas[] = Product::where('id', $key)->get();
-                if ($count == 5) {
+                $datas = array_merge($datas, Product::where('id', $key)->get()->toArray());
+                if ($count == 8) {
                     break;
                 }
             }
