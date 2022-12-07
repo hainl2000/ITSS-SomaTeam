@@ -124,8 +124,8 @@ class ProductController extends Controller
             $count = 0;
             foreach ($bestSellerItems as $key => $item){
                 $count++;
-                $datas[] = Product::where('id', $key)->get();
-                if ($count == 5) {
+                $datas = array_merge($datas, Product::where('id', $key)->get()->toArray());
+                if ($count == 8) {
                     break;
                 }
             }
