@@ -18,6 +18,7 @@ import DashboardLayout from './DashboardLayout';
 import NotFound from '../components/NotFound';
 import ForgetPassword from '../pages/ForgetPassword';
 import ResetPassword from '../pages/ResetPassword';
+import Products from '../components/Products';
 
 export default function AppFrame() {
   const {
@@ -46,6 +47,7 @@ export default function AppFrame() {
             )
           }
         />
+        <Route path="all-products" element={<Products />} />
         <Route path="signup" element={<Signup />} />
         <Route path="forget-password" element={<ForgetPassword />} />
         <Route path="forget/*" element={<ResetPassword />} />
