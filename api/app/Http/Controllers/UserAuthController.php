@@ -69,7 +69,6 @@ class UserAuthController extends Controller
             ],200);
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Registration error'

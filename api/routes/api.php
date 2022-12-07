@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 
+
 Route::prefix('user')->group(function () {
     Route::post('login', [UserAuthController::class, 'login']);
     Route::post('register', [UserAuthController::class, 'register']);
@@ -20,10 +21,13 @@ Route::prefix('user')->group(function () {
         Route::post('/createOrder', [OrderController::class, 'createOrder']);
         Route::get('/orders', [OrderController::class, 'userGetAllOrders']);
         Route::get('/orders/{id}', [OrderController::class, 'userGetOrderDetail']);
+        Route::post('/addProduct', [ProductController::class, 'addProduct']);
+        Route::post('/updateProduct', [ProductController::class, 'updateProduct']);
+        Route::post('/registerSeller', [ProductController::class, 'registerSeller']);
 
     });
 });
-
+Route::get('/getBestSeller',[ProductController::class, 'getBestSeller']);
 Route::get('/products', [ProductController::class, 'getAllProducts']);
 Route::get('/products/{id}', [ProductController::class, 'getSingleProduct']);
 Route::prefix('admin')->group(function () {
@@ -34,8 +38,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/orders', [OrderController::class, 'adminGetAllOrders']);
         Route::get('/orders/{id}', [OrderController::class, 'adminGetOrderDetail']);
         Route::get('/products', [ProductController::class, 'adminGetAllProducts']);
-        Route::post('/addProduct', [ProductController::class, 'adminAddProduct']);
-        Route::post('/updateProduct', [ProductController::class, 'adminUpdateProduct']);
         Route::post('/changeOrderStatus', [OrderController::class, 'changeOrderStatus']);
+        Route::post('/approveSeller', [OrderController::class, 'approveSeller']);
+        Route::post('/approveProduct', [OrderController::class, 'approveProduct']);
     });
 });
