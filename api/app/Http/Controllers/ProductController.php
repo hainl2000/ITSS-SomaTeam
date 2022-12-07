@@ -25,7 +25,7 @@ class ProductController extends Controller
             ->when($sortType and $sortType === 'low-to-high', function ($query) use ($sortType) {
                 return $query->orderBy('price');
             })
-            ->where('is_approve', 1)
+            ->where('is_approve', 2)
             ->paginate(12);
         return response()->json($products);
     }

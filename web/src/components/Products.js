@@ -16,7 +16,6 @@ import { useCartContext } from '../contexts/CartContext';
 import { useUserAuthContext } from '../contexts/UserAuthContext';
 import { useWebContext } from '../contexts/WebContext';
 
-
 export default function Products() {
   const history = useNavigate();
   const { authenticated, redirectWhenNoAuth } = useUserAuthContext();
@@ -57,7 +56,7 @@ export default function Products() {
     [addToCart, authenticated, redirectWhenNoAuth, toggleCartOpen]
   );
 
-  console.log({ page })
+  console.log({ page });
 
   return (
     <Box p="60px 0">
@@ -183,29 +182,28 @@ export default function Products() {
                   }
                   isDisabled={!products?.prev_page_url}
                 />
-                  
-                {
-                  [...Array(products?.last_page).keys()].map((value,index)=>{
+
+                {[...Array(products?.last_page).keys()].map(
+                  (value, index) => {
                     value++;
-                    return <Button
-                    key={index}
-                    marginLeft={2}
-                    marginRight={2}
-                    onClick={() =>
-                      setPage(value)
-                    }
-                    isDisabled={value === page}
-                  >
-                    {value}
-                  </Button>
-                  })
-                }
+                    return (
+                      <Button
+                        key={index}
+                        marginLeft={2}
+                        marginRight={2}
+                        onClick={() => setPage(value)}
+                        isDisabled={value === page}
+                      >
+                        {value}
+                      </Button>
+                    );
+                  }
+                )}
                 <Button
                   rightIcon={<HiChevronRight />}
                   onClick={() => setPage((old) => old + 1)}
                   isDisabled={!products?.next_page_url}
                 />
-                
               </Flex>
             )}
           </Box>

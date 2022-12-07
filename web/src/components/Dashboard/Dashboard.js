@@ -74,11 +74,11 @@ const Dashboard = () => {
   const [sortType, setSortType] = useState('none');
 
   const { isLoading, data: products } = useQuery(
-    ['products', sortType, searchString, page],
-    () => ProductAPI.getAllProducts(sortType, searchString, page),
+    ['products'],
+    () => ProductAPI.getBestSeller(),
     { keepPreviousData: true }
   );
-
+  console.log(products);
   const handleChangeSortType = useCallback((e) => {
     setSortType(e.target.value);
   }, []);
@@ -126,8 +126,8 @@ const Dashboard = () => {
         </div>
         <div className="best-seller">
           <Flex flexWrap="wrap" columnGap="28px" rowGap="28px">
-            {products.data.slice(0, 8).map((product, i) => {
-              const { id, name, price, image } = product;
+            {products?.bestSellerItems?.map((product, i) => {
+              const { id, name, price, image } = product[0];
               return (
                 <Box
                   cursor="pointer"
@@ -151,7 +151,7 @@ const Dashboard = () => {
                         alignItems="stretch"
                         overflow="hidden"
                         position="relative"
-                        height="200px"
+                        height="300px"
                       >
                         <Box
                           overflow="hidden"
