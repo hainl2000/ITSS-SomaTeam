@@ -47,14 +47,11 @@ export default function AppFrame() {
             )
           }
         />
-        <Route path="all-products" element={<Products />} />
+        <Route path="products" element={<Products />} />
         <Route path="signup" element={<Signup />} />
         <Route path="forget-password" element={<ForgetPassword />} />
         <Route path="forget/*" element={<ResetPassword />} />
-        <Route
-          path="all-products/product/:id"
-          element={<DetailProduct />}
-        />
+        <Route path="products/:id" element={<DetailProduct />} />
         <Route
           path="orders"
           element={

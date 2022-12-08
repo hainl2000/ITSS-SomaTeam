@@ -86,7 +86,7 @@ const Dashboard = () => {
   const handleClickProduct = useCallback(
     (e, id) => {
       if (e.target.tagName !== 'BUTTON') {
-        history(`product/${id}`);
+        history(`products/${id}`);
       }
     },
     [history]
@@ -122,12 +122,12 @@ const Dashboard = () => {
       <div className="content">
         <div className="title2">
           <h1>Best Seller</h1>
-          <Link to="/all-products">Xem thêm</Link>
+          <Link to="/products">Xem thêm</Link>
         </div>
         <div className="best-seller">
           <Flex flexWrap="wrap" columnGap="28px" rowGap="28px">
             {products?.bestSellerItems?.map((product, i) => {
-              const { id, name, price, image } = product[0];
+              const { id, name, price, image } = product;
               return (
                 <Box
                   cursor="pointer"

@@ -38,7 +38,7 @@ export default function Products() {
   const handleClickProduct = useCallback(
     (e, id) => {
       if (e.target.tagName !== 'BUTTON') {
-        history(`product/${id}`);
+        history(`${id}`);
       }
     },
     [history]
