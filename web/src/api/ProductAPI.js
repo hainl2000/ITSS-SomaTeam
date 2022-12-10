@@ -3,7 +3,8 @@ import {
   ADMIN_GET_ALL_PRODUCTS_ENDPOINT,
   ADMIN_UPDATE_PRODUCT_ENDPOINT,
   GET_ALL_PRODUCTS_ENDPOINT,
-  GET_SINGLE_PRODUCT_ENDPOINT
+  GET_SINGLE_PRODUCT_ENDPOINT,
+  GET_BEST_SELLER
 } from '../constants/endpoints';
 import { getAdminToken } from '../utils/adminAuth';
 import instanceAxios from './base';
@@ -15,7 +16,10 @@ class ProductAPI {
     );
     return response.data;
   }
-
+  static async getBestSeller() {
+    const response = await instanceAxios.get(`${GET_BEST_SELLER}`);
+    return response.data;
+  }
   static async adminGetAllProducts(page = 1) {
     const token = getAdminToken();
     const response = await instanceAxios.get(
