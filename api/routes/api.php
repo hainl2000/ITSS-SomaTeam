@@ -23,8 +23,9 @@ Route::prefix('user')->group(function () {
         Route::get('/orders/{id}', [OrderController::class, 'userGetOrderDetail']);
         Route::post('/addProduct', [ProductController::class, 'addProduct']);
         Route::post('/updateProduct', [ProductController::class, 'updateProduct']);
-        Route::post('/registerSeller', [ProductController::class, 'registerSeller']);
-
+        Route::post('/registerSeller', [UserController::class, 'registerSeller']);
+        Route::get('/checkIsSeller',[UserController::class, 'checkIsSeller']);
+        Route::get('/products', [ProductController::class, 'getProducts']);
     });
 });
 Route::get('/getBestSeller',[ProductController::class, 'getBestSeller']);
@@ -37,9 +38,10 @@ Route::prefix('admin')->group(function () {
         Route::get('logout', [AdminAuthController::class, 'logout']);
         Route::get('/orders', [OrderController::class, 'adminGetAllOrders']);
         Route::get('/orders/{id}', [OrderController::class, 'adminGetOrderDetail']);
-        Route::get('/products', [ProductController::class, 'adminGetAllProducts']);
+        Route::get('/products', [ProductController::class, 'getProducts']);
         Route::post('/changeOrderStatus', [OrderController::class, 'changeOrderStatus']);
-        Route::post('/approveSeller', [OrderController::class, 'approveSeller']);
-        Route::post('/approveProduct', [OrderController::class, 'approveProduct']);
+        Route::post('/approveSeller', [UserController::class, 'approveOrRefuseSellerRequest']);
+        Route::post('/approveProduct', [ProductController::class, 'approveOrRefuseProduct']);
+        Route::get('/getListSellerRequests',[UserController::class, 'getListSellerRequests']);
     });
 });

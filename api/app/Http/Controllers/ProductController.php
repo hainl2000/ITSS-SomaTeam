@@ -30,9 +30,12 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-    public function adminGetAllProducts() {
-        $products = Product::orderBy('created_at', 'desc')
-            ->simplePaginate(6);
+    public function getProducts(Request $request) {
+        $query = Product::orderBy('created_at', 'desc');
+        if ($request->input('is_seller')) {
+            $query->where('created_by', auth()->id());
+        }
+        $products = $query->withTrashed()->paginate(6);
 
         return response()->json($products);
     }
@@ -49,6 +52,7 @@ class ProductController extends Controller
                 'price' => $request->input('price'),
                 'image' => $request->input('image'),
                 'description' => $request->input('description'),
+                'is_approve' => 1,
                 'created_by' => auth()->id()
             ]);
             return response()->json([
@@ -88,15 +92,23 @@ class ProductController extends Controller
         }
     }
 
-    public function approveProduct(Request $request) {
+    public function approveOrRefuseProduct(Request $request) {
         try {
             DB::beginTransaction();
             $id = $request->input('product_id');
+            $status = $request->input('status');
             Product::where('id', $id)
                 ->update([
-                    'is_approved' => 2
+                    'is_approved' => $status
                 ]);
+            if ($status == 0) {
+                Product::where('id', $id)->delete();
+            }
             DB::commit();
+            return response()->json([
+                'success' => true,
+                'message' => 'Approve product successfully'
+            ]);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
