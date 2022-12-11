@@ -102,7 +102,7 @@ class ProductController extends Controller
             $status = $request->input('status');
             Product::where('id', $id)
                 ->update([
-                    'is_approved' => $status
+                    'is_approve' => $status
                 ]);
             if ($status == 0) {
                 Product::where('id', $id)->delete();
