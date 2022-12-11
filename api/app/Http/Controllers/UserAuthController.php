@@ -264,7 +264,6 @@ class UserAuthController extends Controller
                 throw new \Exception();
             }
         } catch (\Exception $e) {
-            dd($e->getMessage());
             DB::rollBack();
             return response()->json([
                 'success' => false,

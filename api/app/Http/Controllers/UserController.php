@@ -133,4 +133,23 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function lockUser(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $user_id = $request->input('user_id');
+            User::where('id', $user_id)->delete();
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'message' => 'lock users fail'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'lock users fail'
+            ]);
+        }
+    }
 }
