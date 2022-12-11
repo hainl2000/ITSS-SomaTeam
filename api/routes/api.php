@@ -34,6 +34,7 @@ Route::get('/products/{id}', [ProductController::class, 'getSingleProduct']);
 Route::prefix('admin')->group(function () {
     Route::post('login', [AdminAuthController::class, 'login']);
     Route::middleware('auth:admin')->group(function () {
+        Route::get('/getUsers',[UserController::class, 'getListUsers']);
         Route::get('me', [AdminAuthController::class, 'me']);
         Route::get('logout', [AdminAuthController::class, 'logout']);
         Route::get('/orders', [OrderController::class, 'adminGetAllOrders']);
@@ -43,5 +44,6 @@ Route::prefix('admin')->group(function () {
         Route::post('/approveSeller', [UserController::class, 'approveOrRefuseSellerRequest']);
         Route::post('/approveProduct', [ProductController::class, 'approveOrRefuseProduct']);
         Route::get('/getListSellerRequests',[UserController::class, 'getListSellerRequests']);
+        Route::get('/registerAdmin',[UserAuthController::class, 'registerAdmin']);
     });
 });

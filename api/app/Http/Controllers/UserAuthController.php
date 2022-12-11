@@ -24,6 +24,12 @@ class UserAuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data is not valid'
+            ],400);
+        }
 
         if (!$token = auth()->attempt($credentials)) {
             return response()->json([
@@ -102,13 +108,13 @@ class UserAuthController extends Controller
             DB::commit();
             return response()->json([
                 'success' => true,
-                'message' => 'Registered successfully'
+                'message' => 'Registered admin successfully'
             ],200);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
                 'success' => false,
-                'message' => 'Registration error'
+                'message' => 'Registration admin error'
             ],400);
         }
     }

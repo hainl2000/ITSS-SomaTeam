@@ -104,9 +104,9 @@ class ProductController extends Controller
                 ->update([
                     'is_approve' => $status
                 ]);
-            if ($status == 0) {
-                Product::where('id', $id)->delete();
-            }
+//            if ($status == 0) {
+//                Product::where('id', $id)->delete();
+//            }
             DB::commit();
             return response()->json([
                 'success' => true,

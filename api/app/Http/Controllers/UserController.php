@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\SellerInformations;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -110,6 +111,25 @@ class UserController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'get list seller request fail'
+            ]);
+        }
+    }
+
+    public function getListUsers(Request $request)
+    {
+        try {
+            $listUsers = User::all();
+            $listAdmins = Admin::all();
+            return response()->json([
+                'success' => true,
+                'listUsers' => $listUsers,
+                'listAdmins' => $listAdmins,
+                'message' => 'get list users successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'get list users fail'
             ]);
         }
     }
