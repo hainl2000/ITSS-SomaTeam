@@ -53,6 +53,7 @@ class ProductController extends Controller
                 'price' => $request->input('price'),
                 'image' => $request->input('image'),
                 'description' => $request->input('description'),
+                'quantity' => $request->input('quantity'),
                 'is_approve' => 1,
                 'created_by' => auth()->id()
             ]);
@@ -75,6 +76,7 @@ class ProductController extends Controller
         $product->price = $request['price'];
         $product->description = $request['description'];
         $product->image = $request['image'];
+        $product->quantity = $request['quantity'];
 
         try {
             DB::beginTransaction();
