@@ -33,7 +33,8 @@ class AdminAuthController extends Controller
                 'admin_access_token' => $token,
                 'expires_in' => auth()->factory()->getTTL() * 60
             ],
-            'admin' => auth('admin')->user()
+            'admin' => auth('admin')->user(),
+            'is_admin' => true
         ]);
     }
 

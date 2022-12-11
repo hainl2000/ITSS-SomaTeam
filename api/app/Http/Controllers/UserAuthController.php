@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ForgetpasswordMail;
 use App\Mail\SignupMail;
+use App\Models\Admin;
 use App\Models\PasswordReset;
 use App\Models\User;
 use Carbon\Carbon;
@@ -55,11 +56,47 @@ class UserAuthController extends Controller
         }
 
         $data['password'] = Hash::make($request['password']);
-
+        $data['is_seller'] = 0;
         try {
             DB::beginTransaction();
             $user = User::create($data);
             if ($this->sendSignupMail($user->email) == false) {
+                throw new \Exception();
+            }
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'message' => 'Registered successfully'
+            ],200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Registration error'
+            ],400);
+        }
+    }
+
+    public function registerAdmin(Request $request)
+    {
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'name' => 'required',
+            'email' => 'required|email|unique:admins',
+            'password' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data is not valid'
+            ],400);
+        }
+
+        $data['password'] = Hash::make($request['password']);
+        try {
+            DB::beginTransaction();
+            $admin = Admin::create($data);
+            if ($this->sendSignupMail($admin->email) == false) {
                 throw new \Exception();
             }
             DB::commit();
@@ -130,7 +167,8 @@ class UserAuthController extends Controller
                 'user_access_token' => $token,
                 'expires_in' => auth()->factory()->getTTL() * 60
             ],
-            'user' => auth()->user()
+            'user' => auth()->user(),
+            'is_admin' => false
         ]);
     }
 
