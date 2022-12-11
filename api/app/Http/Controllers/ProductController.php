@@ -32,7 +32,8 @@ class ProductController extends Controller
 
     public function getProducts(Request $request) {
         $query = Product::orderBy('created_at', 'desc');
-        if ($request->input('is_seller')) {
+        $loginUser = auth()->user();
+        if (isset($loginUser->is_seller) && $loginUser->is_seller == 2) {
             $query->where('created_by', auth()->id());
         }
         $products = $query->withTrashed()->paginate(6);
