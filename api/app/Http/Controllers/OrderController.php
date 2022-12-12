@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -35,7 +36,7 @@ class OrderController extends Controller
 
     public function userGetOrderDetail($id) {
         $order_detail = Order::with([
-            'order_details.product:id,name,image'
+            'order_details.product:id,name,image,quantity'
         ])
         ->find($id);
         return response()->json($order_detail);
@@ -54,11 +55,15 @@ class OrderController extends Controller
     public function createOrder(Request $request) {
         $dataToValidate = [
             'address' => $request['address'],
-            'phone' => $request['phoneNumber']
+            'phone' => $request['phoneNumber'],
+            'credit_number' => $request['credit_number'],
+            'bank' => $request['bank'],
         ];
         $validator = Validator::make($dataToValidate, [
             'address' => 'required|string',
             'phone' => 'required',
+            'credit_number' => 'required',
+            'bank' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -74,11 +79,19 @@ class OrderController extends Controller
             $order->user_id = auth()->id();
             $order->address = $request['address'];
             $order->phone = $request['phoneNumber'];
+            $order->credit_number = $request['credit_number'];
+            $order->bank = $request['bank'];
             $order->total_price = $request['totalPrice'];
             $order->save();
-
             foreach ($request['products'] as $product) {
                 $orderDetail = new OrderDetail;
+                $productQuantity = Product::where('id',$product['id'])->first()->quantity;
+                if ($product['quantity'] > $productQuantity) {
+                    throw new \Exception("Order quantity exceed available quantity");
+                }
+                Product::where('id',$product['id'])->update([
+                    'quantity' => $productQuantity - $product['quantity']
+                ]);
                 $orderDetail->order_id = $order->id;
                 $orderDetail->product_id = $product['id'];
                 $orderDetail->quantity = $product['quantity'];
@@ -92,7 +105,10 @@ class OrderController extends Controller
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
-            throw new \Exception($e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
         }
 
     }
