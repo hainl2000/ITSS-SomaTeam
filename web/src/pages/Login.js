@@ -49,9 +49,14 @@ export default function Login() {
   const onSubmit = useCallback(
     (data) => {
       UserAuthAPI.login(data).then((response) => {
+        // console.log(response);
         if (response.success) {
           setUserToken(response.token.user_access_token);
-          setCurrentUser(response.user);
+          localStorage.setItem('role', 'user');
+          setCurrentUser({
+            ...response.user,
+            isAdmin: response?.is_admin
+          });
           toast({
             title: 'Logged in successfully!',
             position: 'top',

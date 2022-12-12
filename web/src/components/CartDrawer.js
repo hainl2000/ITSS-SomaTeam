@@ -19,7 +19,7 @@ import CartItem from './CartItem';
 
 export default function CartDrawer({ isOpen, onClose, cart }) {
   const history = useNavigate();
-
+  console.log(cart.products);
   const { getTotalAmount } = useCartContext();
 
   const renderDrawerContent = useCallback(() => {

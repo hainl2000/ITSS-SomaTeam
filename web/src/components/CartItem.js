@@ -11,10 +11,12 @@ import { HiMinus, HiOutlineTrash, HiPlus } from 'react-icons/hi';
 import { useCartContext } from '../contexts/CartContext';
 
 export default function CartItem({ product }) {
+  // console.log(product);
   const { removeItemFromCart, handleChangeQuantity } =
     useCartContext();
 
-  const { id, name, price, quantity, image } = product;
+  const { id, name, price, quantity, image, quantity_order } =
+    product;
 
   return (
     <Box w="full" mb={2}>
@@ -50,6 +52,10 @@ export default function CartItem({ product }) {
         >
           ${price * quantity}
         </Flex>
+        <Text
+          fontSize="12px"
+          color="red"
+        >{`${quantity} available`}</Text>
         <Flex gridColumn="2/5" pl={1} alignItems="center" gap={1}>
           <Box
             border="1px solid rgb(14, 27, 77)"
@@ -66,7 +72,7 @@ export default function CartItem({ product }) {
                 size="xs"
                 onClick={() => handleChangeQuantity(id, 'minus')}
               />
-              <Text fontSize="xs">{quantity}</Text>
+              <Text fontSize="xs">{quantity_order}</Text>
               <IconButton
                 icon={<HiPlus />}
                 size="xs"

@@ -13,57 +13,25 @@ import {
   HiOutlineShoppingCart,
   HiOutlineCube
 } from 'react-icons/hi';
-import { AiOutlineUser } from 'react-icons/ai';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+
 import {
   Link as NavLink,
   useLocation,
   useNavigate
 } from 'react-router-dom';
-import AdminAuthAPI from '../api/AdminAuthAPI';
-import { useAdminAuthContext } from '../contexts/AdminAuthContext';
-import { setAdminToken } from '../utils/adminAuth';
 
 const siderBarItems = [
   {
-    title: 'Orders',
-    url: '/admin/orders',
-    icon: HiOutlineShoppingCart
-  },
-  {
     title: 'Products',
-    url: '/admin/products',
+    url: '/shop-seller',
     icon: HiOutlineCube
-  },
-  {
-    title: 'Users',
-    url: '/admin/user-manager',
-    icon: AiOutlineUser
-  },
-  {
-    title: 'Register Shop',
-    url: '/admin/shop-manager',
-    icon: AiOutlineShoppingCart
   }
 ];
 
-export default function SideBar() {
+export default function SideBarShop() {
   const location = useLocation();
-  const { setCurrentAdmin } = useAdminAuthContext();
-  const history = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleLogOut = useCallback(() => {
-    setIsSubmitting(true);
-    AdminAuthAPI.logout().then((response) => {
-      setIsSubmitting(false);
-      if (response.success) {
-        setCurrentAdmin(null);
-        setAdminToken(null);
-        history('/admin/login');
-      }
-    });
-  }, [history, setCurrentAdmin]);
+  //   const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
     <Flex
@@ -72,23 +40,13 @@ export default function SideBar() {
       pt={8}
       paddingInlineStart={6}
       paddingInlineEnd={6}
-      bg="primaryColor"
+      bg="rgba(0,0,0,0.3)"
       color="white"
       height="100vh"
       flexDir="column"
       justifyContent="space-between"
     >
       <Flex flexDir="column" width="full">
-        <Box display="inline-block" flex="0 0 auto">
-          <Text
-            fontSize="2xl"
-            color="lightTextColor"
-            fontWeight="700"
-            textAlign="center"
-          >
-            Shopping cart
-          </Text>
-        </Box>
         <Box
           mt={6}
           marginInline={0}
@@ -137,17 +95,6 @@ export default function SideBar() {
             ))}
           </Flex>
         </Box>
-      </Flex>
-      <Flex justifyContent="center">
-        <Button
-          variant="link"
-          color="lightTextColor"
-          rightIcon={<HiOutlineLogout />}
-          onClick={handleLogOut}
-          isLoading={isSubmitting}
-        >
-          Log out
-        </Button>
       </Flex>
     </Flex>
   );

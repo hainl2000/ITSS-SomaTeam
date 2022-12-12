@@ -2,6 +2,7 @@ const BASE_API_ENDPOINT = 'http://127.0.0.1:8000/api/';
 
 const USER_LOG_IN_ENDPOINT = 'user/login';
 const USER_LOG_OUT_ENDPOINT = 'user/logout';
+const REGISTER_SELLER = 'user/registerSeller';
 const USER_REGISTER_ENDPOINT = 'user/register';
 const USER_FORGET_PASSWORD = 'user/sendForgetPasswordMail';
 const USER_CHECK_FORGETPASSWORD = (token) => `/user/forget/${token}`;
@@ -13,13 +14,20 @@ const USER_GET_ALL_ORDERS_ENDPOINT = 'user/orders';
 const USER_GET_DETAIL_ORDER_ENDPOINT = 'user/orders/';
 
 const ADMIN_LOG_IN_ENDPOINT = 'admin/login';
+const REGISTER_ADMIN = 'admin/registerAdmin';
 const ADMIN_GET_INFO_ENDPOINT = 'admin/me';
+const ADMID_GET_SHOP_REGISTER = 'admin/getListSellerRequests';
+const ADMIN_GET_LIST_USER = '/admin/getUsers';
+const ADMIN_LOCK_USER = 'admin/lockUser';
+const ADMIN_APPROVE_SELLER = 'admin/approveSeller';
 const ADMIN_LOG_OUT_ENDPOINT = 'admin/logout';
 const ADMIN_GET_ALL_ORDERS_ENDPOINT = 'admin/orders';
 const ADMIN_GET_DETAIL_ORDER_ENDPOINT = 'admin/orders/';
 const ADMIN_GET_ALL_PRODUCTS_ENDPOINT = 'admin/products';
-const ADMIN_ADD_PRODUCT_ENDPOINT = 'admin/addProduct';
-const ADMIN_UPDATE_PRODUCT_ENDPOINT = 'admin/updateProduct';
+const ADMIN_APPROVE_PRODUCT_ENDPOINT = 'admin/approveProduct';
+const SHOP_GET_ALL_PRODUCTS_ENDPOINT = 'user/products';
+const USER_ADD_PRODUCT_ENDPOINT = 'user/addProduct';
+const USER_UPDATE_PRODUCT_ENDPOINT = 'user/updateProduct';
 const ADMIN_CHANGE_ORDER_STATUS_ENDPOINT = 'admin/changeOrderStatus';
 const GET_BEST_SELLER = 'getBestSeller';
 const GET_ALL_PRODUCTS_ENDPOINT = 'products';
@@ -43,10 +51,18 @@ export {
   ADMIN_GET_ALL_ORDERS_ENDPOINT,
   ADMIN_GET_DETAIL_ORDER_ENDPOINT,
   ADMIN_GET_ALL_PRODUCTS_ENDPOINT,
-  ADMIN_ADD_PRODUCT_ENDPOINT,
-  ADMIN_UPDATE_PRODUCT_ENDPOINT,
+  USER_ADD_PRODUCT_ENDPOINT,
+  USER_UPDATE_PRODUCT_ENDPOINT,
   ADMIN_CHANGE_ORDER_STATUS_ENDPOINT,
   USER_CHECK_FORGETPASSWORD,
   USER_UPDATE_PASSWORD,
-  GET_BEST_SELLER
+  ADMIN_LOCK_USER,
+  GET_BEST_SELLER,
+  REGISTER_SELLER,
+  SHOP_GET_ALL_PRODUCTS_ENDPOINT,
+  ADMID_GET_SHOP_REGISTER,
+  ADMIN_APPROVE_SELLER,
+  ADMIN_APPROVE_PRODUCT_ENDPOINT,
+  ADMIN_GET_LIST_USER,
+  REGISTER_ADMIN
 };

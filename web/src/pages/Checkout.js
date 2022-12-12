@@ -118,6 +118,34 @@ export default function Checkout() {
               </Text>
             ) : null}
           </FormControl>
+          <FormControl>
+            <FormLabel>Bank</FormLabel>
+            <Input
+              placeholder="Phone number"
+              {...register('bank', {
+                required: 'Bank is a required field'
+              })}
+            />
+            {errors.bank ? (
+              <Text color="red" mt={1}>
+                {errors.bank.message}
+              </Text>
+            ) : null}
+          </FormControl>
+          <FormControl>
+            <FormLabel>Credit Number</FormLabel>
+            <Input
+              placeholder="Credit Number"
+              {...register('credit_number', {
+                required: 'Credit Number is a required field'
+              })}
+            />
+            {errors.credit_number ? (
+              <Text color="red" mt={1}>
+                {errors.credit_number.message}
+              </Text>
+            ) : null}
+          </FormControl>
         </Flex>
         <Flex justifyContent="space-between" pt={5} pr={5}>
           <Button
