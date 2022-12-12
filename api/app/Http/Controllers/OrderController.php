@@ -86,15 +86,15 @@ class OrderController extends Controller
             foreach ($request['products'] as $product) {
                 $orderDetail = new OrderDetail;
                 $productQuantity = Product::where('id',$product['id'])->first()->quantity;
-                if ($product['quantity'] > $productQuantity) {
+                if ($product['quantity_order'] > $productQuantity) {
                     throw new \Exception("Order quantity exceed available quantity");
                 }
                 Product::where('id',$product['id'])->update([
-                    'quantity' => $productQuantity - $product['quantity']
+                    'quantity' => $productQuantity - $product['quantity_order']
                 ]);
                 $orderDetail->order_id = $order->id;
                 $orderDetail->product_id = $product['id'];
-                $orderDetail->quantity = $product['quantity'];
+                $orderDetail->quantity = $product['quantity_order'];
                 $orderDetail->price = $product['price'];
                 $orderDetail->save();
             }
