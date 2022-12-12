@@ -143,9 +143,10 @@ class UserController extends Controller
             DB::commit();
             return response()->json([
                 'success' => true,
-                'message' => 'lock users fail'
+                'message' => 'lock users success'
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'success' => false,
                 'message' => 'lock users fail'
