@@ -21,20 +21,21 @@ import {
   HiOutlinePencilAlt,
   HiPlus
 } from 'react-icons/hi';
-import { AiFillEye } from 'react-icons/ai';
 import { useQuery } from 'react-query';
-import ProductAPI from '../api/ProductAPI';
-import ProductFormDrawer from '../components/ProductFormDrawer';
+import ProductAPI from '../../api/ProductAPI';
+import ProductFormDrawer from '../ProductFormDrawer';
+// import ProductAPI from '../api/ProductAPI';
+// import ProductFormDrawer from '../components/ProductFormDrawer';
 
-export default function ProductsManager() {
+export default function ShopManager() {
   const [page, setPage] = useState(1);
   const [isOpenProductFormDrawer, setIsOpenProductFormDrawer] =
     useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const { isLoading, data, refetch } = useQuery(
-    ['adminGetAllProducts', page],
-    () => ProductAPI.adminGetAllProducts(page)
+    ['shopGetAllProducts', page],
+    () => ProductAPI.shopGetAllProducts(page)
   );
 
   const toggleProductFormDrawer = useCallback(() => {
@@ -48,10 +49,7 @@ export default function ProductsManager() {
     },
     [toggleProductFormDrawer]
   );
-  // const handleClickAddProduct = () => {
-  //   setSelectedProduct(null);
-  //   toggleProductFormDrawer();
-  // };
+
   return (
     <>
       <ProductFormDrawer
@@ -82,10 +80,10 @@ export default function ProductsManager() {
               <Text fontWeight="600" fontSize="xl">
                 Products
               </Text>
-              {/* <IconButton
+              <IconButton
                 icon={<HiPlus />}
-                onClick={handleClickAddProduct}
-              /> */}
+                onClick={toggleProductFormDrawer}
+              />
             </Flex>
             <Table variant="simple">
               <Thead>
@@ -95,7 +93,6 @@ export default function ProductsManager() {
                   <Th>Name</Th>
                   <Th>Price</Th>
                   <Th>Description</Th>
-                  <Th>Quantity</Th>
                   <Th>Status</Th>
                   <Th>Actions</Th>
                 </Tr>
@@ -120,7 +117,6 @@ export default function ProductsManager() {
                         <Td>{product.name}</Td>
                         <Td>{product.price}</Td>
                         <Td>{product.description}</Td>
-                        <Td>{product?.quantity}</Td>
                         <Td
                           style={{
                             color:
@@ -142,7 +138,7 @@ export default function ProductsManager() {
                             onClick={() =>
                               handleClickEditProduct(product)
                             }
-                            icon={<AiFillEye />}
+                            icon={<HiOutlinePencilAlt />}
                           />
                         </Td>
                       </Tr>

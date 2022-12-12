@@ -18,32 +18,37 @@ function CartProvider({ children }) {
   }, []);
 
   const addToCart = useCallback(
-    (product, quantity = 1) => {
-      const found = cart.products.find(({ id }) => id === product.id);
-      if (found) {
+    (product, quantityOrder = 1) => {
+      if (quantityOrder < product?.quantity) {
+        const found = cart.products.find(
+          ({ id }) => id === product.id
+        );
+        if (found) {
+          setCart((prev) => ({
+            ...prev,
+            total: prev.total + quantityOrder,
+            products: prev.products.map((currentProduct) => {
+              if (currentProduct.id === product.id) {
+                return {
+                  ...currentProduct,
+                  quantity_order:
+                    currentProduct.quantityOrder + quantityOrder
+                };
+              }
+              return currentProduct;
+            })
+          }));
+          return;
+        }
         setCart((prev) => ({
           ...prev,
-          total: prev.total + quantity,
-          products: prev.products.map((currentProduct) => {
-            if (currentProduct.id === product.id) {
-              return {
-                ...currentProduct,
-                quantity: currentProduct.quantity + quantity
-              };
-            }
-            return currentProduct;
+          total: prev.total + quantityOrder,
+          products: prev.products.concat({
+            ...product,
+            quantity_order: quantityOrder
           })
         }));
-        return;
       }
-      setCart((prev) => ({
-        ...prev,
-        total: prev.total + quantity,
-        products: prev.products.concat({
-          ...product,
-          quantity: quantity
-        })
-      }));
     },
     [cart.products, setCart]
   );
@@ -81,7 +86,11 @@ function CartProvider({ children }) {
             if (currentProduct.id === id) {
               return {
                 ...currentProduct,
-                quantity: currentProduct.quantity + 1
+                quantity_order:
+                  currentProduct?.quantity_order <
+                  currentProduct?.quantity
+                    ? currentProduct.quantity_order + 1
+                    : currentProduct.quantity_order
               };
             }
             return currentProduct;
@@ -92,7 +101,7 @@ function CartProvider({ children }) {
       const found = cart.products.find(
         (product) => product.id === id
       );
-      if (found.quantity > 1) {
+      if (found.quantity_order > 1) {
         setCart((prev) => ({
           ...prev,
           total: prev.total - 1,
@@ -100,7 +109,7 @@ function CartProvider({ children }) {
             if (currentProduct.id === id) {
               return {
                 ...currentProduct,
-                quantity: currentProduct.quantity - 1
+                quantity_order: currentProduct.quantity - 1
               };
             }
             return currentProduct;
@@ -118,7 +127,7 @@ function CartProvider({ children }) {
   return (
     <CartContext.Provider
       value={{
-				cart,
+        cart,
         isCartOpen,
         toggleCartOpen,
         addToCart,

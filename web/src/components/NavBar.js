@@ -65,7 +65,9 @@ export default function NavBar() {
       }
     });
   }, [history, resetCart, setCurrentUser]);
-
+  const handleShopSeller = () => {
+    history('/shop-seller');
+  };
   return (
     <Box bg="primaryColor" color="lightTextColor">
       <Box
@@ -127,7 +129,7 @@ export default function NavBar() {
                 lineHeight="13px"
                 fontWeight="500"
               >
-                {cart.total}
+                !!
               </Text>
             ) : null}
           </Box>
@@ -135,6 +137,9 @@ export default function NavBar() {
             <Menu>
               <MenuButton as={Avatar} size="sm" cursor="pointer" />
               <MenuList color="primaryColor">
+                <MenuItem onClick={handleShopSeller}>
+                  Shop seller
+                </MenuItem>
                 <MenuItem onClick={() => history('/orders')}>
                   My orders
                 </MenuItem>

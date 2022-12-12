@@ -49,7 +49,11 @@ export default function AdminLogin() {
       AdminAuthAPI.login(data).then((response) => {
         if (response.success) {
           setAdminToken(response.token.admin_access_token);
-          setCurrentAdmin(response.admin);
+          localStorage.setItem('role', 'admin');
+          setCurrentAdmin({
+            ...response.admin,
+            isAdmin: response.is_admin
+          });
           toast({
             title: 'Logged in successfully!',
             position: 'top',

@@ -22,38 +22,40 @@ export default function DetailProduct() {
   const { authenticated, redirectWhenNoAuth } = useUserAuthContext();
   const { addToCart, toggleCartOpen } = useCartContext();
 
-  const [quantity, setQuantity] = useState(1);
+  const [quantityOrder, setQuantityOrder] = useState(1);
 
   const { isLoading, data: product } = useQuery('product', () =>
     ProductAPI.getSingleProduct(productId)
   );
 
-  const handleChangeQuantity = useCallback((type) => {
+  const handleChangeQuantity = (type) => {
     if (type === 'plus') {
-      setQuantity((prev) => prev + 1);
+      if (quantityOrder < product?.quantity) {
+        setQuantityOrder((prev) => prev + 1);
+      }
       return;
     }
 
-    setQuantity((prev) => {
+    setQuantityOrder((prev) => {
       if (prev > 1) {
         return prev - 1;
       }
       return prev;
     });
-  }, []);
+  };
 
   const handleAddToCart = useCallback(() => {
     if (!authenticated) {
       redirectWhenNoAuth();
       return;
     }
-    addToCart(product, quantity);
+    addToCart(product, quantityOrder);
     toggleCartOpen();
   }, [
     addToCart,
     authenticated,
     product,
-    quantity,
+    quantityOrder,
     redirectWhenNoAuth,
     toggleCartOpen
   ]);
@@ -97,7 +99,7 @@ export default function DetailProduct() {
   }
 
   if (product) {
-    const { name, description, price, image } = product;
+    const { name, description, price, image, quantity } = product;
     return (
       <Flex alignItems="center" flexDirection="column">
         <Box
@@ -161,30 +163,41 @@ export default function DetailProduct() {
                 <Text my={4}>${price}</Text>
                 <Box my={4}>
                   <Text fontSize="xs">Quantity</Text>
-                  <Box
-                    mt={1}
-                    border="1px solid rgb(14, 27, 77)"
-                    w={24}
-                    borderRadius="lg"
+                  <Flex
+                    alignItems="center"
+                    // justifyContent="space-between"
                   >
-                    <Flex
-                      justifyContent="space-between"
-                      alignItems="center"
-                      p="5px 5px"
+                    <Box
+                      mt={1}
+                      border="1px solid rgb(14, 27, 77)"
+                      w={24}
+                      borderRadius="lg"
                     >
-                      <IconButton
-                        icon={<HiMinus />}
-                        size="xs"
-                        onClick={() => handleChangeQuantity('minus')}
-                      />
-                      <Text>{quantity}</Text>
-                      <IconButton
-                        icon={<HiPlus />}
-                        size="xs"
-                        onClick={() => handleChangeQuantity('plus')}
-                      />
-                    </Flex>
-                  </Box>
+                      <Flex
+                        justifyContent="space-between"
+                        alignItems="center"
+                        p="5px 5px"
+                      >
+                        <IconButton
+                          icon={<HiMinus />}
+                          size="xs"
+                          onClick={() =>
+                            handleChangeQuantity('minus')
+                          }
+                        />
+                        <Text>{quantityOrder}</Text>
+                        <IconButton
+                          icon={<HiPlus />}
+                          size="xs"
+                          onClick={() => handleChangeQuantity('plus')}
+                        />
+                      </Flex>
+                    </Box>
+                    <Text
+                      margin="0 30px"
+                      color="red"
+                    >{`${quantity} available`}</Text>
+                  </Flex>
                 </Box>
                 <Flex my={4} w="24rem">
                   <Button

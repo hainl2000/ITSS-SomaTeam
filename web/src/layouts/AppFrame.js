@@ -19,6 +19,9 @@ import NotFound from '../components/NotFound';
 import ForgetPassword from '../pages/ForgetPassword';
 import ResetPassword from '../pages/ResetPassword';
 import Products from '../components/Products';
+import ShopSeller from '../components/ShopSeller';
+import SellerRegister from '../pages/SellerRegister';
+import UserManager from '../pages/UserManager';
 
 export default function AppFrame() {
   const {
@@ -52,6 +55,7 @@ export default function AppFrame() {
         <Route path="forget-password" element={<ForgetPassword />} />
         <Route path="forget/*" element={<ResetPassword />} />
         <Route path="products/:id" element={<DetailProduct />} />
+        <Route path="shop-seller" element={<ShopSeller />} />
         <Route
           path="orders"
           element={
@@ -118,6 +122,26 @@ export default function AppFrame() {
           element={
             adminAuthenticated ? (
               <ProductsManager />
+            ) : (
+              <Navigate to="/admin/login" replace />
+            )
+          }
+        />
+        <Route
+          path="user-manager"
+          element={
+            adminAuthenticated ? (
+              <UserManager />
+            ) : (
+              <Navigate to="/admin/login" replace />
+            )
+          }
+        />
+        <Route
+          path="shop-manager"
+          element={
+            adminAuthenticated ? (
+              <SellerRegister />
             ) : (
               <Navigate to="/admin/login" replace />
             )

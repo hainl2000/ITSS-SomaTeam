@@ -1,4 +1,5 @@
 import {
+  REGISTER_SELLER,
   USER_CHECK_FORGETPASSWORD,
   USER_FORGET_PASSWORD,
   USER_GET_INFO_ENDPOINT,
@@ -65,6 +66,16 @@ class UserAuthAPI {
       USER_UPDATE_PASSWORD(token),
       data
     );
+    return response.data;
+  }
+
+  static async registerSeller(data) {
+    const token = getUserToken();
+    const response = await instanceAxios.post(REGISTER_SELLER, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     return response.data;
   }
 }
