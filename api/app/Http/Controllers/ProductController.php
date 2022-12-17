@@ -30,7 +30,7 @@ class ProductController extends Controller
         if (isset($category_id)) {
             $products->where('category_id', $category_id);
         }
-            $products->paginate(12);
+        $products = $products->paginate(12);
         return response()->json($products);
     }
 
