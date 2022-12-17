@@ -17,7 +17,7 @@ class ProductController extends Controller
         $searchString = $request->searchString;
         $category_id = $request->input('category');
 
-        $products = Product::when(strlen($searchString) >= 3, function ($query) use ($searchString) {
+        $products = Product::with('categories')->when(strlen($searchString) >= 3, function ($query) use ($searchString) {
             return $query->where('name', 'like', '%'.$searchString.'%');
         })
             ->when($sortType and $sortType === 'high-to-low', function ($query) use ($sortType) {
@@ -35,7 +35,7 @@ class ProductController extends Controller
     }
 
     public function getProducts(Request $request) {
-        $query = Product::orderBy('created_at', 'desc');
+        $query = Product::with('categories')->orderBy('created_at', 'desc');
         $loginUser = auth()->user();
         if (isset($loginUser->is_seller) && $loginUser->is_seller == 2) {
             $query->where('created_by', auth()->id());
