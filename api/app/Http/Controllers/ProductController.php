@@ -46,7 +46,7 @@ class ProductController extends Controller
     }
 
     public function getSingleProduct($id) {
-        $product = Product::with('categories')->findOrFail($id);
+        $product = Product::with('categories')->where('is_approve', 2)->findOrFail($id);
         return response()->json($product);
     }
 
