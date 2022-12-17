@@ -70,6 +70,7 @@ class ProductController extends Controller
                 'description' => $request->input('description'),
                 'quantity' => $request->input('quantity'),
                 'is_approve' => 1,
+                'category_id' => $request->input('category'),
                 'created_by' => auth()->id()
             ]);
             return response()->json([
