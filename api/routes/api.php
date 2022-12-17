@@ -7,6 +7,7 @@ use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CategoryController;
 
 
 Route::prefix('user')->group(function () {
@@ -32,6 +33,7 @@ Route::prefix('user')->group(function () {
 Route::get('/getBestSeller',[ProductController::class, 'getBestSeller']);
 Route::get('/products', [ProductController::class, 'getAllProducts']);
 Route::get('/products/{id}', [ProductController::class, 'getSingleProduct']);
+Route::get('/allCategories', [CategoryController::class, 'getAllCategories']);
 Route::prefix('admin')->group(function () {
     Route::post('login', [AdminAuthController::class, 'login']);
     Route::middleware('auth:admin')->group(function () {
