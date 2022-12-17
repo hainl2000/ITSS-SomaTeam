@@ -15,6 +15,7 @@ class ProductController extends Controller
     public function getAllProducts(Request $request) {
         $sortType = $request->sortType;
         $searchString = $request->searchString;
+        $category_id = $request->input('category');
 
         $products = Product::when(strlen($searchString) >= 3, function ($query) use ($searchString) {
             return $query->where('name', 'like', '%'.$searchString.'%');
@@ -25,8 +26,11 @@ class ProductController extends Controller
             ->when($sortType and $sortType === 'low-to-high', function ($query) use ($sortType) {
                 return $query->orderBy('price');
             })
-            ->where('is_approve', 2)
-            ->paginate(12);
+            ->where('is_approve', 2);
+        if (isset($category_id)) {
+            $products->where('category_id', $category_id);
+        }
+            $products->paginate(12);
         return response()->json($products);
     }
 
