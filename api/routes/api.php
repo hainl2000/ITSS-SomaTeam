@@ -34,6 +34,9 @@ Route::get('/getBestSeller',[ProductController::class, 'getBestSeller']);
 Route::get('/products', [ProductController::class, 'getAllProducts']);
 Route::get('/products/{id}', [ProductController::class, 'getSingleProduct']);
 Route::get('/allCategories', [CategoryController::class, 'getAllCategories']);
+Route::get('/similarProduct/{id}', [ProductController::class, 'getSimilarProduct']);
+Route::get('/getProductByCategory/{id}', [ProductController::class, 'getAllProductsByCategory']);
+
 Route::prefix('admin')->group(function () {
     Route::post('login', [AdminAuthController::class, 'login']);
     Route::middleware('auth:admin')->group(function () {

@@ -42,7 +42,18 @@ class ProductController extends Controller
     }
 
     public function getSingleProduct($id) {
+        $product = Product::with('categories')->findOrFail($id);
+        return response()->json($product);
+    }
+
+    public function getSimilarProduct($id) {
         $product = Product::findOrFail($id);
+        $similiarProduct = Product::whereNotIn('id', [$product->id])->limit(4)->get();
+        return response()->json($similiarProduct);
+    }
+
+    public function getAllProductsByCategory($id) {
+        $product = Product::where('category_id', $id)->get();
         return response()->json($product);
     }
 
