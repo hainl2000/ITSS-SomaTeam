@@ -93,6 +93,7 @@ class ProductController extends Controller
         $product->description = $request['description'];
         $product->image = $request['image'];
         $product->quantity = $request['quantity'];
+        $product->category_id = $request['category'];
 
         try {
             DB::beginTransaction();
@@ -172,7 +173,10 @@ class ProductController extends Controller
         }
     }
 
-    public function getInSaleProduct() {
+    public function getTotalRevenue() {
+        dd(OrderDetail::select(DB::raw('sum(price) as `price`'), DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
+            ->groupby('year','month','price')
+            ->get()->toArray());
 
     }
 }

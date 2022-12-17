@@ -52,5 +52,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/getListSellerRequests',[UserController::class, 'getListSellerRequests']);
         Route::post('/registerAdmin',[UserAuthController::class, 'registerAdmin']);
         Route::post('/lockUser',[UserController::class, 'lockUser']);
+        Route::get('/getTotalRevenue', [ProductController::class, 'getTotalRevenue']);
     });
 });
