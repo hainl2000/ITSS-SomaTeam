@@ -153,4 +153,17 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function profile(Request $request)
+    {
+        $loginUser = auth()->user();
+        if ($loginUser->is_seller == 2) {
+            $sellerInfo = SellerInformations::select('credit_number','bank','address','phone_number')->where('seller_id', $loginUser->id)->first();
+            $loginUser['sellerInfo'] = $sellerInfo->toArray();
+        }
+        return response()->json([
+            'success' => true,
+            'info' => $loginUser
+        ]);
+    }
 }

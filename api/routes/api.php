@@ -16,6 +16,7 @@ Route::prefix('user')->group(function () {
     Route::post('/sendForgetPasswordMail', [UserAuthController::class, 'sendForgetPasswordMail']);
     Route::post('/updatePassword/{token}', [UserAuthController::class, 'updatePassword']);
     Route::middleware('auth:api')->group(function () {
+        Route::get('profile',[UserController::class, 'profile']);
         Route::get('me', [UserAuthController::class, 'me']);
         Route::get('logout', [UserAuthController::class, 'logout']);
         Route::post('/createOrder', [OrderController::class, 'createOrder']);

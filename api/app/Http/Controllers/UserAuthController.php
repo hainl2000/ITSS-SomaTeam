@@ -6,6 +6,7 @@ use App\Mail\ForgetpasswordMail;
 use App\Mail\SignupMail;
 use App\Models\Admin;
 use App\Models\PasswordReset;
+use App\Models\SellerInformations;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

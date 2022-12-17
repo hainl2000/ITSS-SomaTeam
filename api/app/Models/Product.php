@@ -20,4 +20,9 @@ class Product extends Model
         'created_by',
         'is_approve'
     ];
+
+    public function categories()
+    {
+        return $this->hasOne(Product::class);
+    }
 }
