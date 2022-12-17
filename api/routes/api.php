@@ -28,6 +28,8 @@ Route::prefix('user')->group(function () {
         Route::post('/registerSeller', [UserController::class, 'registerSeller']);
         Route::get('/checkIsSeller',[UserController::class, 'checkIsSeller']);
         Route::get('/products', [ProductController::class, 'getProducts']);
+        Route::get('/totalRevenue', [ProductController::class, 'getTotalRevenue']);
+        Route::get('/totalProduct', [ProductController::class, 'getTotalProduct']);
     });
 });
 Route::get('/getBestSeller',[ProductController::class, 'getBestSeller']);
