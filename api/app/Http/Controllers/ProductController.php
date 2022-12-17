@@ -176,10 +176,47 @@ class ProductController extends Controller
         }
     }
 
-    public function getTotalRevenue() {
-        dd(OrderDetail::select(DB::raw('sum(price) as `price`'), DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
-            ->groupby('year','month','price')
-            ->get()->toArray());
+    public function getTotalRevenue(Request $request) {
+        $isSeller = $request->input('isSeller');
+        $orders = OrderDetail::join('products', function ($join){
+            $join->on('products.id', 'order_details.product_id');
+            $join->whereNull('products.deleted_at');
+        });
 
+        $orders = $orders->select(DB::raw('sum(order_details.price) as `prices`'),
+            DB::raw("DATE_FORMAT(order_details.created_at,'%m') as monthKey"));
+        if ($isSeller)
+        {
+            $orders = $orders->where('products.created_by', auth()->id());
+        }
+        $orders = $orders->whereYear('order_details.created_at', date('Y'))
+        ->groupBy('monthKey')
+        ->orderBy('monthKey', 'ASC')
+        ->get();
+        $data = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+        foreach($orders as $order){
+            $data[$order->monthKey-1] = $order->prices;
+        }
+        return response()->json($data);
+    }
+
+    public function getTotalProduct(Request $request) {
+        $isSeller = $request->input('isSeller');
+        $products = Product::select(DB::raw('count(id) as `products`'),
+            DB::raw("DATE_FORMAT(created_at,'%m') as monthKey"))
+            ->whereYear('created_at', date('Y'));
+        if ($isSeller) {
+            $products->where('created_by', auth()->id());
+        }
+        $products = $products->groupBy('monthKey')
+        ->orderBy('monthKey', 'ASC')
+        ->get();
+        $data = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+        foreach($products as $product){
+            $data[$product->monthKey-1] = $product->products;
+        }
+        return response()->json($data);
     }
 }
