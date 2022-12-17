@@ -52,7 +52,7 @@ class ProductController extends Controller
 
     public function getSimilarProduct($id) {
         $product = Product::findOrFail($id);
-        $similiarProduct = Product::whereNotIn('id', [$product->id])->limit(4)->get();
+        $similiarProduct = Product::whereNotIn('id', [$product->id])->where('category_id', $product->category_id)->limit(4)->get();
         return response()->json($similiarProduct);
     }
 
