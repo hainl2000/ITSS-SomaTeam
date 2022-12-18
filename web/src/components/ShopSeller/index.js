@@ -7,7 +7,6 @@ import ShopRegistration from './ShopRegistration';
 const ShopSeller = () => {
   const { currentUser } = useUserAuthContext();
   // console.log(currentUser);
-  console.log(currentUser);
   const checkIsSeller = (user) => {
     switch (user?.is_seller) {
       case 0:

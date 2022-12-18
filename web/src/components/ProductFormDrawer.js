@@ -15,24 +15,27 @@ import {
   Box,
   Text,
   Textarea,
-  useToast
+  useToast,
+  Select
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import ProductAPI from '../api/ProductAPI';
 import { useUserAuthContext } from '../contexts/UserAuthContext';
 import { useAdminAuthContext } from '../contexts/AdminAuthContext';
-
+import { useQuery } from 'react-query';
+// import ProductAPI from '../api/ProductAPI';
 export default function ProductFormDrawer({
   isOpen,
   onClose,
   selectedProduct,
-  setSelectedProduct,
+  option,
   refetch
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // const { currentAdmin } = useAdminAuthContext();
-  // const { currentUser } = useUserAuthContext();
-  // console.log(localStorage.getItem('role'));
+
+  const { data: category } = useQuery('catygory', () =>
+    ProductAPI.getAllCategories()
+  );
   const toast = useToast();
   const {
     register,
@@ -42,16 +45,15 @@ export default function ProductFormDrawer({
     formState: { errors }
   } = useForm();
 
-  const handleCloseDrawer = useCallback(() => {
+  const handleCloseDrawer = () => {
     // setIsSubmitting(false)
 
     reset();
     onClose();
-  }, [onClose, reset]);
+  };
 
   const handleRejectProduct = () => {
     // setIsSubmitting(true);
-    console.log('hee');
     const payload = {
       product_id: selectedProduct.id,
       status: 0
@@ -65,9 +67,9 @@ export default function ProductFormDrawer({
           status: response.success ? 'success' : 'error'
         });
         refetch();
-        if (response.success) {
-          handleCloseDrawer();
-        }
+        handleCloseDrawer();
+        // if (response.success) {
+        // }
       })
       .catch(() => {
         setIsSubmitting(false);
@@ -86,66 +88,11 @@ export default function ProductFormDrawer({
     return false;
   };
 
-  console.log(checkIsAdmin());
-
-  const onSubmit = useCallback(
-    (data) => {
-      if (localStorage.getItem('role') === 'user') {
-        if (!selectedProduct) {
-          setIsSubmitting(true);
-          ProductAPI.userAddProduct(data)
-            .then((response) => {
-              setIsSubmitting(false);
-              toast({
-                title: response.message,
-                duration: 3000,
-                status: response.success ? 'success' : 'error'
-              });
-              refetch();
-              if (response.success) {
-                handleCloseDrawer();
-              }
-            })
-            .catch(() => {
-              setIsSubmitting(false);
-              toast({
-                title: 'An unknown error occurred',
-                duration: 3000,
-                status: 'error'
-              });
-            });
-        } else {
-          setIsSubmitting(true);
-          data.id = selectedProduct.id;
-          ProductAPI.updateProduct(data)
-            .then((response) => {
-              setIsSubmitting(false);
-              toast({
-                title: response.message,
-                duration: 3000,
-                status: response.success ? 'success' : 'error'
-              });
-              if (response.success) {
-                handleCloseDrawer();
-                refetch();
-              }
-            })
-            .catch(() => {
-              setIsSubmitting(false);
-              toast({
-                title: 'An unknown error occurred',
-                duration: 3000,
-                status: 'error'
-              });
-            });
-        }
-      } else {
+  const onSubmit = (data) => {
+    if (localStorage.getItem('role') === 'user') {
+      if (!selectedProduct) {
         setIsSubmitting(true);
-        const payload = {
-          product_id: selectedProduct.id,
-          status: 2
-        };
-        ProductAPI.adminAproveProduct(payload)
+        ProductAPI.userAddProduct(data)
           .then((response) => {
             setIsSubmitting(false);
             toast({
@@ -166,23 +113,93 @@ export default function ProductFormDrawer({
               status: 'error'
             });
           });
+      } else {
+        setIsSubmitting(true);
+        data.id = selectedProduct.id;
+        ProductAPI.updateProduct(data)
+          .then((response) => {
+            setIsSubmitting(false);
+            toast({
+              title: response.message,
+              duration: 3000,
+              status: response.success ? 'success' : 'error'
+            });
+            handleCloseDrawer();
+            refetch();
+            // if (response.success) {
+            // }
+          })
+          .catch(() => {
+            setIsSubmitting(false);
+            toast({
+              title: 'An unknown error occurred',
+              duration: 3000,
+              status: 'error'
+            });
+          });
       }
-    },
-    [handleCloseDrawer, refetch, selectedProduct, toast]
-  );
+    } else {
+      setIsSubmitting(true);
+      const payload = {
+        product_id: selectedProduct.id,
+        status: 2
+      };
+      ProductAPI.adminAproveProduct(payload)
+        .then((response) => {
+          setIsSubmitting(false);
+          toast({
+            title: response.message,
+            duration: 3000,
+            status: response.success ? 'success' : 'error'
+          });
+          refetch();
+          if (response.success) {
+            handleCloseDrawer();
+          }
+        })
+        .catch(() => {
+          setIsSubmitting(false);
+          toast({
+            title: 'An unknown error occurred',
+            duration: 3000,
+            status: 'error'
+          });
+        });
+    }
+  };
+
+  const initForm = () => {
+    if (option === 'edit' || checkIsAdmin()) {
+      if (selectedProduct) {
+        setValue('name', selectedProduct.name);
+        setValue('price', selectedProduct.price);
+        setValue('description', selectedProduct.description);
+        setValue('image', selectedProduct.image);
+        setValue('quantity', selectedProduct.quantity);
+        setValue('category', selectedProduct.category_id);
+      }
+    } else {
+      // reset();
+    }
+  };
 
   useEffect(() => {
-    if (selectedProduct) {
-      setValue('name', selectedProduct.name);
-      setValue('price', selectedProduct.price);
-      setValue('description', selectedProduct.description);
-      setValue('image', selectedProduct.image);
-      setValue('quantity', selectedProduct.quantity);
-    }
-    return () => {
+    // console.log(selectedProduct);
+    initForm();
+    // return () => {
+    //   reset();
+    // };
+  });
+
+  useEffect(() => {
+    if (option === 'add') {
       reset();
-    };
-  }, [reset, selectedProduct, setSelectedProduct, setValue]);
+    }
+  }, [option]);
+
+  // useEffect(() => {
+  //   initForm();
+  // });
 
   return (
     <Drawer
@@ -276,6 +293,27 @@ export default function ProductFormDrawer({
                   </Text>
                 ) : null}
               </FormControl>
+              <FormControl isReadOnly={checkIsAdmin()}>
+                <FormLabel>Category</FormLabel>
+                <Select
+                  // placeholder="Category"
+                  defaultValue="1"
+                  {...register('category', {
+                    required: 'Category is a required field'
+                  })}
+                >
+                  {category?.listCategories?.map((item) => (
+                    <option key={item.id} value={item?.id}>
+                      {item?.name}
+                    </option>
+                  ))}
+                </Select>
+                {errors.quantity ? (
+                  <Text color="red" mt={1}>
+                    {errors.quantity.message}
+                  </Text>
+                ) : null}
+              </FormControl>
             </Flex>
           </DrawerBody>
 
@@ -284,15 +322,12 @@ export default function ProductFormDrawer({
               variant="outline"
               mr={3}
               onClick={
-                localStorage.getItem('role') === 'admin'
+                checkIsAdmin()
                   ? handleRejectProduct
                   : handleCloseDrawer
               }
             >
-              {selectedProduct &&
-              localStorage.getItem('role') === 'user'
-                ? 'Cancel'
-                : 'Reject'}
+              {!checkIsAdmin() ? 'Cancel' : 'Reject'}
             </Button>
             <Button
               colorScheme="blue"

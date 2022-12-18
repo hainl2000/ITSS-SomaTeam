@@ -28,8 +28,12 @@ import { useWebContext } from '../contexts/WebContext';
 
 export default function NavBar() {
   const history = useNavigate();
-  const { authenticated, setCurrentUser, redirectWhenNoAuth } =
-    useUserAuthContext();
+  const {
+    authenticated,
+    setCurrentUser,
+    redirectWhenNoAuth,
+    currentUser
+  } = useUserAuthContext();
   const { toggleCartOpen, resetCart, cart } = useCartContext();
   const { searchString, setSearchString } = useWebContext();
 
@@ -66,7 +70,7 @@ export default function NavBar() {
     });
   }, [history, resetCart, setCurrentUser]);
   const handleShopSeller = () => {
-    history('/shop-seller');
+    history('/shop-seller/dashboard');
   };
   return (
     <Box bg="primaryColor" color="lightTextColor">
@@ -135,8 +139,17 @@ export default function NavBar() {
           </Box>
           {authenticated ? (
             <Menu>
-              <MenuButton as={Avatar} size="sm" cursor="pointer" />
+              <MenuButton
+                // as={Avatar}
+                size="sm"
+                cursor="pointer"
+              >
+                <Avatar src={currentUser?.image} />
+              </MenuButton>
               <MenuList color="primaryColor">
+                <MenuItem onClick={() => history('/profile')}>
+                  Profile
+                </MenuItem>
                 <MenuItem onClick={handleShopSeller}>
                   Shop seller
                 </MenuItem>

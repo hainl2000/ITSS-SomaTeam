@@ -1,0 +1,6 @@
+.css-10ex9a1[disabled],
+.css-10ex9a1[aria-disabled='true'],
+.css-10ex9a1[data-disabled] {
+  opacity: 0.8 !important;
+  cursor: not-allowed;
+}

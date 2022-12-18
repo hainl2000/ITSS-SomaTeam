@@ -7,7 +7,7 @@ import CartProvider from './contexts/CartContext';
 import UserAuthProvider from './contexts/UserAuthContext';
 import WebProvider from './contexts/WebContext';
 import AdminAuthProvider from './contexts/AdminAuthContext';
-
+import './index.css';
 const queryClient = new QueryClient();
 
 export default function App() {

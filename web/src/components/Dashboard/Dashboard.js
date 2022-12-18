@@ -18,7 +18,8 @@ import { Link, useNavigate } from 'react-router-dom';
 // import ProductAPI from '../api/ProductAPI';
 import ProductAPI from '../../api/ProductAPI';
 // import { useWebContext } from '../../contexts/WebContext';
-import { useWebContext } from '../../contexts/WebContext';
+// import { useWebContext } from '../../contexts/WebContext';
+
 import './index.css';
 import { useState } from 'react';
 
@@ -66,22 +67,16 @@ const mockdata = [
 ];
 const Dashboard = () => {
   const history = useNavigate();
-  const { authenticated, redirectWhenNoAuth } = useUserAuthContext();
-  const { addToCart, toggleCartOpen } = useCartContext();
-  const { searchString } = useWebContext();
 
-  const [page, setPage] = useState(1);
-  const [sortType, setSortType] = useState('none');
+  const { data: category } = useQuery('catygory', () =>
+    ProductAPI.getAllCategories()
+  );
 
   const { isLoading, data: products } = useQuery(
     ['products'],
     () => ProductAPI.getBestSeller(),
     { keepPreviousData: true }
   );
-  console.log(products);
-  const handleChangeSortType = useCallback((e) => {
-    setSortType(e.target.value);
-  }, []);
 
   const handleClickProduct = useCallback(
     (e, id) => {
@@ -92,18 +87,6 @@ const Dashboard = () => {
     [history]
   );
 
-  const handleClickAddToCart = useCallback(
-    (product) => {
-      if (!authenticated) {
-        redirectWhenNoAuth();
-        return;
-      }
-      addToCart(product);
-      toggleCartOpen();
-    },
-    [addToCart, authenticated, redirectWhenNoAuth, toggleCartOpen]
-  );
-
   return (
     <div>
       <div className="content">
@@ -111,10 +94,17 @@ const Dashboard = () => {
           <h1>Danh mục sản phẩm</h1>
         </div>
         <div className="category">
-          {mockdata.map((item, index) => (
-            <figure className="card">
-              <img src={item.src} alt="cate" />
-              <figcaption>{item.title}</figcaption>
+          {category?.listCategories?.map((item, index) => (
+            <figure
+              className="card"
+              onClick={() => {
+                history(`products?category=${item.id}`);
+              }}
+            >
+              {/* <Link to=> */}
+              <img src={item.image} alt="cate" />
+              <figcaption>{item.name}</figcaption>
+              {/* </Link> */}
             </figure>
           ))}
         </div>

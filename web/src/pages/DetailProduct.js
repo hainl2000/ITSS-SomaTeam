@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -12,11 +12,12 @@ import {
 import { HiMinus, HiPlus } from 'react-icons/hi';
 import { useQuery } from 'react-query';
 import ProductAPI from '../api/ProductAPI';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import NotFound from '../components/NotFound';
 import { useCartContext } from '../contexts/CartContext';
 import { useUserAuthContext } from '../contexts/UserAuthContext';
-
+import Comments from '../components/Comments';
+import SimilarProduct from '../components/SimilarProduct';
 export default function DetailProduct() {
   const { id: productId } = useParams();
   const { authenticated, redirectWhenNoAuth } = useUserAuthContext();
@@ -27,6 +28,12 @@ export default function DetailProduct() {
   const { isLoading, data: product } = useQuery('product', () =>
     ProductAPI.getSingleProduct(productId)
   );
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, []);
 
   const handleChangeQuantity = (type) => {
     if (type === 'plus') {
@@ -99,11 +106,12 @@ export default function DetailProduct() {
   }
 
   if (product) {
-    const { name, description, price, image, quantity } = product;
+    const { name, description, price, image, quantity, categories } =
+      product;
     return (
       <Flex alignItems="center" flexDirection="column">
         <Box
-          maxW="70rem"
+          w="70rem"
           p="30px 5rem"
           style={{
             margin: '30px 0',
@@ -122,8 +130,9 @@ export default function DetailProduct() {
                 alt="avt"
                 style={{
                   borderRadius: '50px',
-                  width: '100px',
-                  height: '100px'
+                  minWidth: '40px',
+                  minHeight: '40px'
+                  // objectFit: 'fill'
                 }}
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh55CCvqcNxzNaCmfMlXhMwQj5MFv51qe8KtLqqBgYTA&s"
               />
@@ -157,10 +166,17 @@ export default function DetailProduct() {
               flexShrink={0}
             >
               <Box maxW="40rem">
-                <Text fontWeight={700} fontSize="3xl" my={2}>
-                  {name}
+                <Flex
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Text fontWeight={700} fontSize="3xl" my={2}>
+                    {name}
+                  </Text>
+                </Flex>
+                <Text my={4} fontWeight={600} fontSize="20px">
+                  ${price}
                 </Text>
-                <Text my={4}>${price}</Text>
                 <Box my={4}>
                   <Text fontSize="xs">Quantity</Text>
                   <Flex
@@ -210,91 +226,27 @@ export default function DetailProduct() {
                   </Button>
                 </Flex>
                 <Text>{description}</Text>
+                <div
+                  style={{
+                    margin: '20px 0'
+                  }}
+                >
+                  <Text fontWeight={600}>{`Danh mục: `}</Text>
+                  <a
+                    style={{
+                      color: '#4169E1'
+                    }}
+                    href={`/products?category=${categories?.id}`}
+                  >
+                    {categories?.name}
+                  </a>
+                </div>
               </Box>
             </Box>
           </Flex>
         </Box>
-        <Box
-          w="70rem"
-          p="30px 5rem"
-          style={{
-            margin: '30px 0',
-            background: 'white',
-            borderRadius: '12px'
-          }}
-        >
-          <p
-            style={{
-              fontWeight: '600',
-              fontSize: '20px'
-              // margin: '0   20px'
-            }}
-          >
-            Đánh giá sản phẩm
-          </p>
-          <div
-            style={{
-              margin: '20px 0'
-            }}
-          >
-            <Input
-              width="80%"
-              placeholder="Nhập đánh giá của bạn về sản phẩm"
-            />
-
-            <Button
-              // leftIcon={<>helo</>}
-              style={{
-                margin: '0 20px'
-              }}
-            >
-              Gửi
-            </Button>
-          </div>
-          <div>
-            {mockData.map((item, index) => (
-              <Flex
-                alignItems="center"
-                style={{
-                  margin: '20px 0',
-                  borderBottom: '1px solid rgba(0,0,0,0.1)',
-                  padding: '20px 0'
-                }}
-              >
-                <div>
-                  <img
-                    alt="avt"
-                    style={{
-                      borderRadius: '30px',
-                      width: '60px',
-                      height: '60px'
-                    }}
-                    src={item.src}
-                  />
-                  <p>{item.name}</p>
-                </div>
-                <div>
-                  <p
-                    style={{
-                      fontSize: '12px',
-                      color: 'gray'
-                    }}
-                  >
-                    {item.time}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: '18px',
-                      margin: '0   20px'
-                    }}
-                  >
-                    {item.cmt}
-                  </p>
-                </div>
-              </Flex>
-            ))}
-          </div>
-        </Box>
+        <Comments data={mockData} />
+        <SimilarProduct data={[]} />
       </Flex>
     );
   }

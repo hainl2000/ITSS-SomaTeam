@@ -26,6 +26,11 @@ import { setAdminToken } from '../utils/adminAuth';
 
 const siderBarItems = [
   {
+    title: 'Dashboard',
+    url: '/admin/dashboard',
+    icon: HiOutlineShoppingCart
+  },
+  {
     title: 'Orders',
     url: '/admin/orders',
     icon: HiOutlineShoppingCart

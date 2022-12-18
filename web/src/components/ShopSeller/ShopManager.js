@@ -32,23 +32,27 @@ export default function ShopManager() {
   const [isOpenProductFormDrawer, setIsOpenProductFormDrawer] =
     useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
+  const [option, setOption] = useState('');
   const { isLoading, data, refetch } = useQuery(
     ['shopGetAllProducts', page],
     () => ProductAPI.shopGetAllProducts(page)
   );
 
-  const toggleProductFormDrawer = useCallback(() => {
+  const toggleProductFormDrawer = () => {
     setIsOpenProductFormDrawer((prev) => !prev);
-  }, []);
+  };
 
-  const handleClickEditProduct = useCallback(
-    (product) => {
-      setSelectedProduct(product);
-      toggleProductFormDrawer();
-    },
-    [toggleProductFormDrawer]
-  );
+  const handleClickEditProduct = (product) => {
+    setSelectedProduct(product);
+    setOption('edit');
+    toggleProductFormDrawer();
+  };
+
+  const handleAddProduct = () => {
+    setSelectedProduct(null);
+    setOption('add');
+    toggleProductFormDrawer();
+  };
 
   return (
     <>
@@ -58,6 +62,7 @@ export default function ShopManager() {
         selectedProduct={selectedProduct}
         setSelectedProduct={setSelectedProduct}
         refetch={refetch}
+        option={option}
       />
       <Box
         paddingTop={8}
@@ -82,7 +87,7 @@ export default function ShopManager() {
               </Text>
               <IconButton
                 icon={<HiPlus />}
-                onClick={toggleProductFormDrawer}
+                onClick={handleAddProduct}
               />
             </Flex>
             <Table variant="simple">
@@ -93,6 +98,7 @@ export default function ShopManager() {
                   <Th>Name</Th>
                   <Th>Price</Th>
                   <Th>Description</Th>
+                  <Th>Category</Th>
                   <Th>Status</Th>
                   <Th>Actions</Th>
                 </Tr>
@@ -117,6 +123,7 @@ export default function ShopManager() {
                         <Td>{product.name}</Td>
                         <Td>{product.price}</Td>
                         <Td>{product.description}</Td>
+                        <Td>{product?.categories?.name}</Td>
                         <Td
                           style={{
                             color:
@@ -133,6 +140,7 @@ export default function ShopManager() {
                             ? 'Pending'
                             : 'Approved'}
                         </Td>
+
                         <Td>
                           <IconButton
                             onClick={() =>

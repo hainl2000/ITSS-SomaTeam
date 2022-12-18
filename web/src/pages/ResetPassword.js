@@ -55,11 +55,9 @@ export default function ResetPassword() {
   //     }
   //   };
   useEffect(() => {
-    console.log(path);
     const x = path.split('/');
     UserAuthAPI.checkForgetPasswordToken(x[2])
       .then((res) => {
-        console.log(res);
         setCheckToken(true);
       })
       .catch((err) => {
@@ -70,7 +68,6 @@ export default function ResetPassword() {
   });
   const onSubmit = useCallback(
     (data) => {
-      console.log(data);
       UserAuthAPI.userUpdatePassword(path.split('/')[2], data).then(
         (response) => {
           if (response.success) {

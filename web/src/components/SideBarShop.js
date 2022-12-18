@@ -22,8 +22,13 @@ import {
 
 const siderBarItems = [
   {
+    title: 'Dashboard',
+    url: '/shop-seller/dashboard',
+    icon: HiOutlineCube
+  },
+  {
     title: 'Products',
-    url: '/shop-seller',
+    url: '/shop-seller/products',
     icon: HiOutlineCube
   }
 ];
@@ -40,7 +45,7 @@ export default function SideBarShop() {
       pt={8}
       paddingInlineStart={6}
       paddingInlineEnd={6}
-      bg="rgba(0,0,0,0.3)"
+      bg="rgb(176,196,222)"
       color="white"
       height="100vh"
       flexDir="column"
