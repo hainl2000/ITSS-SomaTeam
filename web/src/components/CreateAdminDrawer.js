@@ -26,9 +26,7 @@ export default function CreateAdminDrawer({
   refetch
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // const { currentAdmin } = useAdminAuthContext();
-  // const { currentUser } = useUserAuthContext();
-  // console.log(localStorage.getItem('role'));
+  // const { currentAdmin age.getItem('role'));
   const toast = useToast();
   const {
     register,

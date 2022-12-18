@@ -11,13 +11,12 @@ import { HiMinus, HiOutlineTrash, HiPlus } from 'react-icons/hi';
 import { useCartContext } from '../contexts/CartContext';
 
 export default function CartItem({ product }) {
-  // console.log(product);
   const { removeItemFromCart, handleChangeQuantity } =
     useCartContext();
 
   const { id, name, price, quantity, image, quantity_order } =
     product;
-
+  console.log(product);
   return (
     <Box w="full" mb={2}>
       <Grid mb={1} gridTemplate="auto auto / 1fr 1fr 1fr 1fr" gap={2}>
@@ -50,7 +49,7 @@ export default function CartItem({ product }) {
           pt={2}
           fontSize="sm"
         >
-          ${price * quantity}
+          ${price * quantity_order}
         </Flex>
         <Text
           fontSize="12px"

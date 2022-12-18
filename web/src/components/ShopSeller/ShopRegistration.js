@@ -41,7 +41,6 @@ export default function ShopRegistration() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     UserAuthAPI.registerSeller(data)
       .then((response) => {
         setIsSubmitting(false);

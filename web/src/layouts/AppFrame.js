@@ -22,6 +22,8 @@ import Products from '../components/Products';
 import ShopSeller from '../components/ShopSeller';
 import SellerRegister from '../pages/SellerRegister';
 import UserManager from '../pages/UserManager';
+import UserProfile from '../pages/UserProfile';
+import AdminDashboard from '../pages/AdminDashboard';
 
 export default function AppFrame() {
   const {
@@ -50,12 +52,27 @@ export default function AppFrame() {
             )
           }
         />
+        <Route
+          path="profile"
+          element={
+            userAuthenticated ? (
+              <UserProfile />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
         <Route path="products" element={<Products />} />
+        {/* <Route path="products/" element={<Products option='all'/>} /> */}
         <Route path="signup" element={<Signup />} />
         <Route path="forget-password" element={<ForgetPassword />} />
         <Route path="forget/*" element={<ResetPassword />} />
         <Route path="products/:id" element={<DetailProduct />} />
-        <Route path="shop-seller" element={<ShopSeller />} />
+        <Route path="shop-seller/products" element={<ShopSeller />} />
+        <Route
+          path="shop-seller/dashboard"
+          element={<ShopSeller />}
+        />
         <Route
           path="orders"
           element={
@@ -87,6 +104,7 @@ export default function AppFrame() {
           )
         }
       />
+
       <Route
         path="/admin/login"
         element={
@@ -107,6 +125,16 @@ export default function AppFrame() {
           )
         }
       >
+        <Route
+          path="dashboard"
+          element={
+            adminAuthenticated ? (
+              <AdminDashboard />
+            ) : (
+              <Navigate to="/admin/login" replace />
+            )
+          }
+        />
         <Route
           path="orders"
           element={

@@ -1,4 +1,5 @@
-const BASE_API_ENDPOINT = 'http://127.0.0.1:8000/api/';
+const BASE_API_ENDPOINT =
+  'https://itss-somateam-production.up.railway.app/api/';
 
 const USER_LOG_IN_ENDPOINT = 'user/login';
 const USER_LOG_OUT_ENDPOINT = 'user/logout';
@@ -9,6 +10,7 @@ const USER_CHECK_FORGETPASSWORD = (token) => `/user/forget/${token}`;
 const USER_UPDATE_PASSWORD = (token) =>
   `user/updatePassword/${token}`;
 const USER_GET_INFO_ENDPOINT = 'user/me';
+const USER_PROFILE = 'user/profile';
 const USER_CREATE_ORDER_ENDPOINT = 'user/createOrder';
 const USER_GET_ALL_ORDERS_ENDPOINT = 'user/orders';
 const USER_GET_DETAIL_ORDER_ENDPOINT = 'user/orders/';
@@ -30,7 +32,13 @@ const USER_ADD_PRODUCT_ENDPOINT = 'user/addProduct';
 const USER_UPDATE_PRODUCT_ENDPOINT = 'user/updateProduct';
 const ADMIN_CHANGE_ORDER_STATUS_ENDPOINT = 'admin/changeOrderStatus';
 const GET_BEST_SELLER = 'getBestSeller';
+const SHOP_GET_TOTAL_REVENUE = 'user/totalRevenue';
+const SHOP_GET_TOTAL_PRODUCT = 'user/totalProduct';
+const ADMIN_GET_TOTAL_REVENUE = 'admin/totalRevenue';
+const ADMIN_GET_TOTAL_PRODUCT = 'admin/totalProduct';
 const GET_ALL_PRODUCTS_ENDPOINT = 'products';
+const GET_ALL_CATEGORIES = 'allCategories';
+const GET_SIMILAR_PRODUCT = (id) => `similarProduct/${id}`;
 const GET_SINGLE_PRODUCT_ENDPOINT = 'products/';
 
 export {
@@ -40,6 +48,7 @@ export {
   USER_FORGET_PASSWORD,
   USER_LOG_IN_ENDPOINT,
   USER_LOG_OUT_ENDPOINT,
+  USER_PROFILE,
   USER_REGISTER_ENDPOINT,
   USER_GET_INFO_ENDPOINT,
   USER_CREATE_ORDER_ENDPOINT,
@@ -62,7 +71,13 @@ export {
   SHOP_GET_ALL_PRODUCTS_ENDPOINT,
   ADMID_GET_SHOP_REGISTER,
   ADMIN_APPROVE_SELLER,
+  GET_ALL_CATEGORIES,
+  ADMIN_GET_TOTAL_REVENUE,
+  ADMIN_GET_TOTAL_PRODUCT,
   ADMIN_APPROVE_PRODUCT_ENDPOINT,
   ADMIN_GET_LIST_USER,
-  REGISTER_ADMIN
+  REGISTER_ADMIN,
+  SHOP_GET_TOTAL_REVENUE,
+  SHOP_GET_TOTAL_PRODUCT,
+  GET_SIMILAR_PRODUCT
 };

@@ -10,7 +10,7 @@ import {
 import React, { useCallback, useState } from 'react';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ProductAPI from '../api/ProductAPI';
 import { useCartContext } from '../contexts/CartContext';
 import { useUserAuthContext } from '../contexts/UserAuthContext';
@@ -21,13 +21,23 @@ export default function Products() {
   const { authenticated, redirectWhenNoAuth } = useUserAuthContext();
   const { addToCart, toggleCartOpen } = useCartContext();
   const { searchString } = useWebContext();
-
+  // const { category: id } = useParams();
+  const category = new URLSearchParams(window.location.search).get(
+    'category'
+  );
+  // console.log(id, );
   const [page, setPage] = useState(1);
   const [sortType, setSortType] = useState('none');
 
   const { isLoading, data: products } = useQuery(
-    ['products', sortType, searchString, page],
-    () => ProductAPI.getAllProducts(sortType, searchString, page),
+    ['products', sortType, searchString, page, category],
+    () =>
+      ProductAPI.getAllProducts(
+        sortType,
+        searchString,
+        page,
+        category
+      ),
     { keepPreviousData: true }
   );
 
@@ -55,8 +65,6 @@ export default function Products() {
     },
     [addToCart, authenticated, redirectWhenNoAuth, toggleCartOpen]
   );
-
-  console.log({ page });
 
   return (
     <Box p="60px 0">

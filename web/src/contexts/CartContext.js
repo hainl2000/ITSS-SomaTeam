@@ -56,7 +56,7 @@ function CartProvider({ children }) {
   const getTotalAmount = useCallback(() => {
     let total = 0;
     cart.products.forEach(
-      ({ quantity, price }) => (total += quantity * price)
+      ({ quantity_order, price }) => (total += quantity_order * price)
     );
     return total;
   }, [cart.products]);
@@ -69,7 +69,7 @@ function CartProvider({ children }) {
 
       setCart((prev) => ({
         ...prev,
-        total: prev.total - found.quantity,
+        total: prev.total - found.quantity_order,
         products: prev.products.filter((product) => product.id !== id)
       }));
     },

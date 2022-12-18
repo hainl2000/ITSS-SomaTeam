@@ -5,6 +5,7 @@ import {
   USER_GET_INFO_ENDPOINT,
   USER_LOG_IN_ENDPOINT,
   USER_LOG_OUT_ENDPOINT,
+  USER_PROFILE,
   USER_REGISTER_ENDPOINT,
   USER_UPDATE_PASSWORD
 } from '../constants/endpoints';
@@ -15,6 +16,15 @@ class UserAuthAPI {
   static async getUser() {
     const token = getUserToken();
     const response = await instanceAxios.get(USER_GET_INFO_ENDPOINT, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data;
+  }
+  static async getUserProfile() {
+    const token = getUserToken();
+    const response = await instanceAxios.get(USER_PROFILE, {
       headers: {
         Authorization: `Bearer ${token}`
       }
