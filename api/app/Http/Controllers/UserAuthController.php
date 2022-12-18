@@ -80,7 +80,7 @@ class UserAuthController extends Controller
             DB::rollBack();
             return response()->json([
                 'success' => false,
-                'message' => 'Registration error'
+                'message' => $e->getMessage()
             ],400);
         }
     }
