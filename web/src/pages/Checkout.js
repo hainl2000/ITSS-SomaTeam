@@ -176,7 +176,7 @@ export default function Checkout() {
           overflowY="auto"
         >
           {cart.products.map(
-            ({ image, name, id, quantity, price }) => (
+            ({ image, name, id, quantity_order, price }) => (
               <Flex
                 key={`product-${id}`}
                 justifyContent="space-between"
@@ -200,12 +200,12 @@ export default function Checkout() {
                       fontSize="sm"
                       wordBreak="break-word"
                     >
-                      x{quantity}
+                      x{quantity_order}
                     </Text>
                   </Box>
                 </Flex>
                 <Text pl={1} pt={2} fontSize="md">
-                  ${quantity * price}
+                  ${quantity_order * price}
                 </Text>
               </Flex>
             )

@@ -9,7 +9,7 @@ const CartContext = React.createContext();
 function CartProvider({ children }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cart, setCart] = useLocalStorage('shopping_cart', {
-    total: 0,
+    // total: 0,
     products: []
   });
 
@@ -19,6 +19,7 @@ function CartProvider({ children }) {
 
   const addToCart = useCallback(
     (product, quantityOrder = 1) => {
+      // console.log('he', quantityOrder);
       if (quantityOrder < product?.quantity) {
         const found = cart.products.find(
           ({ id }) => id === product.id
@@ -26,7 +27,10 @@ function CartProvider({ children }) {
         if (found) {
           setCart((prev) => ({
             ...prev,
-            total: prev.total + quantityOrder,
+            // total:
+            //   prev?.quantity_order < prev.quantity
+            //     ? prev.total + quantityOrder
+            //     : prev.total,
             products: prev.products.map((currentProduct) => {
               if (currentProduct.id === product.id) {
                 return {
@@ -42,7 +46,7 @@ function CartProvider({ children }) {
         }
         setCart((prev) => ({
           ...prev,
-          total: prev.total + quantityOrder,
+          // total: prev.total + quantityOrder,
           products: prev.products.concat({
             ...product,
             quantity_order: quantityOrder
@@ -69,7 +73,7 @@ function CartProvider({ children }) {
 
       setCart((prev) => ({
         ...prev,
-        total: prev.total - found.quantity_order,
+        // total: prev.total - found.quantity_order,
         products: prev.products.filter((product) => product.id !== id)
       }));
     },
@@ -81,7 +85,10 @@ function CartProvider({ children }) {
       if (type === 'plus') {
         setCart((prev) => ({
           ...prev,
-          total: prev.total + 1,
+          // total:
+          //   prev?.quantity_order < prev?.quantity
+          //     ? prev.total + 1
+          //     : prev.total,
           products: prev.products.map((currentProduct) => {
             if (currentProduct.id === id) {
               return {
@@ -104,12 +111,12 @@ function CartProvider({ children }) {
       if (found.quantity_order > 1) {
         setCart((prev) => ({
           ...prev,
-          total: prev.total - 1,
+          // total: prev.total - 1,
           products: prev.products.map((currentProduct) => {
             if (currentProduct.id === id) {
               return {
                 ...currentProduct,
-                quantity_order: currentProduct.quantity - 1
+                quantity_order: currentProduct.quantity_order - 1
               };
             }
             return currentProduct;
@@ -121,7 +128,7 @@ function CartProvider({ children }) {
   );
 
   const resetCart = useCallback(() => {
-    setCart((prev) => ({ ...prev, total: 0, products: [] }));
+    setCart((prev) => ({ ...prev, products: [] }));
   }, [setCart]);
 
   return (

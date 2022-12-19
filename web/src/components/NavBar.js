@@ -118,7 +118,7 @@ export default function NavBar() {
               _hover={{ bg: 'none' }}
               icon={<HiOutlineShoppingBag color="lightTextColor" />}
             />
-            {cart.total > 0 ? (
+            {cart?.products?.length > 0 ? (
               <Text
                 position="absolute"
                 bottom="8px"

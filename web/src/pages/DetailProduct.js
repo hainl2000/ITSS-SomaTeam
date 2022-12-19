@@ -51,6 +51,10 @@ export default function DetailProduct() {
     });
   };
 
+  // useEffect(() => {
+  //   console.log(quantityOrder, 'quantity');
+  // }, [quantityOrder]);
+
   const handleAddToCart = useCallback(() => {
     if (!authenticated) {
       redirectWhenNoAuth();
