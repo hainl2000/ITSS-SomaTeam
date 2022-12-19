@@ -20,7 +20,7 @@ function CartProvider({ children }) {
   const addToCart = useCallback(
     (product, quantityOrder = 1) => {
       // console.log('he', quantityOrder);
-      if (quantityOrder < product?.quantity) {
+      if (quantityOrder <= product?.quantity) {
         const found = cart.products.find(
           ({ id }) => id === product.id
         );
