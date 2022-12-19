@@ -13,7 +13,7 @@ const SimilarProduct = () => {
   const { data: similar } = useQuery('similar', () =>
     ProductAPI.getSimilarProducts(productId)
   );
-  console.log(similar);
+  // console.log(similar);
   // const handleClickProduct = (e, id) => {
   //   if (e.target.tagName !== 'BUTTON') {
   //     history(`../products/${id}`, {

@@ -22,7 +22,7 @@ export default function CartDrawer({ isOpen, onClose, cart }) {
   const { getTotalAmount } = useCartContext();
 
   const renderDrawerContent = useCallback(() => {
-    if (cart?.total > 0) {
+    if (cart?.products?.length > 0) {
       return (
         <>
           <DrawerHeader px={4}>Your cart</DrawerHeader>
