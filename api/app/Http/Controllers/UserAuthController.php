@@ -63,7 +63,7 @@ class UserAuthController extends Controller
         }
 
         $data['password'] = Hash::make($request['password']);
-        $data['image'] = 'https://nld.mediacdn.vn/291774122806476800/2021/7/21/hanh-trinh-tu-hot-girl-tra-sua-den-nu-dien-vien-xuat-sac-cua-jun-vu-5d2bf6c0-16267765232751718137907-1626828871161991811676.jpg';
+        $data['image'] = 'https://ecdn.game4v.com/g4v-content/uploads/2022/09/01085707/souma-1-game4v-1661997426-64.jpg';
         $data['is_seller'] = 0;
         try {
             DB::beginTransaction();
