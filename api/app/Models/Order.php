@@ -18,6 +18,11 @@ class Order extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
+    }
+
+    public function couponCodes()
+    {
+        return $this->hasOne(CouponCode::class, 'id', 'coupon_codes_id');
     }
 }

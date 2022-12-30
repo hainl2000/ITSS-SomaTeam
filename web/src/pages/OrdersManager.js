@@ -126,11 +126,11 @@ export default function OrdersManager() {
                             }
                           </Badge>
                         </Td>
-                        <Td>{order.user.name}</Td>
-                        <Td>{order.user.email}</Td>
-                        <Td>{order.phone}</Td>
-                        <Td>{order.address}</Td>
-                        <Td>{order.total_price}</Td>
+                        <Td>{order?.user?.name}</Td>
+                        <Td>{order?.user?.email}</Td>
+                        <Td>{order?.phone}</Td>
+                        <Td>{order?.address}</Td>
+                        <Td>{order?.total_price}</Td>
                         <Td>
                           <Flex gap={2}>
                             <IconButton

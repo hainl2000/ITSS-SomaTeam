@@ -166,4 +166,40 @@ class UserController extends Controller
             'info' => $loginUser
         ]);
     }
+
+    public function updateInformation(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $loginUserId = auth()->id();
+            $userInfo = $request->input('userInfo');
+            if (isset($userInfo)) {
+                User::update([
+                    'name' => $userInfo->name,
+                    'email' => $userInfo->email,
+                    'image' => $userInfo->image
+                ])->where('id',$loginUserId);
+            }
+            $sellerInfo = $request->input('sellerInfo');
+            if (isset($sellerInfo)) {
+                SellerInformations::update([
+                    'credit_number' => $sellerInfo->credit_number,
+                    'bank' => $sellerInfo->bank,
+                    'address' => $sellerInfo->address,
+                    'phone_number' => $sellerInfo->phone_number,
+                ])->where('seller_id',$loginUserId);
+            }
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'msg' => "update successfully"
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'msg' => "update fail"
+            ]);
+        }
+    }
 }

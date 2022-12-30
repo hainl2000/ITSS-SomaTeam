@@ -58,12 +58,14 @@ class OrderController extends Controller
             'phone' => $request['phoneNumber'],
             'credit_number' => $request['credit_number'],
             'bank' => $request['bank'],
+            'coupon' => $request['coupon']
         ];
         $validator = Validator::make($dataToValidate, [
             'address' => 'required|string',
             'phone' => 'required',
             'credit_number' => 'required',
-            'bank' => 'required'
+            'bank' => 'required',
+            'coupon' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -82,6 +84,7 @@ class OrderController extends Controller
             $order->credit_number = $request['credit_number'];
             $order->bank = $request['bank'];
             $order->total_price = $request['totalPrice'];
+            $order->coupon = $request['coupon'];
             $order->save();
             foreach ($request['products'] as $product) {
                 $orderDetail = new OrderDetail;
