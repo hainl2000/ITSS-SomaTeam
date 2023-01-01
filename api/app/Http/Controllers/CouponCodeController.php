@@ -39,11 +39,13 @@ class CouponCodeController extends Controller
                 'end_date' => $request->input('end_date'),
                 'created_by' => $loginAdminId
             ]);
+            DB::commit();
             return response()->json([
                 'success' => true,
                 'message' => 'Successfully added new coupon'
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'success' => false,
                 'message' => 'Add new coupon failed'

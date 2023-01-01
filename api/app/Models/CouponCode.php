@@ -17,7 +17,7 @@ class CouponCode extends Model
         'max_sale',
         'start_date',
         'end_date',
-        'quantity ',
+        'quantity',
         'created_by'
     ];
 
