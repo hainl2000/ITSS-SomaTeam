@@ -64,7 +64,8 @@ class CouponCodeController extends Controller
         $coupon = CouponCode::where([
             ['code', '=' ,$couponCode],
             ['start_date', '<=', $now],
-            ['end_date', '>=', $now]
+            ['end_date', '>=', $now],
+            ['quantity', '>', 0]
         ])->first();
         if ($coupon) {
             return response()->json([

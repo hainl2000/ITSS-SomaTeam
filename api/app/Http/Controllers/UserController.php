@@ -167,7 +167,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function updateInformation(Request $request)
+    public function updateProfile(Request $request)
     {
         try {
             DB::beginTransaction();

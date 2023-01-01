@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CouponCodeController;
 
 
 Route::prefix('user')->group(function () {
@@ -30,6 +31,8 @@ Route::prefix('user')->group(function () {
         Route::get('/products', [ProductController::class, 'getProducts']);
         Route::get('/totalRevenue', [ProductController::class, 'getTotalRevenue']);
         Route::get('/totalProduct', [ProductController::class, 'getTotalProduct']);
+        Route::post('/updateProfile',[UserController::class, 'updateProfile']);
+        Route::get('/checkCoupon', [CouponCodeController::class, 'checkCouponCode']);
     });
 });
 Route::get('/getBestSeller',[ProductController::class, 'getBestSeller']);
@@ -56,5 +59,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/lockUser',[UserController::class, 'lockUser']);
         Route::get('/totalRevenue', [ProductController::class, 'getTotalRevenue']);
         Route::get('/totalProduct', [ProductController::class, 'getTotalProduct']);
+        Route::post('/coupon/create', [CouponCodeController::class, 'createCoupon']);
+        Route::get('/coupon/list', [CouponCodeController::class, 'getListCoupons']);
     });
 });

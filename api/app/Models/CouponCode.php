@@ -14,6 +14,7 @@ class CouponCode extends Model
     protected $fillable = [
         'code',
         'sale',
+        'max_sale',
         'start_date',
         'end_date',
         'quantity ',
