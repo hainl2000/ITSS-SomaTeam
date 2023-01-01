@@ -174,20 +174,22 @@ class UserController extends Controller
             $loginUserId = auth()->id();
             $userInfo = $request->input('userInfo');
             if (isset($userInfo)) {
-                User::update([
-                    'name' => $userInfo->name,
-                    'email' => $userInfo->email,
-                    'image' => $userInfo->image
-                ])->where('id',$loginUserId);
+                User::where('id',$loginUserId)
+                ->update([
+                    'name' => $userInfo["name"],
+                    'email' => $userInfo["email"],
+                    'image' => $userInfo["image"]
+                ]);
             }
             $sellerInfo = $request->input('sellerInfo');
             if (isset($sellerInfo)) {
-                SellerInformations::update([
-                    'credit_number' => $sellerInfo->credit_number,
-                    'bank' => $sellerInfo->bank,
-                    'address' => $sellerInfo->address,
-                    'phone_number' => $sellerInfo->phone_number,
-                ])->where('seller_id',$loginUserId);
+                SellerInformations::where('seller_id',$loginUserId)
+                ->update([
+                    'credit_number' => $sellerInfo["credit_number"],
+                    'bank' => $sellerInfo["bank"],
+                    'address' => $sellerInfo["address"],
+                    'phone_number' => $sellerInfo["phone_number"],
+                ]);
             }
             DB::commit();
             return response()->json([
@@ -195,6 +197,7 @@ class UserController extends Controller
                 'msg' => "update successfully"
             ]);
         } catch (\Exception $e) {
+            dd($e->getMessage());
             DB::rollBack();
             return response()->json([
                 'success' => false,
