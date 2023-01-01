@@ -23,7 +23,7 @@ class CouponCode extends Model
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class,'id','created_by');
+        return $this->belongsTo(Admin::class,'created_by','id');
     }
 
 }

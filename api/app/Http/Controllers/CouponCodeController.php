@@ -55,7 +55,7 @@ class CouponCodeController extends Controller
 
     public function getListCoupons(Request $request)
     {
-        $listCoupons = CouponCode::all();
+        $listCoupons = CouponCode::with('admin')->get();
         return response()->json($listCoupons);
     }
 
