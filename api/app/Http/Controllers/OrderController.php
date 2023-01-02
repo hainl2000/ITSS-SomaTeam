@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CouponCode;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -57,21 +59,19 @@ class OrderController extends Controller
             'address' => $request['address'],
             'phone' => $request['phoneNumber'],
             'credit_number' => $request['credit_number'],
-            'bank' => $request['bank'],
-            'coupon' => $request['coupon']
+            'bank' => $request['bank']
         ];
         $validator = Validator::make($dataToValidate, [
             'address' => 'required|string',
             'phone' => 'required',
             'credit_number' => 'required',
-            'bank' => 'required',
-            'coupon' => 'required'
+            'bank' => 'required'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Data is not valid'
+                'message' => $validator->errors()
             ]);
         }
 
@@ -84,7 +84,9 @@ class OrderController extends Controller
             $order->credit_number = $request['credit_number'];
             $order->bank = $request['bank'];
             $order->total_price = $request['totalPrice'];
-            $order->coupon = $request['coupon'];
+            if (isset($request['coupon'])) {
+                $order->coupon_codes_id = $request['coupon'];
+            }
             $order->save();
             foreach ($request['products'] as $product) {
                 $orderDetail = new OrderDetail;
@@ -100,6 +102,14 @@ class OrderController extends Controller
                 $orderDetail->quantity = $product['quantity_order'];
                 $orderDetail->price = $product['price'];
                 $orderDetail->save();
+            }
+            if (isset($request['coupon'])) {
+                $coupon = CouponCode::find($request['coupon']);
+                if ($coupon->quantity <= 0 || $coupon->end_date < Carbon::now() || $coupon->start_date > Carbon::now()) {
+                    throw new \Exception("Counpon not valid");
+                }
+                $coupon->quantity = $coupon->quantity - 1;
+                $coupon->save();
             }
             DB::commit();
             return response()->json([

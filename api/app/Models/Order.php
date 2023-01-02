@@ -23,6 +23,6 @@ class Order extends Model
 
     public function couponCodes()
     {
-        return $this->hasOne(CouponCode::class, 'id', 'coupon_codes_id');
+        return $this->hasOne(CouponCode::class, 'coupon_codes_id', 'id');
     }
 }
