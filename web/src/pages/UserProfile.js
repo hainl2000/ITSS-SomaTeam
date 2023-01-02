@@ -53,6 +53,7 @@ const UserProfile = () => {
     setValue('address', data?.info?.sellerInfo?.address);
     setValue('bank', data?.info?.sellerInfo?.bank);
     setValue('credit_number', data?.info?.sellerInfo?.credit_number);
+    setValue('image', data?.info?.image);
   };
 
   const handleCancel = () => {
@@ -62,7 +63,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     initValueForm();
-  });
+  }, [data]);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -90,6 +91,7 @@ const UserProfile = () => {
             duration: 3000,
             status: 'success'
           });
+          setDisable(true);
           refetch();
           setIsChangeProfile(!isChangeProfile);
         }
@@ -138,7 +140,6 @@ const UserProfile = () => {
             }}
             onClick={() => {
               onOpen();
-              setValue('image', data?.info?.image);
             }}
           >
             <div
