@@ -23,7 +23,7 @@ import { Link as NavLink, useNavigate } from 'react-router-dom';
 import { useCartContext } from '../contexts/CartContext';
 import { useUserAuthContext } from '../contexts/UserAuthContext';
 import UserAuthAPI from '../api/UserAuthAPI';
-import { setUserToken } from '../utils/userAuth';
+import { removeUserToken, setUserToken } from '../utils/userAuth';
 import { useWebContext } from '../contexts/WebContext';
 
 export default function NavBar() {
@@ -59,16 +59,17 @@ export default function NavBar() {
     toggleCartOpen();
   }, [authenticated, redirectWhenNoAuth, toggleCartOpen]);
 
-  const handleLogOut = useCallback(() => {
+  const handleLogOut = () => {
     UserAuthAPI.logout().then((response) => {
       if (response.success) {
         resetCart();
         setCurrentUser(null);
         setUserToken(null);
         history('/');
+        removeUserToken();
       }
     });
-  }, [history, resetCart, setCurrentUser]);
+  };
   const handleShopSeller = () => {
     history('/shop-seller/dashboard');
   };

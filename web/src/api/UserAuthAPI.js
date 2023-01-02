@@ -7,7 +7,8 @@ import {
   USER_LOG_OUT_ENDPOINT,
   USER_PROFILE,
   USER_REGISTER_ENDPOINT,
-  USER_UPDATE_PASSWORD
+  USER_UPDATE_PASSWORD,
+  USER_UPDATE_PROFILE
 } from '../constants/endpoints';
 import { getUserToken } from '../utils/userAuth';
 import instanceAxios from './base';
@@ -29,6 +30,20 @@ class UserAuthAPI {
         Authorization: `Bearer ${token}`
       }
     });
+    return response.data;
+  }
+
+  static async getUserUpdateProfile(data) {
+    const token = getUserToken();
+    const response = await instanceAxios.post(
+      USER_UPDATE_PROFILE,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
     return response.data;
   }
 

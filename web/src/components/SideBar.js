@@ -15,6 +15,7 @@ import {
 } from 'react-icons/hi';
 import { AiOutlineUser } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { HiOutlineTicket } from 'react-icons/hi';
 import {
   Link as NavLink,
   useLocation,
@@ -49,6 +50,11 @@ const siderBarItems = [
     title: 'Register Shop',
     url: '/admin/shop-manager',
     icon: AiOutlineShoppingCart
+  },
+  {
+    title: 'Coupon Manager',
+    url: '/admin/coupon-manager',
+    icon: HiOutlineTicket
   }
 ];
 

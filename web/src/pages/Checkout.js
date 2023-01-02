@@ -10,11 +10,12 @@ import {
   Text,
   useToast
 } from '@chakra-ui/react';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { HiArrowSmLeft } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import OrderAPI from '../api/OrderAPI';
+import CheckCouponCode from '../components/CheckCouponCode';
 import { useCartContext } from '../contexts/CartContext';
 import { useUserAuthContext } from '../contexts/UserAuthContext';
 
@@ -26,7 +27,18 @@ export default function Checkout() {
   const { cart, getTotalAmount, resetCart } = useCartContext();
   const { currentUser } = useUserAuthContext();
 
+  const [coupon, setCoupon] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const getDiscount = (total, sale, max_sale) => {
+    if (sale > 0 && max_sale > 0) {
+      if (Number((total * sale) / 100) > max_sale) {
+        return max_sale;
+      }
+      return Number((total * sale) / 100).toFixed(0);
+    }
+    return 0;
+  };
 
   const {
     register,
@@ -34,10 +46,20 @@ export default function Checkout() {
     formState: { errors }
   } = useForm();
 
+  useEffect(() => {
+    console.log(coupon);
+  }, [coupon]);
+
   const onSubmit = useCallback(
     (data) => {
-      data.totalPrice = getTotalAmount() + SHIPPING_FEE;
+      data.totalPrice =
+        getTotalAmount() +
+        SHIPPING_FEE -
+        getDiscount(getTotalAmount(), coupon?.sale, coupon?.max_sale);
       data.products = cart.products;
+      if (coupon) {
+        data.coupon = coupon?.id;
+      }
       setIsSubmitting(true);
       OrderAPI.createOrder(data)
         .then((response) => {
@@ -59,7 +81,7 @@ export default function Checkout() {
           });
         });
     },
-    [cart.products, getTotalAmount, history, resetCart, toast]
+    [cart.products, getTotalAmount, history, resetCart, toast, coupon]
   );
 
   return (
@@ -211,6 +233,9 @@ export default function Checkout() {
             )
           )}
         </Flex>
+
+        <Divider borderColor="gray.300" my={3} />
+        <CheckCouponCode setCoupon={setCoupon} />
         <Divider borderColor="gray.300" my={3} />
         <Flex justifyContent="space-between" alignItems="center">
           <Text color="gray.500" fontSize="sm">
@@ -229,9 +254,38 @@ export default function Checkout() {
           <Text color="gray.500" fontSize="lg">
             Total
           </Text>
-          <Text color="gray.500">
-            ${getTotalAmount() + SHIPPING_FEE}
-          </Text>
+          <div>
+            <Text
+              color="gray.500"
+              textDecoration={
+                getDiscount(
+                  getTotalAmount(),
+                  coupon?.sale,
+                  coupon?.max_sale
+                ) > 0
+                  ? 'line-through'
+                  : 'none'
+              }
+            >
+              ${getTotalAmount() + SHIPPING_FEE}
+            </Text>
+            {getDiscount(
+              getTotalAmount(),
+              coupon?.sale,
+              coupon?.max_sale
+            ) > 0 && (
+              <Text color="gray.500">
+                $
+                {getTotalAmount() +
+                  SHIPPING_FEE -
+                  getDiscount(
+                    getTotalAmount(),
+                    coupon?.sale,
+                    coupon?.max_sale
+                  )}
+              </Text>
+            )}
+          </div>
         </Flex>
       </Flex>
     </Flex>

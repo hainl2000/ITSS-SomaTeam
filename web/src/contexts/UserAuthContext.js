@@ -1,5 +1,5 @@
 import React, {
-	createContext,
+  createContext,
   useCallback,
   useContext,
   useEffect,
@@ -18,6 +18,7 @@ const UserAuthContext = createContext();
 function UserAuthProvider({ children }) {
   const [initializing, setInitializing] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isChangeProfile, setIsChangeProfile] = useState(false);
   const authenticated = useMemo(() => !!currentUser, [currentUser]);
   const history = useNavigate();
   const toast = useToast();
@@ -50,10 +51,10 @@ function UserAuthProvider({ children }) {
           description: 'Please log in again',
           status: 'warning'
         });
-        removeUserToken();
+
         return <Navigate to="/login" />;
       });
-  }, [toast]);
+  }, [toast, isChangeProfile]);
 
   return (
     <UserAuthContext.Provider
@@ -62,7 +63,9 @@ function UserAuthProvider({ children }) {
         authenticated,
         currentUser,
         setCurrentUser,
-        redirectWhenNoAuth
+        redirectWhenNoAuth,
+        isChangeProfile,
+        setIsChangeProfile
       }}
     >
       {children}
@@ -74,7 +77,9 @@ const useUserAuthContext = () => {
   const context = useContext(UserAuthContext);
 
   if (context === undefined) {
-    throw new Error(`useUserAuth must be used within a UserAuthProvider`);
+    throw new Error(
+      `useUserAuth must be used within a UserAuthProvider`
+    );
   }
 
   return context;

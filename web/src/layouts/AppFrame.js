@@ -24,6 +24,7 @@ import SellerRegister from '../pages/SellerRegister';
 import UserManager from '../pages/UserManager';
 import UserProfile from '../pages/UserProfile';
 import AdminDashboard from '../pages/AdminDashboard';
+import CouponManager from '../pages/CouponManager';
 
 export default function AppFrame() {
   const {
@@ -140,6 +141,16 @@ export default function AppFrame() {
           element={
             adminAuthenticated ? (
               <OrdersManager />
+            ) : (
+              <Navigate to="/admin/login" replace />
+            )
+          }
+        />
+        <Route
+          path="coupon-manager"
+          element={
+            adminAuthenticated ? (
+              <CouponManager />
             ) : (
               <Navigate to="/admin/login" replace />
             )
