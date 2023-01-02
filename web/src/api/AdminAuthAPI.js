@@ -6,7 +6,9 @@ import {
   ADMIN_APPROVE_SELLER,
   ADMIN_GET_LIST_USER,
   ADMIN_LOCK_USER,
-  REGISTER_ADMIN
+  REGISTER_ADMIN,
+  ADMIN_CREATE_COUPON,
+  ADMIN_GET_LIST_COUPON
 } from '../constants/endpoints';
 
 import { getAdminToken } from '../utils/adminAuth';
@@ -57,6 +59,32 @@ class UserAuthAPI {
     return response.data;
   }
 
+  static async adminCreateCoupon(data) {
+    const token = getAdminToken();
+    const response = await instanceAxios.post(
+      ADMIN_CREATE_COUPON,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  }
+
+  static async adminGetListCoupon(page = 1) {
+    const token = getAdminToken();
+    const response = await instanceAxios.get(
+      `${ADMIN_GET_LIST_COUPON}?page=${page}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  }
   static async adminApproveSeller(data) {
     const token = getAdminToken();
     const response = await instanceAxios.post(

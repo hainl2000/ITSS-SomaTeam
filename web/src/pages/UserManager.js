@@ -65,7 +65,7 @@ export default function UserManager() {
     setIsOpenCreateAdminDrawer((prev) => !prev);
   }, []);
 
-  const handleClickAddProduct = () => {
+  const handleClickCreateAdmin = () => {
     toggleCreateAdminDrawer();
   };
   return (
@@ -98,7 +98,7 @@ export default function UserManager() {
               </Text>
               <IconButton
                 icon={<HiPlus />}
-                onClick={handleClickAddProduct}
+                onClick={handleClickCreateAdmin}
               />
             </Flex>
             <Table variant="simple">

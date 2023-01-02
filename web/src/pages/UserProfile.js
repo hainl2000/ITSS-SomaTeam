@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useUserAuthContext } from '../contexts/UserAuthContext';
+import { Modal, useDisclosure } from '@chakra-ui/react';
 import {
   Box,
   Button,
@@ -9,25 +10,35 @@ import {
   FormControl,
   FormLabel,
   IconButton,
-  Image,
   Input,
   Text,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
   // Drawer,
   useToast
 } from '@chakra-ui/react';
+import { AiFillCamera } from 'react-icons/ai';
 import { useQuery } from 'react-query';
 import { useForm } from 'react-hook-form';
 import { FaEdit } from 'react-icons/fa';
 import UserAuthAPI from '../api/UserAuthAPI';
 const UserProfile = () => {
-  const { currentUser } = useUserAuthContext();
+  const { currentUser, isChangeProfile, setIsChangeProfile } =
+    useUserAuthContext();
+  const { onClose, isOpen, onOpen } = useDisclosure();
+
   const { data, isLoading, refetch } = useQuery('product', () =>
     UserAuthAPI.getUserProfile()
   );
+
+  const toast = useToast();
   // console.log(data);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [disable, setDisable] = useState(true);
-  const [isUpdateAvt, setIsUpdateAvt] = useState(false);
   const {
     register,
     handleSubmit,
@@ -55,6 +66,41 @@ const UserProfile = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    const payload = {
+      userInfo: {
+        name: data?.name,
+        image: data?.image,
+        email: data?.email
+      }
+    };
+    if (currentUser?.is_seller === 2) {
+      payload.sellerInfo = {
+        address: data?.address,
+        bank: data?.bank,
+        credit_number: data?.credit_number,
+        phone_number: data?.phone_number
+      };
+    }
+    onClose();
+    UserAuthAPI.getUserUpdateProfile(payload)
+      .then((res) => {
+        if (res.success) {
+          toast({
+            title: 'Update Success!',
+            duration: 3000,
+            status: 'success'
+          });
+          refetch();
+          setIsChangeProfile(!isChangeProfile);
+        }
+      })
+      .catch(() => {
+        toast({
+          title: 'An unknown error occurred',
+          duration: 3000,
+          status: 'error'
+        });
+      });
   };
   return (
     <Flex
@@ -84,11 +130,43 @@ const UserProfile = () => {
         </Flex>
         <Flex justifyContent="center">
           <Avatar
+            cursor="pointer"
             size="2xl"
-            name="Christian Nwamba"
             src={data?.info?.image}
-          />
+            style={{
+              position: 'relative'
+            }}
+            onClick={() => {
+              onOpen();
+              setValue('image', data?.info?.image);
+            }}
+          >
+            <div
+              style={{
+                width: '30px',
+                height: '30px',
+                borderRadius: '50%',
+                background: 'rgba(0,0,0,0.5)',
+                position: 'absolute',
+                bottom: '0',
+                right: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'white'
+              }}
+            >
+              <AiFillCamera
+                style={{
+                  // margin: 'auto',
+                  width: '22px',
+                  height: '22px'
+                }}
+              />
+            </div>
+          </Avatar>
         </Flex>
+
         <Flex flexDir="column" pr={5} gap={5} mt={5}>
           <FormControl>
             <FormLabel>Name</FormLabel>
@@ -105,9 +183,9 @@ const UserProfile = () => {
             <Input
               placeholder="Email"
               value={currentUser?.email}
-              disabled={true}
-              // readOnly
-              // {...register('email')}
+              // disabled={true}
+              readOnly
+              {...register('email')}
             />
           </FormControl>
         </Flex>
@@ -206,6 +284,50 @@ const UserProfile = () => {
           </Flex>
         )}
       </Flex>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Update Avatar</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Flex
+              as="form"
+              flexDir="column"
+              alignItems="flex-start"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <FormControl>
+                <Input
+                  placeholder="URL"
+                  {...register('image', {
+                    required: 'URL is required'
+                  })}
+                />
+              </FormControl>
+              {errors.image ? (
+                <Text color="red" mt={1}>
+                  {errors.image.message}
+                </Text>
+              ) : null}
+              <Button
+                margin="10px 20px "
+                // onClick={onClose}
+                type="submit"
+                colorScheme="blue"
+              >
+                Edit
+              </Button>
+            </Flex>
+          </ModalBody>
+          {/* 
+            <ModalFooter>
+              <Button mr={3} onClick={onClose}>
+                Close
+              </Button>
+              
+            </ModalFooter> */}
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 };

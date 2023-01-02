@@ -1,5 +1,7 @@
-const BASE_API_ENDPOINT =
-  'https://itss-somateam-production.up.railway.app/api/';
+// const BASE_API_ENDPOINT =
+//   'https://itss-somateam-production.up.railway.app/api/';
+
+const BASE_API_ENDPOINT = 'http://127.0.0.1:8000/api/';
 
 const USER_LOG_IN_ENDPOINT = 'user/login';
 const USER_LOG_OUT_ENDPOINT = 'user/logout';
@@ -11,18 +13,21 @@ const USER_UPDATE_PASSWORD = (token) =>
   `user/updatePassword/${token}`;
 const USER_GET_INFO_ENDPOINT = 'user/me';
 const USER_PROFILE = 'user/profile';
+const USER_UPDATE_PROFILE = 'user/updateProfile';
 const USER_CREATE_ORDER_ENDPOINT = 'user/createOrder';
 const USER_GET_ALL_ORDERS_ENDPOINT = 'user/orders';
 const USER_GET_DETAIL_ORDER_ENDPOINT = 'user/orders/';
-
+const CHECK_COUPON = 'user/checkCoupon';
 const ADMIN_LOG_IN_ENDPOINT = 'admin/login';
 const REGISTER_ADMIN = 'admin/registerAdmin';
 const ADMIN_GET_INFO_ENDPOINT = 'admin/me';
 const ADMID_GET_SHOP_REGISTER = 'admin/getListSellerRequests';
 const ADMIN_GET_LIST_USER = '/admin/getUsers';
 const ADMIN_LOCK_USER = 'admin/lockUser';
+const ADMIN_CREATE_COUPON = 'admin/coupon/create';
 const ADMIN_APPROVE_SELLER = 'admin/approveSeller';
 const ADMIN_LOG_OUT_ENDPOINT = 'admin/logout';
+const ADMIN_GET_LIST_COUPON = 'admin/coupon/list';
 const ADMIN_GET_ALL_ORDERS_ENDPOINT = 'admin/orders';
 const ADMIN_GET_DETAIL_ORDER_ENDPOINT = 'admin/orders/';
 const ADMIN_GET_ALL_PRODUCTS_ENDPOINT = 'admin/products';
@@ -63,8 +68,10 @@ export {
   USER_ADD_PRODUCT_ENDPOINT,
   USER_UPDATE_PRODUCT_ENDPOINT,
   ADMIN_CHANGE_ORDER_STATUS_ENDPOINT,
+  USER_UPDATE_PROFILE,
   USER_CHECK_FORGETPASSWORD,
   USER_UPDATE_PASSWORD,
+  ADMIN_CREATE_COUPON,
   ADMIN_LOCK_USER,
   GET_BEST_SELLER,
   REGISTER_SELLER,
@@ -79,5 +86,7 @@ export {
   REGISTER_ADMIN,
   SHOP_GET_TOTAL_REVENUE,
   SHOP_GET_TOTAL_PRODUCT,
-  GET_SIMILAR_PRODUCT
+  GET_SIMILAR_PRODUCT,
+  ADMIN_GET_LIST_COUPON,
+  CHECK_COUPON
 };

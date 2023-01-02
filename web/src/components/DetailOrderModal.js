@@ -101,11 +101,18 @@ export default function DetailOrderModal({
                 <Divider borderColor="gray.300" my={3} />
                 <Flex
                   justifyContent="space-between"
-                  alignItems="center"
+                  alignItems="flex-start"
                 >
-                  <Text color="gray.500" fontSize="lg">
-                    Total
-                  </Text>
+                  <div>
+                    <Text color="gray.500" fontSize="lg">
+                      Total
+                    </Text>
+                    {selectedOrder?.coupon_codes_id && (
+                      <Text color="green" fontSize="14px">
+                        Coupon applied
+                      </Text>
+                    )}
+                  </div>
                   <Text color="gray.500">
                     ${selectedOrder?.total_price}
                   </Text>

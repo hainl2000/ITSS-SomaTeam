@@ -12,7 +12,8 @@ import {
   SHOP_GET_TOTAL_REVENUE,
   SHOP_GET_TOTAL_PRODUCT,
   ADMIN_GET_TOTAL_REVENUE,
-  ADMIN_GET_TOTAL_PRODUCT
+  ADMIN_GET_TOTAL_PRODUCT,
+  CHECK_COUPON
 } from '../constants/endpoints';
 import { getAdminToken } from '../utils/adminAuth';
 import instanceAxios from './base';
@@ -119,6 +120,20 @@ class ProductAPI {
     );
     return response.data;
   }
+
+  static async userCheckCoupon(data) {
+    const token = getUserToken();
+    const response = await instanceAxios.get(
+      `${CHECK_COUPON}/?couponCode=${data}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  }
+
   static async shopGetAllProducts(page = 1) {
     const token = getUserToken();
     const response = await instanceAxios.get(
