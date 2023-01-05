@@ -38,7 +38,8 @@ class OrderController extends Controller
 
     public function userGetOrderDetail($id) {
         $order_detail = Order::with([
-            'order_details.product:id,name,image,quantity'
+            'order_details.product:id,name,image,quantity',
+            'couponCodes:id,code'
         ])
         ->find($id);
         return response()->json($order_detail);
