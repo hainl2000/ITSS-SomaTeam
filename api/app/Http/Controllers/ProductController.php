@@ -16,6 +16,7 @@ class ProductController extends Controller
         $sortType = $request->sortType;
         $searchString = $request->searchString;
         $category_id = $request->input('category');
+        $seller_id = $request->input('seller_id');
 
         $products = Product::with('categories')->when(strlen($searchString) >= 3, function ($query) use ($searchString) {
             return $query->where('name', 'like', '%'.$searchString.'%');
@@ -29,6 +30,9 @@ class ProductController extends Controller
             ->where('is_approve', 2);
         if (isset($category_id)) {
             $products->where('category_id', $category_id);
+        }
+        if (isset($seller_id)) {
+            $products->where('created_by', $seller_id);
         }
         $products = $products->paginate(12);
         return response()->json($products);
