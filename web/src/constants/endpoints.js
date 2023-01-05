@@ -35,6 +35,7 @@ const ADMIN_APPROVE_PRODUCT_ENDPOINT = 'admin/approveProduct';
 const SHOP_GET_ALL_PRODUCTS_ENDPOINT = 'user/products';
 const USER_ADD_PRODUCT_ENDPOINT = 'user/addProduct';
 const USER_UPDATE_PRODUCT_ENDPOINT = 'user/updateProduct';
+const USER_DELETE_PRODUCT_ENDPOINT = 'user/deleteProduct';
 const ADMIN_CHANGE_ORDER_STATUS_ENDPOINT = 'admin/changeOrderStatus';
 const GET_BEST_SELLER = 'getBestSeller';
 const SHOP_GET_TOTAL_REVENUE = 'user/totalRevenue';
@@ -83,6 +84,7 @@ export {
   ADMIN_GET_TOTAL_PRODUCT,
   ADMIN_APPROVE_PRODUCT_ENDPOINT,
   ADMIN_GET_LIST_USER,
+  USER_DELETE_PRODUCT_ENDPOINT,
   REGISTER_ADMIN,
   SHOP_GET_TOTAL_REVENUE,
   SHOP_GET_TOTAL_PRODUCT,

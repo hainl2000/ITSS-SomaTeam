@@ -13,7 +13,8 @@ import {
   SHOP_GET_TOTAL_PRODUCT,
   ADMIN_GET_TOTAL_REVENUE,
   ADMIN_GET_TOTAL_PRODUCT,
-  CHECK_COUPON
+  CHECK_COUPON,
+  USER_DELETE_PRODUCT_ENDPOINT
 } from '../constants/endpoints';
 import { getAdminToken } from '../utils/adminAuth';
 import instanceAxios from './base';
@@ -185,6 +186,20 @@ class ProductAPI {
     const token = getUserToken();
     const response = await instanceAxios.post(
       USER_UPDATE_PRODUCT_ENDPOINT,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  }
+
+  static async userDeleteProduct(data) {
+    const token = getUserToken();
+    const response = await instanceAxios.post(
+      USER_DELETE_PRODUCT_ENDPOINT,
       data,
       {
         headers: {
