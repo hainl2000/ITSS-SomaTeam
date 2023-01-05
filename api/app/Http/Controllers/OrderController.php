@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 class OrderController extends Controller
 {
     public function adminGetAllOrders() {
-        $orders = Order::with(['user', 'order_details','order_details.product:id,name,image'])
+        $orders = Order::with(['user', 'order_details','order_details.product:id,name,image','couponCodes:id,code'])
             ->orderBy('created_at', 'desc')
             ->simplePaginate(10);
         return response()->json($orders);
@@ -22,7 +22,8 @@ class OrderController extends Controller
 
     public function adminGetOrderDetail($id) {
         $order_detail = Order::with([
-            'order_details.product:id,name,image'
+            'order_details.product:id,name,image',
+            'couponCodes:id,code'
         ])
             ->find($id);
         return response()->json($order_detail);
@@ -30,7 +31,8 @@ class OrderController extends Controller
 
     public function userGetAllOrders() {
         $orders = Order::with([
-            'order_details.product:id,name,image'
+            'order_details.product:id,name,image',
+            'couponCodes:id,code'
         ])
             ->where('user_id', auth()->id())->simplePaginate(10);
         return response()->json($orders);

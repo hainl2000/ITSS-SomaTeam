@@ -44,7 +44,7 @@ class ProductController extends Controller
         if (isset($loginUser->is_seller) && $loginUser->is_seller == 2) {
             $query->where('created_by', auth()->id());
         }
-        $products = $query->withTrashed()->paginate(6);
+        $products = $query->paginate(6);
 
         return response()->json($products);
     }
