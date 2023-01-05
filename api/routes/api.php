@@ -33,6 +33,7 @@ Route::prefix('user')->group(function () {
         Route::get('/totalProduct', [ProductController::class, 'getTotalProduct']);
         Route::post('/updateProfile',[UserController::class, 'updateProfile']);
         Route::get('/checkCoupon', [CouponCodeController::class, 'checkCouponCode']);
+        Route::post('/deleteProduct', [ProductController::class, 'deleteProduct']);
     });
 });
 Route::get('/getBestSeller',[ProductController::class, 'getBestSeller']);

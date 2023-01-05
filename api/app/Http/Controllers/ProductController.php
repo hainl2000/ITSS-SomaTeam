@@ -223,4 +223,24 @@ class ProductController extends Controller
         }
         return response()->json($data);
     }
+
+    public function deleteProduct(Request $request)
+    {
+        $product_id = $request->input('product_id');
+        try {
+            DB::beginTransaction();
+            Product::where('id', $product_id)->delete();
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'message' => "delete product successfully"
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => "delete product fail"
+            ]);
+        }
+    }
 }
