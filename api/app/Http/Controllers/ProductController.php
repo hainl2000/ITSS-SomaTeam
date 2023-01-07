@@ -44,9 +44,10 @@ class ProductController extends Controller
         $query = Product::with('categories')->orderBy('created_at', 'desc');
         $loginUser = auth()->user();
         if (isset($loginUser->is_seller) && $loginUser->is_seller == 2) {
-            User::update([
+            User::where('id', auth()->id())
+                ->update([
                 'last_login' => Carbon::now()
-            ])->where('id', auth()->id());
+            ]);
             $query->where('created_by', auth()->id());
         }
         $products = $query->paginate(6);
