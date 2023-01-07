@@ -16,6 +16,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalFooter,
+  Tooltip,
   ModalBody,
   ModalCloseButton,
   // Drawer,
@@ -125,47 +126,51 @@ const UserProfile = () => {
           <Text fontWeight="bold" fontSize="3xl">
             Profile User
           </Text>
-          <IconButton
-            icon={<FaEdit />}
-            onClick={() => setDisable(false)}
-          />
+          <Tooltip label="Click here to edit Profile">
+            <IconButton
+              icon={<FaEdit />}
+              onClick={() => setDisable(false)}
+            />
+          </Tooltip>
         </Flex>
         <Flex justifyContent="center">
-          <Avatar
-            cursor="pointer"
-            size="2xl"
-            src={data?.info?.image}
-            style={{
-              position: 'relative'
-            }}
-            onClick={() => {
-              onOpen();
-            }}
-          >
-            <div
+          <Tooltip label="Click here to edit Avatar">
+            <Avatar
+              cursor="pointer"
+              size="2xl"
+              src={data?.info?.image}
               style={{
-                width: '30px',
-                height: '30px',
-                borderRadius: '50%',
-                background: 'rgba(0,0,0,0.5)',
-                position: 'absolute',
-                bottom: '0',
-                right: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'white'
+                position: 'relative'
+              }}
+              onClick={() => {
+                onOpen();
               }}
             >
-              <AiFillCamera
+              <div
                 style={{
-                  // margin: 'auto',
-                  width: '22px',
-                  height: '22px'
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '50%',
+                  background: 'rgba(0,0,0,0.5)',
+                  position: 'absolute',
+                  bottom: '0',
+                  right: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white'
                 }}
-              />
-            </div>
-          </Avatar>
+              >
+                <AiFillCamera
+                  style={{
+                    // margin: 'auto',
+                    width: '22px',
+                    height: '22px'
+                  }}
+                />
+              </div>
+            </Avatar>
+          </Tooltip>
         </Flex>
 
         <Flex flexDir="column" pr={5} gap={5} mt={5}>

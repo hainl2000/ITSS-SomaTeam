@@ -13,7 +13,10 @@ import {
   SHOP_GET_TOTAL_PRODUCT,
   ADMIN_GET_TOTAL_REVENUE,
   ADMIN_GET_TOTAL_PRODUCT,
-  CHECK_COUPON
+  CHECK_COUPON,
+  USER_DELETE_PRODUCT_ENDPOINT,
+  COMMENT_PRODUCT,
+  BAN_SHOP
 } from '../constants/endpoints';
 import { getAdminToken } from '../utils/adminAuth';
 import instanceAxios from './base';
@@ -24,12 +27,13 @@ class ProductAPI {
     sortType,
     searchString,
     page = 1,
-    category
+    category,
+    seller_id
   ) {
     const response = await instanceAxios.get(
       `${GET_ALL_PRODUCTS_ENDPOINT}?sortType=${sortType}&searchString=${searchString}&page=${page}&category=${
         category ? category : ''
-      }`
+      }&seller_id=${seller_id ? seller_id : ''}`
     );
     return response.data;
   }
@@ -59,6 +63,31 @@ class ProductAPI {
     );
     return response.data;
   }
+
+  static async commentPost(data) {
+    const token = getUserToken();
+    const response = await instanceAxios.post(
+      `${COMMENT_PRODUCT}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  }
+
+  static async banShop(data) {
+    const token = getAdminToken();
+    const response = await instanceAxios.post(`${BAN_SHOP}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data;
+  }
+
   static async getAllRevenueProduct(data) {
     const token = getUserToken();
     const response = await instanceAxios.get(
@@ -185,6 +214,20 @@ class ProductAPI {
     const token = getUserToken();
     const response = await instanceAxios.post(
       USER_UPDATE_PRODUCT_ENDPOINT,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  }
+
+  static async userDeleteProduct(data) {
+    const token = getUserToken();
+    const response = await instanceAxios.post(
+      USER_DELETE_PRODUCT_ENDPOINT,
       data,
       {
         headers: {

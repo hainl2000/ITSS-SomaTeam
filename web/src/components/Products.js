@@ -25,18 +25,22 @@ export default function Products() {
   const category = new URLSearchParams(window.location.search).get(
     'category'
   );
+  const seller_id = new URLSearchParams(window.location.search).get(
+    'seller_id'
+  );
   // console.log(id, );
   const [page, setPage] = useState(1);
   const [sortType, setSortType] = useState('none');
 
   const { isLoading, data: products } = useQuery(
-    ['products', sortType, searchString, page, category],
+    ['products', sortType, searchString, page, category, seller_id],
     () =>
       ProductAPI.getAllProducts(
         sortType,
         searchString,
         page,
-        category
+        category,
+        seller_id
       ),
     { keepPreviousData: true }
   );
