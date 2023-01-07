@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Comment;
 use App\Models\SellerInformations;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
 
@@ -205,4 +207,52 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function deleteShop(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $sellerId = $request->seller_id;
+            $seller = User::find($sellerId);
+            $seller->status = 0;
+            $seller->save();
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'msg' => "delete shop successfully"
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'msg' => "delete shop fail"
+            ]);
+        }
+    }
+
+    public function comment(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $loginUserId = Auth::id();
+            Comment::create([
+                'content' => $request->input('content'),
+                'rating' => $request->input('rating'),
+                'comment_in' => $request->input('comment_in'),
+                'comment_by' => $loginUserId
+            ]);
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'msg' => "comment successfully"
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'msg' => "comment fail"
+            ]);
+        }
+    }
+
 }

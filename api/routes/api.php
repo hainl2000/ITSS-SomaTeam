@@ -34,6 +34,7 @@ Route::prefix('user')->group(function () {
         Route::post('/updateProfile',[UserController::class, 'updateProfile']);
         Route::get('/checkCoupon', [CouponCodeController::class, 'checkCouponCode']);
         Route::post('/deleteProduct', [ProductController::class, 'deleteProduct']);
+        Route::post('/comment', [UserController::class, 'comment']);
     });
 });
 Route::get('/getBestSeller',[ProductController::class, 'getBestSeller']);

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -42,6 +44,9 @@ class ProductController extends Controller
         $query = Product::with('categories')->orderBy('created_at', 'desc');
         $loginUser = auth()->user();
         if (isset($loginUser->is_seller) && $loginUser->is_seller == 2) {
+            User::update([
+                'last_login' => Carbon::now()
+            ])->where('id', auth()->id());
             $query->where('created_by', auth()->id());
         }
         $products = $query->paginate(6);
@@ -50,7 +55,7 @@ class ProductController extends Controller
     }
 
     public function getSingleProduct($id) {
-        $product = Product::with('categories','users')->where('is_approve', 2)->findOrFail($id);
+        $product = Product::with('categories','users','comments.user')->where('is_approve', 2)->find($id);
         return response()->json($product);
     }
 
@@ -243,4 +248,5 @@ class ProductController extends Controller
             ]);
         }
     }
+
 }
