@@ -63,5 +63,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/totalProduct', [ProductController::class, 'getTotalProduct']);
         Route::post('/coupon/create', [CouponCodeController::class, 'createCoupon']);
         Route::get('/coupon/list', [CouponCodeController::class, 'getListCoupons']);
+        Route::post('/deleteShop', [UserController::class, 'deleteShop']);
     });
 });

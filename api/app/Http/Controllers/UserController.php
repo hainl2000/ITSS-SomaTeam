@@ -212,10 +212,11 @@ class UserController extends Controller
     {
         try {
             DB::beginTransaction();
-            $sellerId = $request->seller_id;
+            $sellerId = $request->input('seller_id');
             $seller = User::find($sellerId);
-            $seller->status = 0;
+            $seller->is_seller = 0;
             $seller->save();
+            SellerInformations::where('seller_id', $sellerId)->delete();
             DB::commit();
             return response()->json([
                 'success' => true,
