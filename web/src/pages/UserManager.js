@@ -22,11 +22,13 @@ import {
   // HiOutlinePencilAlt,
   HiPlus
 } from 'react-icons/hi';
+import { FaBan } from 'react-icons/fa';
 import { FaLock } from 'react-icons/fa';
 // import { AiFillEye } from 'react-icons/ai';
 import { useQuery } from 'react-query';
 import UserAuthAPI from '../api/AdminAuthAPI';
 import CreateAdminDrawer from '../components/CreateAdminDrawer';
+import ProductAPI from '../api/ProductAPI';
 
 export default function UserManager() {
   const [page, setPage] = useState(1);
@@ -37,6 +39,38 @@ export default function UserManager() {
     ['adminGetListUsers', page],
     () => UserAuthAPI.adminGetListUsers(page)
   );
+
+  const checkBanShop = (item) => {
+    const current = new Date().getTime();
+    const lastLogin = new Date(item?.last_login).getTime();
+    // if (!item?.is_seller) return false;
+    if (
+      current - lastLogin > 86400000 * 30 &&
+      item?.is_seller === 2
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const handleBanShop = (id) => {
+    ProductAPI.banShop({
+      seller_id: id
+    }).then((res) => {
+      if (res.success) {
+        toast({
+          title: 'Đã khóa shop',
+          status: 'success'
+        });
+        refetch();
+      } else {
+        toast({
+          title: 'Có lỗi xảy ra',
+          status: 'error'
+        });
+      }
+    });
+  };
 
   const handleLockUser = (id) => {
     UserAuthAPI.adminLockUser({ user_id: id })
@@ -136,25 +170,48 @@ export default function UserManager() {
                           <Td>{user?.email}</Td>
                           {/* <Td>{user?.created_at}</Td> */}
                           <Td>
-                            {user?.is_seller === 0
+                            {user?.is_seller === 0 ||
+                            user?.is_seller === 1
                               ? 'User'
                               : user?.is_seller === 2
                               ? 'Seller'
-                              : 'Admin'}
+                              : !user?.is_seller
+                              ? 'Admin'
+                              : ''}
                           </Td>
 
                           <Td>
-                            <IconButton
-                              title="Ban user"
-                              onClick={() => handleLockUser(user?.id)}
+                            <Flex
+                              justifyContent="space-between"
                               style={{
-                                display:
-                                  user?.is_seller === undefined
-                                    ? 'none'
-                                    : ''
+                                width: '100px'
                               }}
-                              icon={<FaLock color="#Be2525" />}
-                            />
+                            >
+                              <IconButton
+                                title="Ban shop"
+                                onClick={() => handleBanShop(user.id)}
+                                style={{
+                                  display: checkBanShop(user)
+                                    ? ''
+                                    : 'none'
+                                }}
+                                icon={<FaBan color="red" />}
+                              />
+                              <IconButton
+                                title="Ban user"
+                                onClick={() =>
+                                  handleLockUser(user?.id)
+                                }
+                                style={{
+                                  display:
+                                    !user?.is_seller &&
+                                    user?.is_seller !== 0
+                                      ? 'none'
+                                      : ''
+                                }}
+                                icon={<FaLock color="#Be2525" />}
+                              />
+                            </Flex>
                           </Td>
                         </Tr>
                       ))}

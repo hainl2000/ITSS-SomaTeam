@@ -107,9 +107,9 @@ export default function DetailOrderModal({
                     <Text color="gray.500" fontSize="lg">
                       Total
                     </Text>
-                    {selectedOrder?.coupon_codes_id && (
+                    {selectedOrder?.coupon_codes && (
                       <Text color="green" fontSize="14px">
-                        Coupon applied
+                        {`Coupon applied: ${selectedOrder?.coupon_codes?.code}`}
                       </Text>
                     )}
                   </div>

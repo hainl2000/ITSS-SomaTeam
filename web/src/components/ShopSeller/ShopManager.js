@@ -12,7 +12,8 @@ import {
   Text,
   Th,
   Thead,
-  Tr
+  Tr,
+  useToast
 } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 import {
@@ -21,6 +22,7 @@ import {
   HiOutlinePencilAlt,
   HiPlus
 } from 'react-icons/hi';
+import { AiOutlineDelete } from 'react-icons/ai';
 import { useQuery } from 'react-query';
 import ProductAPI from '../../api/ProductAPI';
 import ProductFormDrawer from '../ProductFormDrawer';
@@ -31,6 +33,7 @@ export default function ShopManager() {
   const [page, setPage] = useState(1);
   const [isOpenProductFormDrawer, setIsOpenProductFormDrawer] =
     useState(false);
+  const toast = useToast();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [option, setOption] = useState('');
   const { isLoading, data, refetch } = useQuery(
@@ -52,6 +55,30 @@ export default function ShopManager() {
     setSelectedProduct(null);
     setOption('add');
     toggleProductFormDrawer();
+  };
+
+  const handleClickDelete = (product) => {
+    ProductAPI.userDeleteProduct({ product_id: product?.id })
+      .then((res) => {
+        if (res.success) {
+          toast({
+            title: 'Xóa thành công',
+            status: 'success'
+          });
+          refetch();
+        } else {
+          toast({
+            title: 'Có lỗi xảy ra',
+            status: 'error'
+          });
+        }
+      })
+      .catch((err) => {
+        toast({
+          title: 'Có lỗi xảy ra',
+          status: 'error'
+        });
+      });
   };
 
   return (
@@ -142,12 +169,23 @@ export default function ShopManager() {
                         </Td>
 
                         <Td>
-                          <IconButton
-                            onClick={() =>
-                              handleClickEditProduct(product)
-                            }
-                            icon={<HiOutlinePencilAlt />}
-                          />
+                          <Flex
+                            justifyContent="space-between"
+                            width="100px"
+                          >
+                            <IconButton
+                              onClick={() =>
+                                handleClickEditProduct(product)
+                              }
+                              icon={<HiOutlinePencilAlt />}
+                            />
+                            <IconButton
+                              onClick={() =>
+                                handleClickDelete(product)
+                              }
+                              icon={<AiOutlineDelete color="red" />}
+                            />
+                          </Flex>
                         </Td>
                       </Tr>
                     ))}

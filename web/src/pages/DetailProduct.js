@@ -25,7 +25,11 @@ export default function DetailProduct() {
 
   const [quantityOrder, setQuantityOrder] = useState(1);
 
-  const { isLoading, data: product } = useQuery('product', () =>
+  const {
+    isLoading,
+    data: product,
+    refetch
+  } = useQuery('product', () =>
     ProductAPI.getSingleProduct(productId)
   );
   useEffect(() => {
@@ -70,32 +74,7 @@ export default function DetailProduct() {
     redirectWhenNoAuth,
     toggleCartOpen
   ]);
-  const mockData = [
-    {
-      src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ99Rsp3koHF7EywrLN6E1xvJcRK48uQjfyXBoOWUs&s',
-      cmt: 'Sản phẩm đẹp, dùng rất OK',
-      time: '12:53 11/27/2022',
-      name: 'Luong Hai'
-    },
-    {
-      src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ99Rsp3koHF7EywrLN6E1xvJcRK48uQjfyXBoOWUs&s',
-      cmt: 'Sản phẩm đẹp, dùng rất OK',
-      time: '12:53 11/27/2022',
-      name: 'Luong Hai'
-    },
-    {
-      src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ99Rsp3koHF7EywrLN6E1xvJcRK48uQjfyXBoOWUs&s',
-      cmt: 'Sản phẩm đẹp, dùng rất OK',
-      time: '12:53 11/27/2022',
-      name: 'Luong Hai'
-    },
-    {
-      src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ99Rsp3koHF7EywrLN6E1xvJcRK48uQjfyXBoOWUs&s',
-      cmt: 'Sản phẩm đẹp, dùng rất OK',
-      time: '12:53 11/27/2022',
-      name: 'Luong Hai'
-    }
-  ];
+
   if (isLoading) {
     return (
       <Flex
@@ -110,8 +89,16 @@ export default function DetailProduct() {
   }
 
   if (product) {
-    const { name, description, price, image, quantity, categories } =
-      product;
+    const {
+      name,
+      description,
+      price,
+      image,
+      quantity,
+      categories,
+      comments,
+      users
+    } = product;
     return (
       <Flex alignItems="center" flexDirection="column">
         <Box
@@ -129,27 +116,33 @@ export default function DetailProduct() {
             }}
             alignItems="center"
           >
-            <div>
+            <Link
+              to={`/products?seller_id=${users?.id}`}
+              style={{
+                display: 'flex',
+                alignItems: 'center'
+              }}
+            >
               <img
                 alt="avt"
                 style={{
                   borderRadius: '50px',
-                  minWidth: '40px',
-                  minHeight: '40px'
+                  width: '100px',
+                  height: '100px'
                   // objectFit: 'fill'
                 }}
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh55CCvqcNxzNaCmfMlXhMwQj5MFv51qe8KtLqqBgYTA&s"
+                src={users?.image}
               />
-            </div>
-            <p
-              style={{
-                fontWeight: '600',
-                fontSize: '20px',
-                margin: '0   20px'
-              }}
-            >
-              Hanamaplus Shop
-            </p>
+              <p
+                style={{
+                  fontWeight: '600',
+                  fontSize: '20px',
+                  margin: '0   20px'
+                }}
+              >
+                {users?.name}
+              </p>
+            </Link>
           </Flex>
           <Flex flexWrap="wrap" gap="28px">
             <Box
@@ -249,7 +242,7 @@ export default function DetailProduct() {
             </Box>
           </Flex>
         </Box>
-        <Comments data={mockData} />
+        <Comments data={comments} refetch={refetch} />
         <SimilarProduct data={[]} />
       </Flex>
     );
