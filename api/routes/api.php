@@ -35,7 +35,16 @@ Route::prefix('user')->group(function () {
         Route::get('/checkCoupon', [CouponCodeController::class, 'checkCouponCode']);
         Route::post('/deleteProduct', [ProductController::class, 'deleteProduct']);
         Route::post('/comment', [UserController::class, 'comment']);
+        Route::post('/registerPackage', [UserController::class, 'registerAdvertisePackage']);
+        Route::get('/getRegisteredPackage', [UserController::class, 'getRegisteredPackage']);
+
     });
+});
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/getAllAdvertisePackages', [UserController::class, 'getAllAdvertisePackages']);
+});
+Route::middleware(['auth:api'])->group(function () {
+    Route::get('/getAllAdvertisePackages', [UserController::class, 'getAllAdvertisePackages']);
 });
 Route::get('/getBestSeller',[ProductController::class, 'getBestSeller']);
 Route::get('/products', [ProductController::class, 'getAllProducts']);
@@ -64,5 +73,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/coupon/create', [CouponCodeController::class, 'createCoupon']);
         Route::get('/coupon/list', [CouponCodeController::class, 'getListCoupons']);
         Route::post('/deleteShop', [UserController::class, 'deleteShop']);
+        Route::post('/sendNotifications', [UserController::class, 'sendNotifications']);
+        Route::get('/getAllPackageTransactions', [UserController::class, 'getAllPackageTransactions']);
     });
 });

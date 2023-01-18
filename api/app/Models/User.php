@@ -25,7 +25,8 @@ class User extends Authenticatable implements JWTSubject
         'image',
         'is_seller',
         'password',
-        'last_login'
+        'last_login',
+        'end_advertise'
     ];
 
     /**
@@ -50,6 +51,12 @@ class User extends Authenticatable implements JWTSubject
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function package()
+    {
+        return $this->belongsToMany(AdvertisePackage::class, 'tracsaction_advertise', 'user_id', 'advertise_package_id')
+            ->withPivot('bank', 'credit_number','created_at');
     }
 
     public function getJWTIdentifier()

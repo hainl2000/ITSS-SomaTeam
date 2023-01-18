@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\AdvertisePackage;
 use App\Models\Comment;
+use App\Models\Notification;
 use App\Models\SellerInformations;
+use App\Models\TransactionAdvertise;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -119,6 +123,7 @@ class UserController extends Controller
 
     public function getListUsers(Request $request)
     {
+        $getOnlyEmail = $request->input('getEmail');
         try {
             $listUsers = User::all();
             $listAdmins = Admin::all();
@@ -254,6 +259,84 @@ class UserController extends Controller
                 'msg' => "comment fail"
             ]);
         }
+    }
+
+    public function sendNotifications(Request $request)
+    {
+        try {
+            $emails = $request->input('emails');
+            DB::beginTransaction();
+            foreach ($emails as $email) {
+                Notification::create([
+                    'email' => $email,
+                    'content' => $request->input('content'),
+                    'send_time' => $request->input('send_time'),
+                    'status' => 0
+                ]);
+            }
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'msg' => "send notification successfully"
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage());
+            return response()->json([
+                'success' => false,
+                'msg' => "send notification fail"
+            ]);
+        }
+    }
+
+    public function registerAdvertisePackage(Request $request)
+    {
+        $loginUserId = Auth::id();
+        try{
+            DB::beginTransaction();
+            $package = AdvertisePackage::find($request->input('advertise_id'));
+            TransactionAdvertise::create([
+                'user_id' => $loginUserId,
+                'advertise_package_id' => $request->input('advertise_id'),
+                'bank' => $request->input('bank'),
+                'credit_number' => $request->input('credit_number')
+            ]);
+            $user = User::find($loginUserId);
+            $user->end_advertise = Carbon::now()->addMonths($package->time)->endOfDay();
+            $user->save();
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'msg' => "buy package successfully"
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage());
+            return response()->json([
+                'success' => false,
+                'msg' => "buy package fail"
+            ]);
+        }
+    }
+
+    public function getAllAdvertisePackages()
+    {
+        $allPackages = AdvertisePackage::all();
+        return response()->json($allPackages);
+    }
+
+    public function getRegisteredPackage()
+    {
+        $loginUserId = Auth::id();
+        $registeredPackages = User::with('package')->where('id', $loginUserId)
+            ->where('end_advertise', '>=', Carbon::now())->first();
+        return response()->json($registeredPackages);
+    }
+
+    public function getAllPackageTransactions()
+    {
+        $allTransaction = TransactionAdvertise::with('user')->get();
+        return response()->json($allTransaction);
     }
 
 }
