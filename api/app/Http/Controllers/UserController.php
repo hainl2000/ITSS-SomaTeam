@@ -335,7 +335,7 @@ class UserController extends Controller
 
     public function getAllPackageTransactions()
     {
-        $allTransaction = TransactionAdvertise::with('user')->get();
+        $allTransaction = TransactionAdvertise::with('user','advertise_package')->get();
         return response()->json($allTransaction);
     }
 

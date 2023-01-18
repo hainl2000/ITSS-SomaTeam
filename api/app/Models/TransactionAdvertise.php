@@ -22,4 +22,9 @@ class TransactionAdvertise extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function advertise_package()
+    {
+        return $this->belongsTo(AdvertisePackage::class, 'advertise_package_id', 'id');
+    }
 }
