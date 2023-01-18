@@ -40,12 +40,8 @@ Route::prefix('user')->group(function () {
 
     });
 });
-Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/getAllAdvertisePackages', [UserController::class, 'getAllAdvertisePackages']);
-});
-Route::middleware(['auth:api'])->group(function () {
-    Route::get('/getAllAdvertisePackages', [UserController::class, 'getAllAdvertisePackages']);
-});
+Route::get('/getAllAdvertisePackages', [UserController::class, 'getAllAdvertisePackages']);
+
 Route::get('/getBestSeller',[ProductController::class, 'getBestSeller']);
 Route::get('/products', [ProductController::class, 'getAllProducts']);
 Route::get('/products/{id}', [ProductController::class, 'getSingleProduct']);
