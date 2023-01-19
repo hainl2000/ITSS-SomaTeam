@@ -19,7 +19,8 @@ class Product extends Model
         'category_id',
         'quantity',
         'created_by',
-        'is_approve'
+        'is_approve',
+        'priority'
     ];
 
     public function categories()

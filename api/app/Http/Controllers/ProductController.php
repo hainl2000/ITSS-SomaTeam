@@ -20,15 +20,17 @@ class ProductController extends Controller
         $category_id = $request->input('category');
         $seller_id = $request->input('seller_id');
 
-        $products = Product::with('categories')->when(strlen($searchString) >= 3, function ($query) use ($searchString) {
-            return $query->where('name', 'like', '%'.$searchString.'%');
-        })
+        $products = Product::with('categories')
+            ->when(strlen($searchString) >= 3, function ($query) use ($searchString) {
+                return $query->where('name', 'like', '%'.$searchString.'%');
+            })
             ->when($sortType and $sortType === 'high-to-low', function ($query) use ($sortType) {
                 return $query->orderBy('price', 'desc');
             })
             ->when($sortType and $sortType === 'low-to-high', function ($query) use ($sortType) {
                 return $query->orderBy('price');
             })
+            ->orderByDesc('priority')
             ->where('is_approve', 2);
         if (isset($category_id)) {
             $products->where('category_id', $category_id);
@@ -37,6 +39,7 @@ class ProductController extends Controller
             $products->where('created_by', $seller_id);
         }
         $products = $products->paginate(12);
+//        $products = $products->get();
         return response()->json($products);
     }
 

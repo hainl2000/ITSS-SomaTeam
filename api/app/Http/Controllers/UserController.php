@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\AdvertisePackage;
 use App\Models\Comment;
 use App\Models\Notification;
+use App\Models\Product;
 use App\Models\SellerInformations;
 use App\Models\TransactionAdvertise;
 use App\Models\User;
@@ -301,6 +302,10 @@ class UserController extends Controller
                 'bank' => $request->input('bank'),
                 'credit_number' => $request->input('credit_number')
             ]);
+            Product::where('created_by', $loginUserId)
+                ->update([
+                    'priority' => 1
+                ]);
             $user = User::find($loginUserId);
             $user->end_advertise = Carbon::now()->addMonths($package->time)->endOfDay();
             $user->save();
@@ -339,4 +344,33 @@ class UserController extends Controller
         return response()->json($allTransaction);
     }
 
+    public function getAllNotifications()
+    {
+        $allNotifications = Notification::with('users')->groupBy('created_at')->get();
+        return response()->json($allNotifications);
+    }
+
+    public function updateAdvertisePackage(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            AdvertisePackage::where('id', $request->input('advertise_id'))->update([
+                'name' => $request->input('name'),
+                'price' => $request->input('price'),
+                'time' => $request->input('time'),
+            ]);
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'msg' => "update package successfully"
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage());
+            return response()->json([
+                'success' => false,
+                'msg' => "update package fail"
+            ]);
+        }
+    }
 }

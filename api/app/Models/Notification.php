@@ -15,4 +15,9 @@ class Notification extends Model
         'send_time',
         'status'
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'email', 'email');
+    }
 }

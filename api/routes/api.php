@@ -70,6 +70,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/coupon/list', [CouponCodeController::class, 'getListCoupons']);
         Route::post('/deleteShop', [UserController::class, 'deleteShop']);
         Route::post('/sendNotifications', [UserController::class, 'sendNotifications']);
+        Route::get('/getAllNotifications', [UserController::class, 'getAllNotifications']);
         Route::get('/getAllPackageTransactions', [UserController::class, 'getAllPackageTransactions']);
+        Route::post('/updateAdvertisePackage', [UserController::class, 'updateAdvertisePackage']);
     });
 });
