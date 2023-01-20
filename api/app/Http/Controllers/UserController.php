@@ -346,7 +346,7 @@ class UserController extends Controller
 
     public function getAllNotifications()
     {
-        $allNotifications = Notification::with('users')->groupBy('created_at')->get();
+        $allNotifications = Notification::with('users')->orderByDesc('created_at')->get();
         return response()->json($allNotifications);
     }
 
