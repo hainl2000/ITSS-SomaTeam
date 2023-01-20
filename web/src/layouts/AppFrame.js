@@ -25,6 +25,9 @@ import UserManager from '../pages/UserManager';
 import UserProfile from '../pages/UserProfile';
 import AdminDashboard from '../pages/AdminDashboard';
 import CouponManager from '../pages/CouponManager';
+import AdvertisingManager from '../pages/AdvertisingManager';
+import NotificationManage from '../pages/NotificationManager';
+import AdvertiseOrderManager from '../pages/AdvertiseOrderManager';
 
 export default function AppFrame() {
   const {
@@ -70,6 +73,10 @@ export default function AppFrame() {
         <Route path="forget/*" element={<ResetPassword />} />
         <Route path="products/:id" element={<DetailProduct />} />
         <Route path="shop-seller/products" element={<ShopSeller />} />
+        <Route
+          path="shop-seller/advertise"
+          element={<ShopSeller />}
+        />
         <Route
           path="shop-seller/dashboard"
           element={<ShopSeller />}
@@ -157,10 +164,40 @@ export default function AppFrame() {
           }
         />
         <Route
+          path="advertising-transaction"
+          element={
+            adminAuthenticated ? (
+              <AdvertiseOrderManager />
+            ) : (
+              <Navigate to="/admin/login" replace />
+            )
+          }
+        />
+        <Route
           path="products"
           element={
             adminAuthenticated ? (
               <ProductsManager />
+            ) : (
+              <Navigate to="/admin/login" replace />
+            )
+          }
+        />
+        <Route
+          path="advertising-manager"
+          element={
+            adminAuthenticated ? (
+              <AdvertisingManager />
+            ) : (
+              <Navigate to="/admin/login" replace />
+            )
+          }
+        />
+        <Route
+          path="noti-manager"
+          element={
+            adminAuthenticated ? (
+              <NotificationManage />
             ) : (
               <Navigate to="/admin/login" replace />
             )

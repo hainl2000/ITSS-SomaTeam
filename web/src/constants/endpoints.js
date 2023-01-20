@@ -13,6 +13,7 @@ const USER_UPDATE_PASSWORD = (token) =>
   `user/updatePassword/${token}`;
 const USER_GET_INFO_ENDPOINT = 'user/me';
 const USER_PROFILE = 'user/profile';
+const ADMIN_SEND_NOTI = 'admin/sendNotifications';
 const USER_UPDATE_PROFILE = 'user/updateProfile';
 const USER_CREATE_ORDER_ENDPOINT = 'user/createOrder';
 const USER_GET_ALL_ORDERS_ENDPOINT = 'user/orders';
@@ -23,9 +24,11 @@ const REGISTER_ADMIN = 'admin/registerAdmin';
 const ADMIN_GET_INFO_ENDPOINT = 'admin/me';
 const ADMID_GET_SHOP_REGISTER = 'admin/getListSellerRequests';
 const ADMIN_GET_LIST_USER = '/admin/getUsers';
+const ADMIN_GET_LIST_NOTIFICATION = 'admin/getAllNotifications';
 const ADMIN_LOCK_USER = 'admin/lockUser';
 const ADMIN_CREATE_COUPON = 'admin/coupon/create';
 const ADMIN_APPROVE_SELLER = 'admin/approveSeller';
+const ADMIN_UPDATE_PACKAGE = 'admin/updateAdvertisePackage';
 const ADMIN_LOG_OUT_ENDPOINT = 'admin/logout';
 const ADMIN_GET_LIST_COUPON = 'admin/coupon/list';
 const ADMIN_GET_ALL_ORDERS_ENDPOINT = 'admin/orders';
@@ -47,9 +50,18 @@ const ADMIN_GET_TOTAL_PRODUCT = 'admin/totalProduct';
 const GET_ALL_PRODUCTS_ENDPOINT = 'products';
 const GET_ALL_CATEGORIES = 'allCategories';
 const GET_SIMILAR_PRODUCT = (id) => `similarProduct/${id}`;
+const GET_ALL_ADVERTISE = 'getAllAdvertisePackages';
+const ADMIN_GET_ALL_ADVERTISE = 'admin/getAllPackageTransactions';
+const REGISTER_PACKAGE_ADVERTISE = 'user/registerPackage';
 const GET_SINGLE_PRODUCT_ENDPOINT = 'products/';
-
+const CHECK_ADVERTISE_REGISTERD = 'user/getRegisteredPackage';
 export {
+  GET_ALL_ADVERTISE,
+  ADMIN_GET_ALL_ADVERTISE,
+  ADMIN_GET_LIST_NOTIFICATION,
+  ADMIN_SEND_NOTI,
+  CHECK_ADVERTISE_REGISTERD,
+  REGISTER_PACKAGE_ADVERTISE,
   BASE_API_ENDPOINT,
   GET_ALL_PRODUCTS_ENDPOINT,
   GET_SINGLE_PRODUCT_ENDPOINT,
@@ -75,6 +87,7 @@ export {
   USER_CHECK_FORGETPASSWORD,
   COMMENT_PRODUCT,
   USER_UPDATE_PASSWORD,
+  ADMIN_UPDATE_PACKAGE,
   ADMIN_CREATE_COUPON,
   ADMIN_LOCK_USER,
   GET_BEST_SELLER,

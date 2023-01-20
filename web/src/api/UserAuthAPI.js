@@ -10,6 +10,7 @@ import {
   USER_UPDATE_PASSWORD,
   USER_UPDATE_PROFILE
 } from '../constants/endpoints';
+
 import { getUserToken } from '../utils/userAuth';
 import instanceAxios from './base';
 

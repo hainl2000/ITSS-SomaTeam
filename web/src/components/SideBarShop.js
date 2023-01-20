@@ -22,13 +22,18 @@ import {
 
 const siderBarItems = [
   {
-    title: 'Dashboard',
+    title: 'Thống kê',
     url: '/shop-seller/dashboard',
     icon: HiOutlineCube
   },
   {
-    title: 'Products',
+    title: 'Sản phẩm',
     url: '/shop-seller/products',
+    icon: HiOutlineCube
+  },
+  {
+    title: 'Đăng ký quảng cáo',
+    url: '/shop-seller/advertise',
     icon: HiOutlineCube
   }
 ];

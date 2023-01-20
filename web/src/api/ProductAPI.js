@@ -16,7 +16,11 @@ import {
   CHECK_COUPON,
   USER_DELETE_PRODUCT_ENDPOINT,
   COMMENT_PRODUCT,
-  BAN_SHOP
+  BAN_SHOP,
+  GET_ALL_ADVERTISE,
+  REGISTER_PACKAGE_ADVERTISE,
+  CHECK_ADVERTISE_REGISTERD,
+  ADMIN_GET_ALL_ADVERTISE
 } from '../constants/endpoints';
 import { getAdminToken } from '../utils/adminAuth';
 import instanceAxios from './base';
@@ -41,6 +45,58 @@ class ProductAPI {
     const response = await instanceAxios.get(`${GET_ALL_CATEGORIES}`);
     return response.data;
   }
+
+  static async getAllAdvertise() {
+    const token = getUserToken();
+
+    const response = await instanceAxios.get(`${GET_ALL_ADVERTISE}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data;
+  }
+
+  static async adminGetAllAdvertise() {
+    const token = getAdminToken();
+    const response = await instanceAxios.get(
+      `${ADMIN_GET_ALL_ADVERTISE}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  }
+
+  static async registerPakage(data) {
+    const token = getUserToken();
+    const response = await instanceAxios.post(
+      `${REGISTER_PACKAGE_ADVERTISE}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  }
+
+  static async checkRegisteredPackage() {
+    const token = getUserToken();
+    const response = await instanceAxios.get(
+      `${CHECK_ADVERTISE_REGISTERD}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  }
+
   static async getSimilarProducts(id) {
     const response = await instanceAxios.get(
       `${GET_SIMILAR_PRODUCT(id)}`

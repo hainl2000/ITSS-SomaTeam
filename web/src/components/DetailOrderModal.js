@@ -20,6 +20,10 @@ export default function DetailOrderModal({
   onClose,
   selectedOrder
 }) {
+  let sum = 0;
+  selectedOrder?.order_details?.forEach((element) => {
+    sum += element?.price * element?.quantity;
+  });
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <ModalOverlay />
@@ -113,9 +117,25 @@ export default function DetailOrderModal({
                       </Text>
                     )}
                   </div>
-                  <Text color="gray.500">
-                    ${selectedOrder?.total_price}
-                  </Text>
+                  <div>
+                    {selectedOrder?.coupon_codes && (
+                      <Text
+                        color="gray.500"
+                        textDecoration="line-through"
+                      >
+                        {`$${sum + 10}`}
+                      </Text>
+                    )}
+                    <Text
+                      color={
+                        selectedOrder?.coupon_codes
+                          ? 'green'
+                          : 'gray.500'
+                      }
+                    >
+                      ${selectedOrder?.total_price}
+                    </Text>
+                  </div>
                 </Flex>
               </Flex>
             </Flex>
