@@ -16,6 +16,8 @@ import {
 import { AiOutlineUser } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { HiOutlineTicket } from 'react-icons/hi';
+import { RiAdvertisementLine } from 'react-icons/ri';
+import { IoIosNotificationsOutline } from 'react-icons/io';
 import {
   Link as NavLink,
   useLocation,
@@ -55,6 +57,21 @@ const siderBarItems = [
     title: 'Coupon Manager',
     url: '/admin/coupon-manager',
     icon: HiOutlineTicket
+  },
+  {
+    title: 'Advertising Manager',
+    url: '/admin/advertising-manager',
+    icon: RiAdvertisementLine
+  },
+  {
+    title: 'Notification Manager',
+    url: '/admin/noti-manager',
+    icon: IoIosNotificationsOutline
+  },
+  {
+    title: 'Quản lý giao dịch',
+    url: '/admin/advertising-transaction',
+    icon: RiAdvertisementLine
   }
 ];
 

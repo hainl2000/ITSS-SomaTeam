@@ -8,7 +8,10 @@ import {
   ADMIN_LOCK_USER,
   REGISTER_ADMIN,
   ADMIN_CREATE_COUPON,
-  ADMIN_GET_LIST_COUPON
+  ADMIN_GET_LIST_COUPON,
+  ADMIN_SEND_NOTI,
+  ADMIN_GET_LIST_NOTIFICATION,
+  ADMIN_UPDATE_PACKAGE
 } from '../constants/endpoints';
 
 import { getAdminToken } from '../utils/adminAuth';
@@ -49,6 +52,20 @@ class UserAuthAPI {
     });
     return response.data;
   }
+
+  static async adminGetListNotification() {
+    const token = getAdminToken();
+    const response = await instanceAxios.get(
+      ADMIN_GET_LIST_NOTIFICATION,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  }
+
   static async adminLockUser(data) {
     const token = getAdminToken();
     const response = await instanceAxios.post(ADMIN_LOCK_USER, data, {
@@ -98,6 +115,31 @@ class UserAuthAPI {
     );
     return response.data;
   }
+
+  static async adminUpdatePackage(data) {
+    const token = getAdminToken();
+    const response = await instanceAxios.post(
+      ADMIN_UPDATE_PACKAGE,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  }
+
+  static async sendNotification(data) {
+    const token = getAdminToken();
+    const response = await instanceAxios.post(ADMIN_SEND_NOTI, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data;
+  }
+
   static async login(data) {
     const response = await instanceAxios.post(
       ADMIN_LOG_IN_ENDPOINT,
