@@ -101,7 +101,7 @@ export default function Checkout() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <Text fontWeight="bold" fontSize="3xl">
-          Checkout
+          Thanh toán
         </Text>
         <Flex flexDir="column" pr={5} gap={5} mt={5}>
           <FormControl>
@@ -175,7 +175,7 @@ export default function Checkout() {
             variant="link"
             onClick={() => history('/')}
           >
-            Continue to shopping
+            Tiếp tục mua sắm
           </Button>
           <Button
             isLoading={isSubmitting}
@@ -184,7 +184,7 @@ export default function Checkout() {
             bg="primaryColor"
             _hover={{ bg: 'primaryColor' }}
           >
-            Submit
+            Đặt hàng
           </Button>
         </Flex>
       </Flex>
@@ -239,20 +239,20 @@ export default function Checkout() {
         <Divider borderColor="gray.300" my={3} />
         <Flex justifyContent="space-between" alignItems="center">
           <Text color="gray.500" fontSize="sm">
-            Subtotal
+            Tổng giá sản phẩm
           </Text>
           <Text color="gray.500">${getTotalAmount()}</Text>
         </Flex>
         <Flex justifyContent="space-between" alignItems="center">
           <Text color="gray.500" fontSize="sm">
-            Shipping fee
+            Phí ship
           </Text>
           <Text color="gray.500">${SHIPPING_FEE}</Text>
         </Flex>
         <Divider borderColor="gray.300" my={3} />
         <Flex justifyContent="space-between" alignItems="center">
           <Text color="gray.500" fontSize="lg">
-            Total
+            Tổng tiền
           </Text>
           <div>
             <Text

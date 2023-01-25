@@ -40,7 +40,7 @@ const SimilarProduct = () => {
             // margin: '0   20px'
           }}
         >
-          Similar Products
+          Sản phẩm tương tự
         </p>
         <Link
           to={`/products?category=${

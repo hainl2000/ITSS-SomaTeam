@@ -25,7 +25,7 @@ export default function CartDrawer({ isOpen, onClose, cart }) {
     if (cart?.products?.length > 0) {
       return (
         <>
-          <DrawerHeader px={4}>Your cart</DrawerHeader>
+          <DrawerHeader px={4}>Giỏ hàng</DrawerHeader>
           <DrawerBody px={4}>
             <Flex justifyContent="space-between">
               <Text
@@ -33,14 +33,14 @@ export default function CartDrawer({ isOpen, onClose, cart }) {
                 color="gray.500"
                 fontSize="xs"
               >
-                Product
+                Sản phẩm
               </Text>
               <Text
                 textTransform="uppercase"
                 color="gray.500"
                 fontSize="xs"
               >
-                Total
+                Giá
               </Text>
             </Flex>
             <Divider />
@@ -66,7 +66,7 @@ export default function CartDrawer({ isOpen, onClose, cart }) {
               fontWeight={700}
               fontSize="sm"
             >
-              Subtotal
+              Tổng giá
             </Text>
             <Text color="gray.500">${getTotalAmount()}</Text>
           </Flex>
@@ -81,7 +81,7 @@ export default function CartDrawer({ isOpen, onClose, cart }) {
                 history('/checkout');
               }}
             >
-              Checkout
+              Thanh toán
             </Button>
           </DrawerFooter>
         </>
@@ -92,7 +92,7 @@ export default function CartDrawer({ isOpen, onClose, cart }) {
       <Flex alignItems="center" justifyContent="center" h="full">
         <Box textAlign="center">
           <Text fontWeight={700} fontSize="xl">
-            Your cart is empty
+            Giỏ hàng rỗng
           </Text>
           <Button
             color="lightTextColor"
@@ -104,7 +104,7 @@ export default function CartDrawer({ isOpen, onClose, cart }) {
               onClose();
             }}
           >
-            Continue shopping
+            Tiếp tục mua sắm
           </Button>
         </Box>
       </Flex>

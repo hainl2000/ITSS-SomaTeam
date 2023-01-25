@@ -29,7 +29,7 @@ export default function DetailOrderModal({
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          Detail of order #{selectedOrder?.id}
+          Chi tiết đơn hàng #{selectedOrder?.id}
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -98,7 +98,7 @@ export default function DetailOrderModal({
                   alignItems="center"
                 >
                   <Text color="gray.500" fontSize="sm">
-                    Shipping fee
+                    Phí ship
                   </Text>
                   <Text color="gray.500">$10</Text>
                 </Flex>
@@ -109,7 +109,7 @@ export default function DetailOrderModal({
                 >
                   <div>
                     <Text color="gray.500" fontSize="lg">
-                      Total
+                      Tổng
                     </Text>
                     {selectedOrder?.coupon_codes && (
                       <Text color="green" fontSize="14px">
@@ -144,7 +144,7 @@ export default function DetailOrderModal({
 
         <ModalFooter>
           <Button colorScheme="blue" onClick={onClose}>
-            Close
+            Hủy
           </Button>
         </ModalFooter>
       </ModalContent>

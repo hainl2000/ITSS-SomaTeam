@@ -80,7 +80,7 @@ export default function NotificationManage() {
               borderColor="gray.100"
             >
               <Text fontWeight="600" fontSize="xl">
-                Notification Manager
+                Quản lý thông báo
               </Text>
               <IconButton
                 icon={<HiPlus />}

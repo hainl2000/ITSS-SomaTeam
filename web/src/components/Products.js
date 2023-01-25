@@ -172,7 +172,7 @@ export default function Products() {
                               handleClickAddToCart(product)
                             }
                           >
-                            Add to cart
+                            Thêm vào giỏ hàng
                           </Button>
                         </Flex>
                       </Flex>

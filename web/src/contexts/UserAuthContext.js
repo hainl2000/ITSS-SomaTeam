@@ -31,7 +31,7 @@ function UserAuthProvider({ children }) {
 
   const redirectWhenNoAuth = useCallback(() => {
     toast({
-      title: 'You need to log in to use this',
+      title: 'Bạn cần đăng nhập để thực hiện hành động này',
       status: 'warning',
       duration: 3000
     });
@@ -47,8 +47,8 @@ function UserAuthProvider({ children }) {
       .catch(() => {
         setInitializing(false);
         toast({
-          title: 'Session expired!',
-          description: 'Please log in again',
+          title: 'Hết hạn đăng nhập!',
+          description: 'Cần đăng nhập lại',
           status: 'warning'
         });
 

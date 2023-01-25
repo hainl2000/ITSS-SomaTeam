@@ -149,20 +149,20 @@ export default function NavBar() {
               </MenuButton>
               <MenuList color="primaryColor">
                 <MenuItem onClick={() => history('/profile')}>
-                  Profile
+                  Thông tin
                 </MenuItem>
                 <MenuItem onClick={handleShopSeller}>
-                  Shop seller
+                  Đăng ký bán hàng
                 </MenuItem>
                 <MenuItem onClick={() => history('/orders')}>
-                  My orders
+                  Đơn hàng
                 </MenuItem>
-                <MenuItem onClick={handleLogOut}>Log out</MenuItem>
+                <MenuItem onClick={handleLogOut}>Đăng xuất</MenuItem>
               </MenuList>
             </Menu>
           ) : (
             <Link as={NavLink} to="/login">
-              Log in
+              Đăng nhập
             </Link>
           )}
         </Flex>

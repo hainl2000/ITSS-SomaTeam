@@ -27,12 +27,12 @@ const CheckCouponCode = ({ setCoupon }) => {
             setCoupon(res?.coupon);
             setError('');
           } else {
-            setError('Invalid code');
+            setError('Mã không hợp lệ');
             setCoupon(null);
           }
         })
         .catch(() => {
-          setError('Invalid code');
+          setError('Mã không hợp lệ');
           setCoupon(null);
         });
     }
@@ -40,7 +40,7 @@ const CheckCouponCode = ({ setCoupon }) => {
   return (
     <Flex as="form" onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
-        <FormLabel>Discount Code</FormLabel>
+        <FormLabel>Mã giảm giá</FormLabel>
         <Flex alignItems="flex-start">
           <div>
             <Input placeholder="Code" {...register('code')} />
@@ -64,7 +64,7 @@ const CheckCouponCode = ({ setCoupon }) => {
             margin="0 10px"
             type="submit"
           >
-            Check
+            Kiểm tra
           </Button>
         </Flex>
       </FormControl>

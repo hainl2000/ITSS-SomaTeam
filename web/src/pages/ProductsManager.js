@@ -80,7 +80,7 @@ export default function ProductsManager() {
               borderColor="gray.100"
             >
               <Text fontWeight="600" fontSize="xl">
-                Products
+                Danh sách sản phẩm
               </Text>
               {/* <IconButton
                 icon={<HiPlus />}

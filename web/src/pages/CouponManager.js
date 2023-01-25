@@ -89,7 +89,7 @@ export default function CouponManager() {
               borderColor="gray.100"
             >
               <Text fontWeight="600" fontSize="xl">
-                Coupons
+                Khuyến mãi
               </Text>
               <IconButton
                 icon={<HiPlus />}

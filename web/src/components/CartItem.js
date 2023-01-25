@@ -54,7 +54,7 @@ export default function CartItem({ product }) {
         <Text
           fontSize="12px"
           color="red"
-        >{`${quantity} available`}</Text>
+        >{`Còn ${quantity}`}</Text>
         <Flex gridColumn="2/5" pl={1} alignItems="center" gap={1}>
           <Box
             border="1px solid rgb(14, 27, 77)"

@@ -124,9 +124,9 @@ const UserProfile = () => {
         <Flex></Flex>
         <Flex justify="space-between">
           <Text fontWeight="bold" fontSize="3xl">
-            Profile User
+            Thông tin
           </Text>
-          <Tooltip label="Click here to edit Profile">
+          <Tooltip label="Bấm vào đây để thay đổi thông tin">
             <IconButton
               icon={<FaEdit />}
               onClick={() => setDisable(false)}
@@ -134,7 +134,7 @@ const UserProfile = () => {
           </Tooltip>
         </Flex>
         <Flex justifyContent="center">
-          <Tooltip label="Click here to edit Avatar">
+          <Tooltip label="Bấm vào đây để thay đổi hình ảnh">
             <Avatar
               cursor="pointer"
               size="2xl"
@@ -199,7 +199,7 @@ const UserProfile = () => {
           <Box>
             <Flex justify="space-between" margin={'30px 0'}>
               <Text fontWeight="bold" fontSize="3xl">
-                Shop Seller
+                Thông tin bán hàng
               </Text>
             </Flex>
             <Flex flexDir="column" pr={5} gap={5} mt={5}>
@@ -275,7 +275,7 @@ const UserProfile = () => {
                 margin: '0 30px'
               }}
             >
-              Cancel
+              Hủy
             </Button>
             <Button
               disabled={disable}
@@ -285,7 +285,7 @@ const UserProfile = () => {
               bg="primaryColor"
               _hover={{ bg: 'primaryColor' }}
             >
-              Submit
+              Cập nhật
             </Button>
           </Flex>
         )}

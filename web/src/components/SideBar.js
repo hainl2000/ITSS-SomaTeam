@@ -29,42 +29,42 @@ import { setAdminToken } from '../utils/adminAuth';
 
 const siderBarItems = [
   {
-    title: 'Dashboard',
+    title: 'Thống kê',
     url: '/admin/dashboard',
     icon: HiOutlineShoppingCart
   },
   {
-    title: 'Orders',
+    title: 'Đơn đặt hàng',
     url: '/admin/orders',
     icon: HiOutlineShoppingCart
   },
   {
-    title: 'Products',
+    title: 'Quản lý sản phẩm',
     url: '/admin/products',
     icon: HiOutlineCube
   },
   {
-    title: 'Users',
+    title: 'Quản lý người dùng',
     url: '/admin/user-manager',
     icon: AiOutlineUser
   },
   {
-    title: 'Register Shop',
+    title: 'Đăng ký bán hàng',
     url: '/admin/shop-manager',
     icon: AiOutlineShoppingCart
   },
   {
-    title: 'Coupon Manager',
+    title: 'Quản lý khuyến mãi',
     url: '/admin/coupon-manager',
     icon: HiOutlineTicket
   },
   {
-    title: 'Advertising Manager',
+    title: 'Quản lý quảng cáo',
     url: '/admin/advertising-manager',
     icon: RiAdvertisementLine
   },
   {
-    title: 'Notification Manager',
+    title: 'Thông báo',
     url: '/admin/noti-manager',
     icon: IoIosNotificationsOutline
   },
@@ -174,7 +174,7 @@ export default function SideBar() {
           onClick={handleLogOut}
           isLoading={isSubmitting}
         >
-          Log out
+          Đăng xuất
         </Button>
       </Flex>
     </Flex>

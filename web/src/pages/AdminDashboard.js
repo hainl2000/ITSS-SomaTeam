@@ -41,9 +41,9 @@ const AdminDashboard = () => {
     series: [
       {
         data: revenue,
-        name: 'revenue'
+        name: 'doanh thu'
       },
-      { data: revenueProduct, name: 'total product' }
+      { data: revenueProduct, name: 'sản phẩm' }
     ]
     // series: [
     //   {
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
       }}
     >
       <Text fontSize="20px" fontWeight={600} margin="30px 0">
-        Dashboard
+        Thống kê
       </Text>
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>

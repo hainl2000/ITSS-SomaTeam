@@ -128,7 +128,7 @@ export default function UserManager() {
               borderColor="gray.100"
             >
               <Text fontWeight="600" fontSize="xl">
-                Users
+                Danh sách người dùng
               </Text>
               <IconButton
                 icon={<HiPlus />}

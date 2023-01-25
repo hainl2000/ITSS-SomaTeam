@@ -80,7 +80,7 @@ export default function AdvertisingManager() {
               borderColor="gray.100"
             >
               <Text fontWeight="600" fontSize="xl">
-                Advertising Manager
+                Quản lý quảng cáo
               </Text>
               {/* <IconButton
                 icon={<HiPlus />}

@@ -213,18 +213,18 @@ export default function ProductFormDrawer({
           <DrawerCloseButton />
           <DrawerHeader>
             {!selectedProduct && !checkIsAdmin()
-              ? 'Add new product'
+              ? 'Thêm mới sản phẩm'
               : selectedProduct && !checkIsAdmin()
-              ? 'Update Product'
-              : 'Product Approval'}
+              ? 'Cập nhật thông tin'
+              : 'Phê duyệt sản phẩm'}
           </DrawerHeader>
 
           <DrawerBody>
             <Flex flexDir="column" gap={5}>
               <FormControl isReadOnly={checkIsAdmin()}>
-                <FormLabel>Product name</FormLabel>
+                <FormLabel>Tên sản phẩm</FormLabel>
                 <Input
-                  placeholder="Product name"
+                  placeholder="Tên sản phẩm"
                   {...register('name', {
                     required: 'Product name is a required field'
                   })}
@@ -236,10 +236,10 @@ export default function ProductFormDrawer({
                 ) : null}
               </FormControl>
               <FormControl isReadOnly={checkIsAdmin()}>
-                <FormLabel>Price</FormLabel>
+                <FormLabel>Giá</FormLabel>
                 <Input
                   type="number"
-                  placeholder="Price"
+                  placeholder="Giá"
                   {...register('price', {
                     required: 'Price is a required field'
                   })}
@@ -251,10 +251,10 @@ export default function ProductFormDrawer({
                 ) : null}
               </FormControl>
               <FormControl isReadOnly={checkIsAdmin()}>
-                <FormLabel>Description</FormLabel>
+                <FormLabel>Chi tiết</FormLabel>
                 <Textarea
                   rows={3}
-                  placeholder="Description"
+                  placeholder="Chi tiết"
                   {...register('description', {
                     required: 'Description is a required field'
                   })}
@@ -266,9 +266,9 @@ export default function ProductFormDrawer({
                 ) : null}
               </FormControl>
               <FormControl isReadOnly={checkIsAdmin()}>
-                <FormLabel>Image link</FormLabel>
+                <FormLabel>Đường dẫn ảnh</FormLabel>
                 <Input
-                  placeholder="Image link"
+                  placeholder="Đường dẫn ảnh"
                   {...register('image', {
                     required: 'Image link is a required field'
                   })}
@@ -280,9 +280,9 @@ export default function ProductFormDrawer({
                 ) : null}
               </FormControl>
               <FormControl isReadOnly={checkIsAdmin()}>
-                <FormLabel>Quantity</FormLabel>
+                <FormLabel>Số lượng</FormLabel>
                 <Input
-                  placeholder="Quantity"
+                  placeholder="Số lượng"
                   {...register('quantity', {
                     required: 'Quantity is a required field'
                   })}
@@ -294,9 +294,8 @@ export default function ProductFormDrawer({
                 ) : null}
               </FormControl>
               <FormControl isReadOnly={checkIsAdmin()}>
-                <FormLabel>Category</FormLabel>
+                <FormLabel>Loại</FormLabel>
                 <Select
-                  // placeholder="Category"
                   defaultValue="1"
                   {...register('category', {
                     required: 'Category is a required field'
@@ -327,7 +326,7 @@ export default function ProductFormDrawer({
                   : handleCloseDrawer
               }
             >
-              {!checkIsAdmin() ? 'Cancel' : 'Reject'}
+              {!checkIsAdmin() ? 'Hủy' : 'Từ chối'}
             </Button>
             <Button
               colorScheme="blue"
@@ -336,11 +335,11 @@ export default function ProductFormDrawer({
             >
               {selectedProduct &&
               localStorage.getItem('role') === 'user'
-                ? 'Update'
+                ? 'Cập nhật'
                 : selectedProduct &&
                   localStorage.getItem('role') === 'admin'
-                ? 'Approve'
-                : 'Add'}
+                ? 'Chấp thuận'
+                : 'Thêm'}
             </Button>
           </DrawerFooter>
         </DrawerContent>

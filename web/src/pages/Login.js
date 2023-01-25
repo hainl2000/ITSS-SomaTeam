@@ -96,17 +96,17 @@ export default function Login() {
               lineHeight="1.2"
               color="primaryColor"
             >
-              Login to Shopping
+              Đăng nhập để mua sắm
             </Text>
             <HStack justify="center">
-              <Text color="muted">Don't have an account?</Text>
+              <Text color="muted">Chưa có tài khoản?</Text>
               <Button
                 variant="link"
                 colorScheme="blue"
                 color="primaryColor"
                 onClick={() => history('/signup')}
               >
-                Sign up
+                Đăng ký
               </Button>
             </HStack>
           </Stack>
@@ -173,7 +173,7 @@ export default function Login() {
                   bg="primaryColor"
                   _hover={{ bg: 'primaryColor' }}
                 >
-                  Sign in
+                  Đăng nhập
                 </Button>
               </Stack>
             </Stack>
@@ -184,7 +184,7 @@ export default function Login() {
               marginTop: '10px'
             }}
           >
-            <Link href="/forget-password">Forget password?</Link>
+            <Link href="/forget-password">Quên mật khẩu?</Link>
           </div>
         </Box>
       </Stack>

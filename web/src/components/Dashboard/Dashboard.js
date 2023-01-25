@@ -111,7 +111,7 @@ const Dashboard = () => {
       </div>
       <div className="content">
         <div className="title2">
-          <h1>Best Seller</h1>
+          <h1>Sản phẩm bán chạy</h1>
           <Link to="/products">Xem thêm</Link>
         </div>
         <div className="best-seller">

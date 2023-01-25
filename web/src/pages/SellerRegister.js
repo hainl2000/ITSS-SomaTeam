@@ -83,7 +83,7 @@ export default function SellerRegister() {
               borderColor="gray.100"
             >
               <Text fontWeight="600" fontSize="xl">
-                Shop Register
+                Danh sách đăng ký bán hàng
               </Text>
             </Flex>
             <Table variant="simple">

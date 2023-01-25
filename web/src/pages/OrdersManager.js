@@ -81,7 +81,7 @@ export default function OrdersManager() {
               borderColor="gray.100"
             >
               <Text fontWeight="600" fontSize="xl">
-                Orders
+                Danh sách đơn hàng
               </Text>
             </Flex>
             <Table variant="simple">

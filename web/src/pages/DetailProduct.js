@@ -175,7 +175,7 @@ export default function DetailProduct() {
                   ${price}
                 </Text>
                 <Box my={4}>
-                  <Text fontSize="xs">Quantity</Text>
+                  <Text fontSize="xs">Số lượng</Text>
                   <Flex
                     alignItems="center"
                     // justifyContent="space-between"
@@ -209,7 +209,7 @@ export default function DetailProduct() {
                     <Text
                       margin="0 30px"
                       color="red"
-                    >{`${quantity} available`}</Text>
+                    >{`Còn ${quantity} sản phẩm`}</Text>
                   </Flex>
                 </Box>
                 <Flex my={4} w="24rem">
@@ -219,7 +219,7 @@ export default function DetailProduct() {
                     variant="outline"
                     onClick={handleAddToCart}
                   >
-                    Add to cart
+                    Thêm vào giỏ hàng
                   </Button>
                 </Flex>
                 <Text>{description}</Text>

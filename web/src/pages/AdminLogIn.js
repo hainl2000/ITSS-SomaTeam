@@ -93,7 +93,7 @@ export default function AdminLogin() {
               lineHeight="1.2"
               color="primaryColor"
             >
-              Login to Shopping Cart Manager
+              Đăng nhập vào trang admin
             </Text>
           </Stack>
         </Stack>

@@ -66,7 +66,7 @@ export default function MyOrders() {
                 borderColor="gray.100"
               >
                 <Text fontWeight={700} fontSize="2xl">
-                  My orders
+                  Danh sách đơn hàng
                 </Text>
               </Flex>
               <Table variant="simple">
@@ -116,7 +116,7 @@ export default function MyOrders() {
                               }
                               color="primaryColor"
                             >
-                              See detail
+                              Xem chi tiết
                             </Button>
                           </Td>
                         </Tr>

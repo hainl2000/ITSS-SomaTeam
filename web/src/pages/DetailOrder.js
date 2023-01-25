@@ -102,7 +102,7 @@ export default function DetailOrder() {
                 alignItems="center"
               >
                 <Text color="gray.500" fontSize="sm">
-                  Shipping fee
+                  Phí ship
                 </Text>
                 <Text color="gray.500">$10</Text>
               </Flex>
