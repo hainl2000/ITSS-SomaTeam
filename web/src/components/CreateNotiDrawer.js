@@ -15,7 +15,8 @@ import {
   Box,
   Text,
   useToast,
-  Textarea
+  Textarea,
+  Checkbox
 } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
 import { useForm } from 'react-hook-form';
@@ -30,11 +31,12 @@ export default function CreateNotiDrawer({
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   // const { currentAdmin age.getItem('role'));
-  const [selectedUser, setSelectedUser] = useState([]);
-  const toast = useToast();
   const { data } = useQuery(['adminGetListUsers'], () =>
     UserAuthAPI.adminGetListUsers()
   );
+  const [selectedUser, setSelectedUser] = useState([]);
+  const toast = useToast();
+  // const [selectAll, setSelectAll] = useState([])
   const {
     register,
     handleSubmit,
@@ -50,6 +52,8 @@ export default function CreateNotiDrawer({
     onClose();
   }, [onClose, reset]);
 
+  const [disable, setDisable] = useState(false)
+
   const fillDetail = () => {
     if (option === 'edit') {
       //   setValue('name', detail?.name);
@@ -64,8 +68,13 @@ export default function CreateNotiDrawer({
     fillDetail();
   }, [option, isOpen]);
 
+  // useEffect(() => {
+  //   console.log(selectedUser);
+  // }, [selectedUser])
+
   const onSubmit = (data) => {
     const payload = { ...data, emails: selectedUser };
+    // console.log(payload);
     UserAuthAPI.sendNotification(payload).then((res) => {
       if (res.success) {
         toast({
@@ -102,6 +111,7 @@ export default function CreateNotiDrawer({
               <FormControl>
                 <FormLabel>Gửi đến</FormLabel>
                 <Select
+                  isDisabled={disable}
                   placeholder="Select option"
                   isMulti
                   name="sent"
@@ -111,13 +121,16 @@ export default function CreateNotiDrawer({
                       label: item.name
                     };
                   })}
-                  onChange={(val) =>
+                  onChange={(val) => {
                     setSelectedUser(val.map((item) => item.value))
+
                   }
-                  //   {...register('sent')}
-                  //   {...register('sent', {
-                  //     required: 'Email is a required field'
-                  //   })}
+
+                  }
+                //   {...register('sent')}
+                //   {...register('sent', {
+                //     required: 'Email is a required field'
+                //   })}
                 />
 
                 {/* {errors.sent ? (
@@ -126,7 +139,16 @@ export default function CreateNotiDrawer({
                   </Text>
                 ) : null} */}
               </FormControl>
-
+              <FormControl>
+                {/* <FormLabel>Gửi tất cả người dùng</FormLabel> */}
+                <Checkbox onChange={e => {
+                  setDisable(e.target.checked)
+                  if (e.target.checked) {
+                    setSelectedUser(data?.listUsers?.map((item) => item.email))
+                  }
+                  // else {}
+                }} >Gửi tất cả người dùng </Checkbox>
+              </FormControl>
               <FormControl>
                 <FormLabel>Nội dung</FormLabel>
                 <Textarea
