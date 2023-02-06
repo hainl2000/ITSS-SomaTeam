@@ -90,10 +90,10 @@ export default function NotificationManage() {
             <Table variant="simple">
               <Thead>
                 <Tr>
-                  <Th>Send to</Th>
-                  <Th>Content</Th>
-                  <Th>Time send</Th>
-                  <Th>Status</Th>
+                  <Th>Người nhận</Th>
+                  <Th>Nội dung</Th>
+                  <Th>Thời gian gửi</Th>
+                  <Th>Tình trạng gửi</Th>
                   {/* <Th>Action</Th> */}
                 </Tr>
               </Thead>

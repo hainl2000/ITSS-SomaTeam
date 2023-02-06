@@ -139,12 +139,12 @@ export default function UserManager() {
               <Thead>
                 <Tr>
                   <Th>ID</Th>
-                  <Th>Image</Th>
-                  <Th>Name</Th>
+                  <Th>Avatar</Th>
+                  <Th>Tên</Th>
                   <Th>Email</Th>
                   {/* <Th>Created At</Th> */}
-                  <Th>Role</Th>
-                  <Th>Actions</Th>
+                  <Th>Vai trò</Th>
+                  <Th>Hành động</Th>
                 </Tr>
               </Thead>
               {isLoading ? (

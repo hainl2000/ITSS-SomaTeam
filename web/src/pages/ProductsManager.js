@@ -91,13 +91,13 @@ export default function ProductsManager() {
               <Thead>
                 <Tr>
                   <Th>ID</Th>
-                  <Th>Image</Th>
-                  <Th>Name</Th>
-                  <Th>Price</Th>
-                  <Th>Description</Th>
-                  <Th>Quantity</Th>
-                  <Th>Status</Th>
-                  <Th>Actions</Th>
+                  <Th>Ảnh</Th>
+                  <Th>Tên</Th>
+                  <Th>Giá</Th>
+                  <Th>Mô tả</Th>
+                  <Th>Số lượng</Th>
+                  <Th>Trạng thái</Th>
+                  <Th>Hành động</Th>
                 </Tr>
               </Thead>
               {isLoading ? (
@@ -132,10 +132,10 @@ export default function ProductsManager() {
                           }}
                         >
                           {product.is_approve === 0
-                            ? 'Rejected'
+                            ? 'Từ chối'
                             : product.is_approve === 1
-                            ? 'Pending'
-                            : 'Approved'}
+                            ? 'Đang chờ duyệt'
+                            : 'Công khai'}
                         </Td>
                         <Td>
                           <IconButton
@@ -163,14 +163,14 @@ export default function ProductsManager() {
                   }
                   isDisabled={!data?.prev_page_url}
                 >
-                  Previous
+                  Trước
                 </Button>
                 <Button
                   rightIcon={<HiChevronRight />}
                   onClick={() => setPage((old) => old + 1)}
                   isDisabled={!data?.next_page_url}
                 >
-                  Next
+                  Sau
                 </Button>
               </Flex>
             )}

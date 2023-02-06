@@ -43,8 +43,7 @@ class SendNotification extends Command
     public function handle()
     {
         $notifications = Notification::where([
-            ['status', '=', 0],
-            ['send_time', '<=', Carbon::now()]
+            ['status', '=', 0]
         ])->get();
         try {
             foreach ($notifications as $noti) {

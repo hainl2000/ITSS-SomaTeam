@@ -175,9 +175,9 @@ const UserProfile = () => {
 
         <Flex flexDir="column" pr={5} gap={5} mt={5}>
           <FormControl>
-            <FormLabel>Name</FormLabel>
+            <FormLabel>Tên</FormLabel>
             <Input
-              placeholder="name"
+              placeholder="Tên"
               // value={currentUser?.name}
               disabled={disable}
               // readOnly
@@ -204,10 +204,10 @@ const UserProfile = () => {
             </Flex>
             <Flex flexDir="column" pr={5} gap={5} mt={5}>
               <FormControl>
-                <FormLabel>Address</FormLabel>
+                <FormLabel>Địa chỉ</FormLabel>
                 <Input
                   disabled={disable}
-                  placeholder="Address"
+                  placeholder="Địa chỉ"
                   {...register('address', {
                     required: 'Address is a required field'
                   })}
@@ -219,10 +219,10 @@ const UserProfile = () => {
                 ) : null}
               </FormControl>
               <FormControl>
-                <FormLabel>Phone number</FormLabel>
+                <FormLabel>Số điện thoại</FormLabel>
                 <Input
                   disabled={disable}
-                  placeholder="Phone number"
+                  placeholder="Số điện thoại"
                   {...register('phone_number', {
                     required: 'Phone number is a required field'
                   })}
@@ -234,10 +234,10 @@ const UserProfile = () => {
                 ) : null}
               </FormControl>
               <FormControl>
-                <FormLabel>Bank</FormLabel>
+                <FormLabel>Ngân hàng</FormLabel>
                 <Input
                   disabled={disable}
-                  placeholder="Bank"
+                  placeholder="Ngân hàng"
                   {...register('bank', {
                     required: 'Bank is a required field'
                   })}
@@ -249,10 +249,10 @@ const UserProfile = () => {
                 ) : null}
               </FormControl>
               <FormControl>
-                <FormLabel>Creadit Number</FormLabel>
+                <FormLabel>Số thẻ</FormLabel>
                 <Input
                   disabled={disable}
-                  placeholder="Credit number"
+                  placeholder="Số thẻ"
                   {...register('credit_number', {
                     required: 'Credit number is a required field'
                   })}
@@ -293,7 +293,7 @@ const UserProfile = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Update Avatar</ModalHeader>
+          <ModalHeader>Cập nhật ảnh đại diện</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Flex
@@ -321,7 +321,7 @@ const UserProfile = () => {
                 type="submit"
                 colorScheme="blue"
               >
-                Edit
+                Cập nhật
               </Button>
             </Flex>
           </ModalBody>

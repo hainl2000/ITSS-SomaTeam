@@ -90,10 +90,10 @@ export default function AdvertisingManager() {
             <Table variant="simple">
               <Thead>
                 <Tr>
-                  <Th>Name Package</Th>
-                  <Th>Price</Th>
-                  <Th>Time</Th>
-                  <Td>Action</Td>
+                  <Th>Tên gói</Th>
+                  <Th>Giá</Th>
+                  <Th>Thời gian</Th>
+                  <Td>Hành động</Td>
                 </Tr>
               </Thead>
               {allPackage.isLoading ? (

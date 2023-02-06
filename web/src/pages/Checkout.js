@@ -105,17 +105,17 @@ export default function Checkout() {
         </Text>
         <Flex flexDir="column" pr={5} gap={5} mt={5}>
           <FormControl>
-            <FormLabel>Name</FormLabel>
+            <FormLabel>Tên người nhận</FormLabel>
             <Input value={currentUser.name} isReadOnly isDisabled />
           </FormControl>
           <FormControl>
-            <FormLabel>Email</FormLabel>
+            <FormLabel>Email người nhận</FormLabel>
             <Input value={currentUser.email} isReadOnly isDisabled />
           </FormControl>
           <FormControl>
-            <FormLabel>Address</FormLabel>
+            <FormLabel>Địa chỉ người nhận</FormLabel>
             <Input
-              placeholder="Address"
+              placeholder="Địa chỉ"
               {...register('address', {
                 required: 'Address is a required field'
               })}
@@ -127,9 +127,9 @@ export default function Checkout() {
             ) : null}
           </FormControl>
           <FormControl>
-            <FormLabel>Phone number</FormLabel>
+            <FormLabel>Số điện thoại người nhận</FormLabel>
             <Input
-              placeholder="Phone number"
+              placeholder="Số điện thoại"
               {...register('phoneNumber', {
                 required: 'Phone number is a required field'
               })}
@@ -141,9 +141,9 @@ export default function Checkout() {
             ) : null}
           </FormControl>
           <FormControl>
-            <FormLabel>Bank</FormLabel>
+            <FormLabel>Ngân hàng</FormLabel>
             <Input
-              placeholder="Phone number"
+              placeholder="Ngân hàng"
               {...register('bank', {
                 required: 'Bank is a required field'
               })}
@@ -155,9 +155,9 @@ export default function Checkout() {
             ) : null}
           </FormControl>
           <FormControl>
-            <FormLabel>Credit Number</FormLabel>
+            <FormLabel>Số thẻ</FormLabel>
             <Input
-              placeholder="Credit Number"
+              placeholder="Số thẻ"
               {...register('credit_number', {
                 required: 'Credit Number is a required field'
               })}

@@ -20,9 +20,9 @@ import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 import DetailOrderModal from '../components/DetailOrderModal';
 
 const orderStatuses = [
-  { label: 'new', color: 'purple' },
-  { label: 'processing', color: 'blue' },
-  { label: 'completed', color: 'green' }
+  { label: 'Mới đặt', color: 'purple' },
+  { label: 'Đang xử lý', color: 'blue' },
+  { label: 'Đã hoàn thành', color: 'green' }
 ];
 
 export default function MyOrders() {
@@ -73,9 +73,9 @@ export default function MyOrders() {
                 <Thead>
                   <Tr>
                     <Th>ID</Th>
-                    <Th>Status</Th>
-                    <Th>Total price</Th>
-                    <Th>Action</Th>
+                    <Th>Trạng thái</Th>
+                    <Th>Giá (VNĐ)</Th>
+                    <Th>Hành động</Th>
                   </Tr>
                 </Thead>
                 {isLoading ? (
@@ -130,7 +130,7 @@ export default function MyOrders() {
                   p="20px	100px"
                   color="gray.800"
                 >
-                  No orders yet
+                  Không có đơn hàng
                 </Box>
               ) : (
                 <Flex justifyContent="space-between" px={6} py={2}>
@@ -141,14 +141,14 @@ export default function MyOrders() {
                     }
                     isDisabled={!data?.prev_page_url}
                   >
-                    Previous
+                    Trước
                   </Button>
                   <Button
                     rightIcon={<HiChevronRight />}
                     onClick={() => setPage((old) => old + 1)}
                     isDisabled={!data?.next_page_url}
                   >
-                    Next
+                    Sau
                   </Button>
                 </Flex>
               )}

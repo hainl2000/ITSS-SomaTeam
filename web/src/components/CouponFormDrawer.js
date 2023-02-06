@@ -79,14 +79,14 @@ export default function CouponFormDrawer({
       <Box as="form" onSubmit={handleSubmit(onSubmit)}>
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Add new Coupon</DrawerHeader>
+          <DrawerHeader>Thêm mới mã khuyến mãi</DrawerHeader>
 
           <DrawerBody>
             <Flex flexDir="column" gap={5}>
               <FormControl>
-                <FormLabel>Code</FormLabel>
+                <FormLabel>Mã khuyến mãi</FormLabel>
                 <Input
-                  placeholder="code"
+                  placeholder="Mã"
                   {...register('code', {
                     required: 'Code is a required field'
                   })}
@@ -98,11 +98,11 @@ export default function CouponFormDrawer({
                 ) : null}
               </FormControl>
               <FormControl>
-                <FormLabel>Quantity</FormLabel>
+                <FormLabel>Số lượng</FormLabel>
                 <Input
                   min={1}
                   type="number"
-                  placeholder="Quantity"
+                  placeholder="Số lượng"
                   {...register('quantity', {
                     required: 'Quantity is a required field'
                   })}
@@ -114,12 +114,12 @@ export default function CouponFormDrawer({
                 ) : null}
               </FormControl>
               <FormControl>
-                <FormLabel>Discount</FormLabel>
+                <FormLabel>Giảm giá</FormLabel>
                 <Input
                   min={0}
                   max={100}
                   type="number"
-                  placeholder="Discount (%)"
+                  placeholder="Giảm giá (%)"
                   {...register('sale', {
                     required: 'Discount is a required field'
                   })}
@@ -131,10 +131,10 @@ export default function CouponFormDrawer({
                 ) : null}
               </FormControl>
               <FormControl>
-                <FormLabel>Max discount</FormLabel>
+                <FormLabel>Giá giảm tối đa</FormLabel>
                 <Input
                   type="number"
-                  placeholder="Max discount"
+                  placeholder="Giá giảm tối đa"
                   {...register('max_sale', {
                     required: 'Max discount is a required field'
                   })}
@@ -146,7 +146,7 @@ export default function CouponFormDrawer({
                 ) : null}
               </FormControl>
               <FormControl>
-                <FormLabel>Start Date</FormLabel>
+                <FormLabel>Ngày bắt đầu</FormLabel>
                 <Input
                   type="date"
                   //   min={new Date()}
@@ -162,7 +162,7 @@ export default function CouponFormDrawer({
                 ) : null}
               </FormControl>
               <FormControl>
-                <FormLabel>End Date</FormLabel>
+                <FormLabel>Ngày kết thúc</FormLabel>
                 <Input
                   type="date"
                   min={watch('start_date')}
@@ -185,14 +185,14 @@ export default function CouponFormDrawer({
               mr={3}
               onClick={handleCloseDrawer}
             >
-              Cancel
+              Hủy
             </Button>
             <Button
               colorScheme="blue"
               type="submit"
               isLoading={isSubmitting}
             >
-              Add
+              Thêm
             </Button>
           </DrawerFooter>
         </DrawerContent>

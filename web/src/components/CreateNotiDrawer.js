@@ -104,7 +104,7 @@ export default function CreateNotiDrawer({
       <Box as="form" onSubmit={handleSubmit(onSubmit)}>
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Add new Notification</DrawerHeader>
+          <DrawerHeader>Tạo thông báo</DrawerHeader>
 
           <DrawerBody>
             <Flex flexDir="column" gap={5}>
@@ -188,14 +188,14 @@ export default function CreateNotiDrawer({
               mr={3}
               onClick={handleCloseDrawer}
             >
-              Cancel
+              Hủy
             </Button>
             <Button
               colorScheme="blue"
               type="submit"
               isLoading={isSubmitting}
             >
-              Submit
+              Gửi
             </Button>
           </DrawerFooter>
         </DrawerContent>

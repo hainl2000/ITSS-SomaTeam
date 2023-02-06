@@ -91,14 +91,14 @@ export default function CreateAdsDrawer({
       <Box as="form" onSubmit={handleSubmit(onSubmit)}>
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Add new Advertising</DrawerHeader>
+          <DrawerHeader>Sửa gói quảng cáo</DrawerHeader>
 
           <DrawerBody>
             <Flex flexDir="column" gap={5}>
               <FormControl>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Tên gói</FormLabel>
                 <Input
-                  placeholder="Package name"
+                  placeholder="Tên gói"
                   {...register('name', {
                     required: 'Name is a required field'
                   })}
@@ -110,10 +110,10 @@ export default function CreateAdsDrawer({
                 ) : null}
               </FormControl>
               <FormControl>
-                <FormLabel>Price</FormLabel>
+                <FormLabel>Giá</FormLabel>
                 <Input
                   type="number"
-                  placeholder="Price"
+                  placeholder="Giá"
                   {...register('price', {
                     required: 'Price is a required field'
                   })}
@@ -125,7 +125,7 @@ export default function CreateAdsDrawer({
                 ) : null}
               </FormControl>
               <FormControl>
-                <FormLabel>Time</FormLabel>
+                <FormLabel>Thời gian (tháng)</FormLabel>
                 <Input
                   type="number"
                   placeholder="Time (month)"
@@ -148,14 +148,14 @@ export default function CreateAdsDrawer({
               mr={3}
               onClick={handleCloseDrawer}
             >
-              Cancel
+              Hủy
             </Button>
             <Button
               colorScheme="blue"
               type="submit"
               isLoading={isSubmitting}
             >
-              Submit
+              Cập nhật
             </Button>
           </DrawerFooter>
         </DrawerContent>

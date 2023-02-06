@@ -41,9 +41,9 @@ const ShopDashboard = () => {
     series: [
       {
         data: revenue,
-        name: 'revenue'
+        name: 'Doanh thu'
       },
-      { data: revenueProduct, name: 'total product' }
+      { data: revenueProduct, name: 'Sản phẩm' }
     ]
     // series: [
     //   {

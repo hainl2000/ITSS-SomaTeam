@@ -43,7 +43,7 @@ const CheckCouponCode = ({ setCoupon }) => {
         <FormLabel>Mã giảm giá</FormLabel>
         <Flex alignItems="flex-start">
           <div>
-            <Input placeholder="Code" {...register('code')} />
+            <Input placeholder="Mã" {...register('code')} />
             <div
               style={{
                 height: '20px',

@@ -12,7 +12,7 @@ const Pending = () => {
       }}
     >
       {' '}
-      Pending...
+      Đang chờ admin phê duyêt...
     </div>
   );
 };

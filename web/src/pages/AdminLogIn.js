@@ -127,7 +127,7 @@ export default function AdminLogin() {
                   ) : null}
                 </FormControl>
                 <FormControl>
-                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <FormLabel htmlFor="password">Mật khẩu</FormLabel>
                   <InputGroup>
                     <Input
                       ref={inputRef}
@@ -159,7 +159,7 @@ export default function AdminLogin() {
                   bg="primaryColor"
                   _hover={{ bg: 'primaryColor' }}
                 >
-                  Sign in
+                  Đăng nhập
                 </Button>
               </Stack>
             </Stack>

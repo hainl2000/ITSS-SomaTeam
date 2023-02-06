@@ -105,11 +105,11 @@ export default function ShopRegistration() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <Text fontWeight="bold" fontSize="3xl">
-          Shop Resgistration
+          Đăng ký để trở thành người bán hàng
         </Text>
         <Flex flexDir="column" pr={5} gap={5} mt={5}>
           <FormControl>
-            <FormLabel>Name</FormLabel>
+            <FormLabel>Tên</FormLabel>
             <Input
               placeholder="name"
               value={currentUser?.name}
@@ -129,7 +129,7 @@ export default function ShopRegistration() {
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Address</FormLabel>
+            <FormLabel>Địa chỉ</FormLabel>
             <Input
               placeholder="Address"
               {...register('address', {
@@ -143,7 +143,7 @@ export default function ShopRegistration() {
             ) : null}
           </FormControl>
           <FormControl>
-            <FormLabel>Phone number</FormLabel>
+            <FormLabel>Số điện thoại</FormLabel>
             <Input
               placeholder="Phone number"
               {...register('phone_number', {
@@ -157,7 +157,7 @@ export default function ShopRegistration() {
             ) : null}
           </FormControl>
           <FormControl>
-            <FormLabel>Bank</FormLabel>
+            <FormLabel>Ngân hàng</FormLabel>
             <Input
               placeholder="Bank"
               {...register('bank', {
@@ -171,7 +171,7 @@ export default function ShopRegistration() {
             ) : null}
           </FormControl>
           <FormControl>
-            <FormLabel>Creadit Number</FormLabel>
+            <FormLabel>Số thẻ</FormLabel>
             <Input
               placeholder="Credit number"
               {...register('credit_number', {
@@ -193,7 +193,7 @@ export default function ShopRegistration() {
             bg="primaryColor"
             _hover={{ bg: 'primaryColor' }}
           >
-            Submit
+            Đăng ký
           </Button>
         </Flex>
       </Flex>

@@ -45,17 +45,17 @@ export default function CouponManager() {
     const end = new Date(end_date);
     if (today < start) {
       return {
-        stt: 'Prepare',
+        stt: 'Sắp diễn ra',
         color: 'orange'
       };
     } else if (today > end) {
       return {
-        stt: 'Out of date',
+        stt: 'Hết hạn',
         color: 'red'
       };
     }
     return {
-      stt: 'In process',
+      stt: 'Đang diễn ra',
       color: 'green'
     };
   };
@@ -100,14 +100,14 @@ export default function CouponManager() {
               <Thead>
                 <Tr>
                   <Th>ID</Th>
-                  <Th>Code</Th>
-                  <Th>Quantity</Th>
-                  <Th>Discount</Th>
-                  <Th>Max Discount</Th>
-                  <Th>Start Date</Th>
-                  <Th>End Date</Th>
-                  <Th>Status</Th>
-                  <Th>Created By</Th>
+                  <Th>Mã</Th>
+                  <Th>Số lượng</Th>
+                  <Th>Giảm giá</Th>
+                  <Th>Mức giảm tối đa</Th>
+                  <Th>Ngày bắt đầu</Th>
+                  <Th>Ngày kết thúc</Th>
+                  <Th>Trạng thái</Th>
+                  <Th>Tạo bởi</Th>
                 </Tr>
               </Thead>
               {isLoading ? (
@@ -160,14 +160,14 @@ export default function CouponManager() {
                   }
                   isDisabled={!data?.prev_page_url}
                 >
-                  Previous
+                  Trước
                 </Button>
                 <Button
                   rightIcon={<HiChevronRight />}
                   onClick={() => setPage((old) => old + 1)}
                   isDisabled={!data?.next_page_url}
                 >
-                  Next
+                  Sau
                 </Button>
               </Flex>
             )}

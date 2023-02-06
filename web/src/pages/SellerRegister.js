@@ -89,14 +89,14 @@ export default function SellerRegister() {
             <Table variant="simple">
               <Thead>
                 <Tr>
-                  <Th>Image</Th>
-                  <Th>Name</Th>
+                  <Th>Ảnh</Th>
+                  <Th>Tên</Th>
                   <Th>Email</Th>
-                  <Th>Phone Number</Th>
-                  <Th>Address</Th>
-                  <Th>Bank</Th>
-                  <Th>Credit Number</Th>
-                  <Th>Actions</Th>
+                  <Th>Số điện thoại</Th>
+                  <Th>Địa chỉ</Th>
+                  <Th>Ngân hàng</Th>
+                  <Th>Số thẻ</Th>
+                  <Th>Hành động</Th>
                 </Tr>
               </Thead>
               {isLoading ? (
@@ -167,7 +167,7 @@ export default function SellerRegister() {
             </Table>
             {!isLoading && data?.listSellerRequests?.length === 0 ? (
               <Box textAlign="center" p="20px	100px" color="gray.800">
-                No request yet
+                Chưa có yêu cầu
               </Box>
             ) : (
               <Flex justifyContent="space-between" px={6} py={2}>
@@ -178,14 +178,14 @@ export default function SellerRegister() {
                   }
                   isDisabled={!data?.prev_page_url}
                 >
-                  Previous
+                  Trước
                 </Button>
                 <Button
                   rightIcon={<HiChevronRight />}
                   onClick={() => setPage((old) => old + 1)}
                   isDisabled={!data?.next_page_url}
                 >
-                  Next
+                  Sau
                 </Button>
               </Flex>
             )}

@@ -25,8 +25,8 @@ const Advertise = () => {
         justifyContent="space-between"
         flexWrap="wrap"
       >
-        {checkRegistered?.data?.end_advertise <
-          new Date().toLocaleString() ||
+        {new Date(checkRegistered?.data?.end_advertise) <
+          new Date() ||
         !checkRegistered?.data?.end_advertise ? (
           allPackage.data?.map((item) => (
             <div
@@ -60,7 +60,7 @@ const Advertise = () => {
                     fontSize: '18px',
                     color: '#FFFACD'
                   }}
-                >{`${item.price}$`}</p>
+                >{`${item.price}VNĐ`}</p>
               </div>
               <div
                 style={{
@@ -112,21 +112,21 @@ const Advertise = () => {
                     fontSize: '28px'
                   }}
                 >
-                  {checkRegistered?.data?.package[0]?.name}
+                  {checkRegistered?.data?.package[checkRegistered?.data?.package?.length-1]?.name}
                 </p>
                 <p
                   style={{
                     fontSize: '18px',
                     color: '#FFFACD'
                   }}
-                >{`${checkRegistered?.data?.package[0]?.price}$`}</p>
+                >{`${checkRegistered?.data?.package[checkRegistered?.data?.package?.length-1]?.price}VNĐ`}</p>
                 <p
                   style={{
                     color: 'green'
                   }}
                 >
                   {`Đã đăng ký ngày ${new Date(
-                    checkRegistered?.data?.package[0]?.created_at
+                    checkRegistered?.data?.package[checkRegistered?.data?.package?.length-1]?.pivot?.created_at
                   ).toLocaleDateString()}`}
                 </p>
               </div>
@@ -143,7 +143,7 @@ const Advertise = () => {
                   padding: '30px'
                 }}
               >
-                <p>{`Thời gian: ${checkRegistered?.data?.package[0]?.time} tháng`}</p>
+                <p>{`Thời gian: ${checkRegistered?.data?.package[checkRegistered?.data?.package?.length-1]?.time} tháng`}</p>
               </div>
             </div>
           </>

@@ -141,7 +141,7 @@ export default function Login() {
                   ) : null}
                 </FormControl>
                 <FormControl>
-                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <FormLabel htmlFor="password">Mật khẩu</FormLabel>
                   <InputGroup>
                     <Input
                       ref={inputRef}

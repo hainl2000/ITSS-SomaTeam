@@ -26,9 +26,9 @@ import ChangeOrderStatusPopover from '../components/ChangeOrderStatusPopover';
 import DetailOrderModal from '../components/DetailOrderModal';
 
 const orderStatuses = [
-  { label: 'new', color: 'purple' },
-  { label: 'processing', color: 'blue' },
-  { label: 'completed', color: 'green' }
+  { label: 'Mới đặt', color: 'purple' },
+  { label: 'Đang xử lý', color: 'blue' },
+  { label: 'Đã hoàn thành', color: 'green' }
 ];
 
 export default function OrdersManager() {
@@ -88,13 +88,13 @@ export default function OrdersManager() {
               <Thead>
                 <Tr>
                   <Th>ID</Th>
-                  <Th>Status</Th>
-                  <Th>User</Th>
+                  <Th>Trạng thái</Th>
+                  <Th>Người đặt</Th>
                   <Th>Email</Th>
-                  <Th>Phone number</Th>
-                  <Th>Address</Th>
-                  <Th>Total amount</Th>
-                  <Th>Actions</Th>
+                  <Th>Số điện thoại</Th>
+                  <Th>Địa chỉ</Th>
+                  <Th>Giá trị đơn hàng</Th>
+                  <Th>Hành động</Th>
                 </Tr>
               </Thead>
               {isLoading ? (
@@ -163,14 +163,14 @@ export default function OrdersManager() {
                   }
                   isDisabled={!data?.prev_page_url}
                 >
-                  Previous
+                  Trước
                 </Button>
                 <Button
                   rightIcon={<HiChevronRight />}
                   onClick={() => setPage((old) => old + 1)}
                   isDisabled={!data?.next_page_url}
                 >
-                  Next
+                  Tiếp
                 </Button>
               </Flex>
             )}

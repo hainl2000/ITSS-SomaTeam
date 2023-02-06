@@ -84,7 +84,7 @@ export default function DetailOrderModal({
                           </Box>
                         </Flex>
                         <Text pl={1} pt={2} fontSize="md">
-                          ${orderDetail.quantity * orderDetail.price}
+                          {orderDetail.quantity * orderDetail.price}VNĐ
                         </Text>
                       </Flex>
                     );
@@ -100,7 +100,7 @@ export default function DetailOrderModal({
                   <Text color="gray.500" fontSize="sm">
                     Phí ship
                   </Text>
-                  <Text color="gray.500">$10</Text>
+                  <Text color="gray.500">10VNĐ</Text>
                 </Flex>
                 <Divider borderColor="gray.300" my={3} />
                 <Flex
@@ -113,7 +113,7 @@ export default function DetailOrderModal({
                     </Text>
                     {selectedOrder?.coupon_codes && (
                       <Text color="green" fontSize="14px">
-                        {`Coupon applied: ${selectedOrder?.coupon_codes?.code}`}
+                        {`Mã áp dụng: ${selectedOrder?.coupon_codes?.code}`}
                       </Text>
                     )}
                   </div>
@@ -123,7 +123,7 @@ export default function DetailOrderModal({
                         color="gray.500"
                         textDecoration="line-through"
                       >
-                        {`$${sum + 10}`}
+                        {`${sum + 10}VNĐ`}
                       </Text>
                     )}
                     <Text
@@ -133,7 +133,7 @@ export default function DetailOrderModal({
                           : 'gray.500'
                       }
                     >
-                      ${selectedOrder?.total_price}
+                      {selectedOrder?.total_price}VNĐ
                     </Text>
                   </div>
                 </Flex>

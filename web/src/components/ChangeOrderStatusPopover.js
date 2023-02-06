@@ -65,13 +65,13 @@ export default function ChangeOrderStatusPopover({
       <Portal>
         <PopoverContent w="200px">
           <PopoverArrow />
-          <PopoverHeader>Change status</PopoverHeader>
+          <PopoverHeader>Đổi trạng thái</PopoverHeader>
           <PopoverCloseButton />
           <PopoverBody>
             <Select onChange={handleChangeStatus} value={status}>
-              <option value={1}>New</option>
-              <option value={2}>Processing</option>
-              <option value={3}>Completed</option>
+              <option value={1}>Mới đặt</option>
+              <option value={2}>Đang xử lý</option>
+              <option value={3}>Đã hoàn thành</option>
             </Select>
           </PopoverBody>
           <PopoverFooter>
@@ -80,7 +80,7 @@ export default function ChangeOrderStatusPopover({
                 onClick={handleUpdateStatus}
                 isLoading={isUpdating}
               >
-                Update
+                Cập nhật
               </Button>
             </Flex>
           </PopoverFooter>

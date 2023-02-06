@@ -75,7 +75,7 @@ export default function RegisterPackageModal({
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Register Advertise</ModalHeader>
+        <ModalHeader>Đăng ký quảng cáo</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Flex
@@ -134,7 +134,7 @@ export default function RegisterPackageModal({
                 bg="primaryColor"
                 _hover={{ bg: 'primaryColor' }}
               >
-                Submit
+                Đăng ký
               </Button>
             </Flex>
           </Flex>

@@ -74,15 +74,15 @@ export default function Products() {
     <Box p="60px 0">
       <Box maxW="70rem" m="0 auto" p="0 5rem">
         <Flex alignItems="center" gap={4}>
-          <Text>Sort by</Text>
+          <Text>Sắp xếp thep</Text>
           <Flex>
             <Select
               size="sm"
-              placeholder="None"
+              placeholder="Mặc định"
               onChange={handleChangeSortType}
             >
-              <option value="low-to-high">Price, low to high</option>
-              <option value="high-to-low">Price, high to low</option>
+              <option value="low-to-high">Giá thấp tới cao</option>
+              <option value="high-to-low">Giá cao tới thấp</option>
             </Select>
           </Flex>
         </Flex>

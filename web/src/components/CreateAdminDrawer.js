@@ -77,14 +77,14 @@ export default function CreateAdminDrawer({
       <Box as="form" onSubmit={handleSubmit(onSubmit)}>
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Add new admin</DrawerHeader>
+          <DrawerHeader>Thêm mới người quản lý</DrawerHeader>
 
           <DrawerBody>
             <Flex flexDir="column" gap={5}>
               <FormControl>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Tên</FormLabel>
                 <Input
-                  placeholder="Admin name"
+                  placeholder="Tên"
                   {...register('name', {
                     required: 'Name is a required field'
                   })}
@@ -111,10 +111,10 @@ export default function CreateAdminDrawer({
                 ) : null}
               </FormControl>
               <FormControl>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Mật khẩu</FormLabel>
                 <Input
                   type="password"
-                  placeholder="Password"
+                  placeholder="Mật khẩu"
                   {...register('password', {
                     required: 'Password is a required field'
                   })}
@@ -134,14 +134,14 @@ export default function CreateAdminDrawer({
               mr={3}
               onClick={handleCloseDrawer}
             >
-              Cancel
+              Hủy
             </Button>
             <Button
               colorScheme="blue"
               type="submit"
               isLoading={isSubmitting}
             >
-              Submit
+              Thêm
             </Button>
           </DrawerFooter>
         </DrawerContent>
