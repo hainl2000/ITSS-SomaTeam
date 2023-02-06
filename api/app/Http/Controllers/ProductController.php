@@ -143,7 +143,7 @@ class ProductController extends Controller
             DB::commit();
             return response()->json([
                 'success' => true,
-                'message' => 'Approve product successfully'
+                'message' => 'Phê duyệt sản phẩm thành công'
             ]);
         } catch (\Exception $e) {
             DB::rollBack();

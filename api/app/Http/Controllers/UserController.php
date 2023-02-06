@@ -37,7 +37,7 @@ class UserController extends Controller
             DB::commit();
             return response()->json([
                 'success' => true,
-                'message' => 'register seller successfully'
+                'message' => 'Đăng ký thành công'
             ]);
         } catch(Exception $e) {
             DB::rollBack();

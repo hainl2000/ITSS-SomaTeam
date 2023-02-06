@@ -53,7 +53,7 @@ class OrderController extends Controller
         ]);
         return response()->json([
             'success' => true,
-            'message' => 'Change order status successfully'
+            'message' => 'Đổi trạng thái thành công'
         ]);
     }
 
@@ -117,7 +117,7 @@ class OrderController extends Controller
             DB::commit();
             return response()->json([
                 'success' => true,
-                'message' => 'Successfully created order'
+                'message' => 'Đặt đơn hàng thành công'
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
