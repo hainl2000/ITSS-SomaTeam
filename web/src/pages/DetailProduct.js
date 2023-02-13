@@ -172,7 +172,7 @@ export default function DetailProduct() {
                   </Text>
                 </Flex>
                 <Text my={4} fontWeight={600} fontSize="20px">
-                  ${price}
+                  {price}VNĐ
                 </Text>
                 <Box my={4}>
                   <Text fontSize="xs">Số lượng</Text>

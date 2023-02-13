@@ -118,7 +118,7 @@ const SimilarProduct = () => {
                       >
                         <Flex pb={3} flexDir="column">
                           <Text fontWeight="bold">{name}</Text>
-                          <Text>${price}</Text>
+                          <Text>{price}VNĐ</Text>
                         </Flex>
                       </Flex>
                     </Flex>

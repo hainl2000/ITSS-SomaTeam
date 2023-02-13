@@ -68,7 +68,7 @@ export default function CartDrawer({ isOpen, onClose, cart }) {
             >
               Tổng giá
             </Text>
-            <Text color="gray.500">${getTotalAmount()}VNĐ</Text>
+            <Text color="gray.500">{getTotalAmount()}VNĐ</Text>
           </Flex>
           <DrawerFooter px={4}>
             <Button

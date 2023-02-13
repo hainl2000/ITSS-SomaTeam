@@ -74,7 +74,7 @@ export default function Products() {
     <Box p="60px 0">
       <Box maxW="70rem" m="0 auto" p="0 5rem">
         <Flex alignItems="center" gap={4}>
-          <Text>Sắp xếp thep</Text>
+          <Text>Sắp xếp theo</Text>
           <Flex>
             <Select
               size="sm"
@@ -165,7 +165,7 @@ export default function Products() {
                         >
                           <Flex pb={3} flexDir="column">
                             <Text fontWeight="bold">{name}</Text>
-                            <Text>${price}</Text>
+                            <Text>{price}VNĐ</Text>
                           </Flex>
                           <Button
                             onClick={() =>

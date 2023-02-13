@@ -39,7 +39,7 @@ export default function CartItem({ product }) {
             {name}
           </Text>
           <Text wordBreak="break-all" mt={1} fontSize="xs">
-            ${price}
+            {price}VNĐ
           </Text>
         </Box>
         <Flex
@@ -49,7 +49,7 @@ export default function CartItem({ product }) {
           pt={2}
           fontSize="sm"
         >
-          ${price * quantity_order}
+          {price * quantity_order}VNĐ
         </Flex>
         <Text
           fontSize="12px"

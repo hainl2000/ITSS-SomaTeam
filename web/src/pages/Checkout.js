@@ -241,13 +241,13 @@ export default function Checkout() {
           <Text color="gray.500" fontSize="sm">
             Tổng giá sản phẩm
           </Text>
-          <Text color="gray.500">${getTotalAmount()}</Text>
+          <Text color="gray.500">{getTotalAmount()}VNĐ</Text>
         </Flex>
         <Flex justifyContent="space-between" alignItems="center">
           <Text color="gray.500" fontSize="sm">
             Phí ship
           </Text>
-          <Text color="gray.500">${SHIPPING_FEE}</Text>
+          <Text color="gray.500">{SHIPPING_FEE}VNĐ</Text>
         </Flex>
         <Divider borderColor="gray.300" my={3} />
         <Flex justifyContent="space-between" alignItems="center">
@@ -267,7 +267,7 @@ export default function Checkout() {
                   : 'none'
               }
             >
-              ${getTotalAmount() + SHIPPING_FEE}
+              {getTotalAmount() + SHIPPING_FEE}VNĐ
             </Text>
             {getDiscount(
               getTotalAmount(),
